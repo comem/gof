@@ -35,15 +35,11 @@ class User extends MyEloquent  implements UserInterface, RemindableInterface{
             'first_name' => 'string|between:1,255|sometimes|required',
             'last_name' => 'string|between:1,255|sometimes|required',
             'password' => 'string|between:1,255|sometimes|required',
-<<<<<<< HEAD
-            'last_login' => 'datetime|sometimes'
-=======
+
             'last_login' => 'datetime|sometimes',
             'created_at' => 'date|sometimes|required',
             'updated_at' => 'date|sometimes|required',
-            'deleted_at' => 'date|sometimes',
->>>>>>> Crud_florent
-           
+            'deleted_at' => 'date|sometimes'
         ));
     }
 
