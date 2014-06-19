@@ -15,10 +15,7 @@ class Group extends MyEloquent {
 		return $this->hasMany('User');
 	}
 
-	public function group()
-	{
-		return $this->belongsTo('Group');
-	}
+
         
            public static function validate($data = array())
     {

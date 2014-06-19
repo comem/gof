@@ -1,6 +1,6 @@
 <?php
 
-class Instruments extends \BaseController {
+class ACL extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
