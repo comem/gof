@@ -21,14 +21,15 @@ class InstrumentsController extends \BaseController {
     public function store() {
         // Auth
         $instrument = Input::get('name_de');
-        $validationInstrum = Message::validate(array('instrument' => $instrument));
-
+        $validationInstrum = Instrument::validate(array('instrument' => $instrument));
+      
         if ($validationInstrum !== true) {
             return Jsend::fail($validationInstrum);
         }
-        // Tout est ok, on sauve le message avec l'id du user connecté
+           
+     
         $newinstrument = new Instrument();
-        $newinstrument->name_de = $instrument['name_de'];
+        $newinstrument->name_de = $instrument;
         $newinstrument->save();
 
 
@@ -44,14 +45,16 @@ class InstrumentsController extends \BaseController {
      */
     public function show($id) {
         // Auth
-        
+       if (ctype_digit($id)) {
+            $id = (int)$id;
+        }
         
         $validationInst = Instrument::validate(array('id' => $id));
-             dd($validationInst);
+           
         if ($validationInst !== true) {
             return Jsend::fail($validationInst);
         }
-    
+     
         // Vérification de l'existence du message
         $instrument = Instrument::find($id);
         // Ou si l'on veut que les informations de l'utilisateur soit avec :
@@ -72,6 +75,11 @@ class InstrumentsController extends \BaseController {
     public function update($id) {
         //Auth
         // Validation des données et retour des messages en JSEND
+        
+         if (ctype_digit($id)) {
+            $id = (int)$id;
+        }
+        
         $inst = Input::get('name_de');
         
         $validationInst = Instrument::validate(array(
@@ -103,7 +111,9 @@ class InstrumentsController extends \BaseController {
      */
     public function destroy($id) {
         //auth
-        
+         if (ctype_digit($id)) {
+            $id = (int)$id;
+        }
          $validationInst = Instrument::validate(array(
                     'name_de' => $inst,
                     'id' => $id
