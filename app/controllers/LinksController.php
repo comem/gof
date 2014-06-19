@@ -32,7 +32,6 @@ class LinksController extends \BaseController {
 	{
 		// Vérification des droits d'accès (ACL)
 			//A réaliser
-
         $url = Input::get('url');
         $name_de = Input::get('name_de');
         $title_de = Input::get('title_de');
@@ -41,14 +40,12 @@ class LinksController extends \BaseController {
         if (ctype_digit($artist_id)) {
             $artist_id = (int)$artist_id;
         }
-
         $validationLink = Link::validate(array(
             'url' => $url,
             'name_de' => $name_de,
             'title_de' => $title_de,
             'artist_id' => $artist_id,
         ));
-
         // Test avec l'unicité sur l'url???
 
         // Tout est ok, on sauve le lien avec l'id de l'artiste

@@ -30,7 +30,6 @@ class User extends MyEloquent  implements UserInterface, RemindableInterface{
          public static function validate($data = array())
     {
         return parent::validator($data, array(
-            
             'email' => 'string|between:1,255|sometimes|required',
             'first_name' => 'string|between:1,255|sometimes|required',
             'last_name' => 'string|between:1,255|sometimes|required',
@@ -38,9 +37,7 @@ class User extends MyEloquent  implements UserInterface, RemindableInterface{
             'last_login' => 'datetime|sometimes',
             'created_at' => 'date|sometimes|required',
             'updated_at' => 'date|sometimes|required',
-            'deleted_at' => 'date|sometimes'
+            'deleted_at' => 'date|sometimes',
         ));
     }
-
-}
 }
