@@ -13,7 +13,7 @@ class Language extends MyEloquent {
         return parent::validator($data, array(
             
                  
-                    'locale' => 'unique|string|between:1,255|sometimes|required',
+                    'locale' => 'unique:languages|string|between:1,255|sometimes|required',
                     'name_de' => 'string|between:1,255|sometimes|required'
         ));
     }

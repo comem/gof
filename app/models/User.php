@@ -35,7 +35,10 @@ class User extends MyEloquent {
             'first_name' => 'string|between:1,255|sometimes|required',
             'last_name' => 'string|between:1,255|sometimes|required',
             'password' => 'string|between:1,255|sometimes|required',
-            'last_loing' => 'datetime|sometimes',
+            'last_login' => 'datetime|sometimes',
+            'created_at' => 'date|sometimes|required',
+            'updated_at' => 'date|sometimes|required',
+            'deleted_at' => 'date|sometimes',
            
         ));
     }

@@ -9,8 +9,8 @@ class InstrumentsController extends \BaseController {
      */
     public function index() {
         // Auth
-        return ("hello");
-     //   return Jsend::success(Instrument::all()->toArray());
+       
+       return Jsend::success(Instrument::all()->toArray());
     }
 
     /**
@@ -44,10 +44,14 @@ class InstrumentsController extends \BaseController {
      */
     public function show($id) {
         // Auth
-        $validationInst = Instument::validate(array('id' => $id));
+        
+        
+        $validationInst = Instrument::validate(array('id' => $id));
+             dd($validationInst);
         if ($validationInst !== true) {
             return Jsend::fail($validationInst);
         }
+    
         // Vérification de l'existence du message
         $instrument = Instrument::find($id);
         // Ou si l'on veut que les informations de l'utilisateur soit avec :
