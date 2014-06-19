@@ -1,6 +1,6 @@
 <?php
 
-class Instruments extends \BaseController {
+class InstrumentsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,9 @@ class Instruments extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		// Auth
+            
+            return  Jsend::success(Instrument::all()->toArray());
 	}
 
 
@@ -20,7 +22,7 @@ class Instruments extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		// Auth
 	}
 
 
