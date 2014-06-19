@@ -18,21 +18,21 @@ Route::get('/', function()
 Route::group(array('before' => 'auth'), function()
 {
     // Permet d'implÃ©menter post avec une architecture REST
-    Route::resource('artist_event', 'Artist_event');
-    Route::resource('artist_genre', 'Artist_genre');
-    Route::resource('artist_musician', 'Artist_musician');
-    Route::resource('artists', 'Artists');
-    Route::resource('event_platform', 'Event_platform');
-    Route::resource('event_ticketcategorie', 'Event_ticketcategorie');
-    Route::resource('events', 'Events');
-    Route::resource('eventtypes', 'Eventtypes');
-    Route::resource('genres', 'Genres');
-    Route::resource('images', 'Images');
-    Route::resource('instruments', 'Instruments');
-    Route::resource('links', 'Links');
-    Route::resource('musicians', 'Musicians');
-    Route::resource('platforms', 'Platforms');
-    Route::resource('ticketcategories', 'TicketCategories');
+    Route::resource('artist_event', 'Artist_eventController');
+    Route::resource('artist_genre', 'Artist_genreController');
+    Route::resource('artist_musician', 'Artist_musicianController');
+    Route::resource('artists', 'ArtistsController');
+    Route::resource('event_platform', 'Event_platformController');
+    Route::resource('event_ticketcategorie', 'Event_ticketcategorieController');
+    Route::resource('events', 'EventsController');
+    Route::resource('eventtypes', 'EventtypesController');
+    Route::resource('genres', 'GenresController');
+    Route::resource('images', 'ImagesController');
+    Route::resource('instruments', 'InstrumentsController');
+    Route::resource('links', 'LinksController');
+    Route::resource('musicians', 'MusiciansController');
+    Route::resource('platforms', 'PlatformsController');
+    Route::resource('ticketcategories', 'TicketCategoriesController');
 });
 
 // Routage pour le controller de la gestion des authentifications
