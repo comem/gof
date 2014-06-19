@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder {
                 $this->call('InstrumentTableSeeder');
 		$this->command->info('Instrument table seeded!');
                 
-                $this->call('PlateformTableSeeder');
-		$this->command->info('Plateform table seeded!');
+                $this->call('PlatformTableSeeder');
+		$this->command->info('Platform table seeded!');
                 
                 $this->call('GenreTableSeeder');
 		$this->command->info('Genre table seeded!');

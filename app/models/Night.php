@@ -17,8 +17,8 @@ class Night extends MyEloquent {
         return $this->belongsToMany('Job');
     }
 
-    public function plateforms() {
-        return $this->belongsToMany('Plateform');
+    public function platforms() {
+        return $this->belongsToMany('Platform');
     }
 
     public function members() {

@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePlateformsTable extends Migration {
+class CreatePlatformsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('plateforms', function(Blueprint $table) {
+		Schema::create('platforms', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name')->unique();
 			$table->string('client_id')->nullable();
@@ -19,6 +19,6 @@ class CreatePlateformsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('plateforms');
+		Schema::drop('platforms');
 	}
 }

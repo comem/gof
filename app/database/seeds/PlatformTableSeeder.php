@@ -1,13 +1,13 @@
 <?php
 
-class PlateformTableSeeder extends Seeder {
+class PlatformTableSeeder extends Seeder {
 
 	public function run()
 	{
-		//DB::table('plateforms')->delete();
+		//DB::table('platforms')->delete();
 
 		// facebook
-		Plateform::create(array(
+		Platform::create(array(
 				'name' => 'facebook',
 				'client_id' => 'client_id',
 				'client_secret' => 'client_secret',
@@ -15,7 +15,7 @@ class PlateformTableSeeder extends Seeder {
 			));
 
 		// twitter
-		Plateform::create(array(
+		Platform::create(array(
 				'name' => 'twitter',
 				'client_id' => 'client_id',
 				'client_secret' => 'client_secret',

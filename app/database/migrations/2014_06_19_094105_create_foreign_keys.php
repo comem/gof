@@ -142,12 +142,12 @@ class CreateForeignKeys extends Migration {
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
-		Schema::table('night_plateform', function(Blueprint $table) {
-			$table->foreign('plateform_id')->references('id')->on('plateforms')
+		Schema::table('night_platform', function(Blueprint $table) {
+			$table->foreign('platform_id')->references('id')->on('platforms')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
-		Schema::table('night_plateform', function(Blueprint $table) {
+		Schema::table('night_platform', function(Blueprint $table) {
 			$table->foreign('night_id')->references('id')->on('nights')
 						->onDelete('restrict')
 						->onUpdate('restrict');
@@ -262,11 +262,11 @@ class CreateForeignKeys extends Migration {
 		Schema::table('gift_night', function(Blueprint $table) {
 			$table->dropForeign('gift_night_gift_id_foreign');
 		});
-		Schema::table('night_plateform', function(Blueprint $table) {
-			$table->dropForeign('night_plateform_plateform_id_foreign');
+		Schema::table('night_platform', function(Blueprint $table) {
+			$table->dropForeign('night_platform_platform_id_foreign');
 		});
-		Schema::table('night_plateform', function(Blueprint $table) {
-			$table->dropForeign('night_plateform_night_id_foreign');
+		Schema::table('night_platform', function(Blueprint $table) {
+			$table->dropForeign('night_platform_night_id_foreign');
 		});
 		Schema::table('users', function(Blueprint $table) {
 			$table->dropForeign('users_group_id_foreign');

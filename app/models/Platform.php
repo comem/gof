@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Plateform extends MyEloquent {
+class Platform extends MyEloquent {
 
-	protected $table = 'plateforms';
+	protected $table = 'platforms';
 	public $timestamps = false;
 
 	use SoftDeletingTrait;
@@ -21,7 +21,7 @@ class Plateform extends MyEloquent {
     {
         return parent::validator($data, array(
             'id' => 'unsigned|sometimes|required',
-            'name' => 'string|between:1,255|sometimes|requiered|unique:plateforms',
+            'name' => 'string|between:1,255|sometimes|requiered|unique:platforms',
             'client_id' => 'string|between:1,255|sometimes',
             'client_secret' => 'string|between:1,255|sometimes',
             'api_infos' => 'string|between:1,10000|sometimes',
