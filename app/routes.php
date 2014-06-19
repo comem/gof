@@ -18,12 +18,12 @@ Route::get('/', function()
 Route::group(array('before' => 'auth'), function()
 {
     // Permet d'implÃ©menter post avec une architecture REST
-    Route::resource('artist_event', 'Artist_eventController');
-    Route::resource('artist_genre', 'Artist_genreController');
-    Route::resource('artist_musician', 'Artist_musicianController');
+    Route::resource('artist_event', 'Artist_eventsController');
+    Route::resource('artist_genre', 'Artist_genresController');
+    Route::resource('artist_musician', 'Artist_musiciansController');
     Route::resource('artists', 'ArtistsController');
-    Route::resource('event_platform', 'Event_platformController');
-    Route::resource('event_ticketcategorie', 'Event_ticketcategorieController');
+    Route::resource('event_platform', 'Event_platformsController');
+    Route::resource('event_ticketcategorie', 'Event_ticketcategoriesController');
     Route::resource('events', 'EventsController');
     Route::resource('eventtypes', 'EventtypesController');
     Route::resource('genres', 'GenresController');
