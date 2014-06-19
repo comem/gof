@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+// Page d'accueil
+Route::get('/', function (){
+    return Redirect::to(URL::action('AuthController@getIndex'));
 });
+
 Route::group(array('before' => 'auth'), function()
 {
     // Permet d'implÃ©menter post avec une architecture REST
@@ -33,7 +34,8 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('musicians', 'MusiciansController');
     Route::resource('platforms', 'PlatformsController');
     Route::resource('ticketcategories', 'TicketCategoriesController');
+    Route::resource('index', 'IndexController');
 });
 
 // Routage pour le controller de la gestion des authentifications
-Route::controller('/auth', 'Auth');
+Route::controller('/auth', 'AuthController');

@@ -1,5 +1,16 @@
 <?php
 
+
+/*
+|--------------------------------------------------------------------------
+| Validator: adding some useful validation method to Laravel
+|--------------------------------------------------------------------------
+|
+*/
+Validator::resolver(function($translator, $data, $rules, $messages) 
+{
+    return new MoreValidators($translator, $data, $rules, $messages);
+});
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
@@ -16,6 +27,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/commands',
 	app_path().'/controllers',
 	app_path().'/models',
+        app_path().'/validation',
 	app_path().'/database/seeds',
 
 ));

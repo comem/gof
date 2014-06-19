@@ -43,7 +43,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('Auth');
+		        return Redirect::guest(URL::action('AuthController@getIndex'));
 		}
 	}
 });

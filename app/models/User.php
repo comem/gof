@@ -7,7 +7,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class User extends MyEloquent {
+class User extends MyEloquent  implements UserInterface, RemindableInterface{
 
 	protected $table = 'users';
 	public $timestamps = true;
@@ -31,11 +31,11 @@ class User extends MyEloquent {
     {
         return parent::validator($data, array(
             
-            'email' => 'unique|string|between:1,255|sometimes|required',
+            'email' => 'string|between:1,255|sometimes|required',
             'first_name' => 'string|between:1,255|sometimes|required',
             'last_name' => 'string|between:1,255|sometimes|required',
             'password' => 'string|between:1,255|sometimes|required',
-            'last_loing' => 'datetime|sometimes',
+            'last_login' => 'datetime|sometimes'
            
         ));
     }
