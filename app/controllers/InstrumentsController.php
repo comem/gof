@@ -23,6 +23,20 @@ class InstrumentsController extends \BaseController {
 	public function store()
 	{
 		// Auth
+        $instrument = Input::get('name_de');   
+        $validationInstrum = Message::validate(array('instrument' => $instrument));
+         
+        if ($validationInstrum !== true) {
+            return Jsend::fail($validationInstrum);
+        }
+        // Tout est ok, on sauve le message avec l'id du user connecté
+        $newinstrument = new Instrument();
+        $newinstrument->name_de = $instrument['name_de'];
+        $newinstrument->save();
+        
+    
+        // Et on retourne l'id du message nouvellement créé (encapsulé en JSEND)
+        return Jsend::success(array('name_de' => $newinstrument->name_de));
 	}
 
 
