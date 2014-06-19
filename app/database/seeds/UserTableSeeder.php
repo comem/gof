@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder {
 				'email' => 'charles-henri.hayoz@heig-vd.ch',
 				'first_name' => 'charly',
 				'last_name' => 'hayoz',
-				'password' => '1234',
+				'password' => '$2y$10$wNSfYSxvd6RqYAqWaSkEIeFgA/C1yR4vAWfG.qSlVyQLpmXDhCJt2',
 				'group_id' => 1,
 				'language_id' => 1
 			));
@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder {
 				'email' => 'cedric.liengme@heig-vd.ch',
 				'first_name' => 'cedric',
 				'last_name' => 'liengme',
-				'password' => '1234',
+				'password' => '$2y$10$wNSfYSxvd6RqYAqWaSkEIeFgA/C1yR4vAWfG.qSlVyQLpmXDhCJt2',
 				'group_id' => 2,
 				'language_id' => 1
 			));
