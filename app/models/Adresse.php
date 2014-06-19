@@ -9,7 +9,7 @@ class Adresse extends MyEloquent {
 
 	use SoftDeletingTrait;
 
-	protected $dates = ['deleted_at'];
+	protected $dates = ['deleted_at']; // soft delete
 
 	public function members()
 	{
