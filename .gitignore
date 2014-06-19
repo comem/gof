@@ -51,7 +51,6 @@ Thumbs.db
 
 ### Laravel4 ###
 /bootstrap/compiled.php
-/app/config/database.php
 .env.*.php
 .env.php
 
