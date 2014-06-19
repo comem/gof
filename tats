@@ -1,0 +1,31 @@
+[1mdiff --git a/app/routes.php b/app/routes.php[m
+[1mindex 16045b0..1270136 100644[m
+[1m--- a/app/routes.php[m
+[1m+++ b/app/routes.php[m
+[36m@@ -15,13 +15,13 @@[m [mRoute::get('/', function()[m
+ {[m
+ 	return View::make('hello');[m
+ });[m
+[31m-Route::group(array('before' => 'auth'), function()[m
+[31m-{[m
+[32m+[m[32m//Route::group(array('before' => 'auth'), function()[m
+[32m+[m[32m//{[m
+     // Permet d'implÃ©menter post avec une architecture REST[m
+     Route::resource('artist_event', 'Artist_event');[m
+     Route::resource('artist_genre', 'Artist_genre');[m
+     Route::resource('artist_musician', 'Artist_musician');[m
+[31m-    Route::resource('artists', 'Artists');[m
+[32m+[m[32m    Route::resource('artists', 'ArtistController');[m
+     Route::resource('event_platform', 'Event_platform');[m
+     Route::resource('event_ticketcategorie', 'Event_ticketcategorie');[m
+     Route::resource('events', 'Events');[m
+[36m@@ -33,7 +33,8 @@[m [mRoute::group(array('before' => 'auth'), function()[m
+     Route::resource('musicians', 'Musicians');[m
+     Route::resource('platforms', 'Platforms');[m
+     Route::resource('ticketcategories', 'TicketCategories');[m
+[31m-});[m
+[32m+[m[32m//});[m
+[32m+[m
+ [m
+ // Routage pour le controller de la gestion des authentifications[m
+ Route::controller('/auth', 'Auth');[m

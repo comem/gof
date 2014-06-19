@@ -1,6 +1,6 @@
 <?php
 
-class Artists extends \BaseController {
+class ArtistsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -8,6 +8,18 @@ class Artists extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
+	{
+            //Verification ACL
+            return Jsend::success(Artist::all()->toArray());
+	}
+
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
 	{
 		//
 	}
@@ -31,6 +43,18 @@ class Artists extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
 	{
 		//
 	}
