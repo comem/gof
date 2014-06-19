@@ -30,7 +30,38 @@ class LinksController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		// Vérification des droits d'accès (ACL)
+			//A réaliser
+
+        $url = Input::get('url');
+        $name_de = Input::get('name_de');
+        $title_de = Input::get('title_de');
+        $artist_id = Input::get('artist_id');
+
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int)$artist_id;
+        }
+
+        $validationLink = Link::validate(array(
+            'url' => $url,
+            'name_de' => $name_de,
+            'title_de' => $title_de,
+            'artist_id' => $artist_id,
+        ));
+
+        // Test avec l'unicité sur l'url???
+
+        // Tout est ok, on sauve le lien avec l'id de l'artiste
+        $link = new Link();
+        $link->url = $url;
+        $link->name_de = $name_de;
+        $link->title_de = $title_de;
+        $link->artist_id = $artist_id;
+        $link->save();
+        return Jsend::success();
+
+        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
+        return Jsend::success(array('link' => $link->id));	// Pourquoi ne rend pas l'id nouvellement créé?
 	}
 
 
