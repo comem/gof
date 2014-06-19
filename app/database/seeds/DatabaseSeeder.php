@@ -61,6 +61,13 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('ArtistNightTableSeeder');
 		$this->command->info('ArtistNight table seeded!');
+                
+                $this->call('LanguageTableSeeder');
+		$this->command->info('LanguageTableSeeder table seeded!');
+                $this->call('GroupTableSeeder');
+		$this->command->info('GroupTableSeeder table seeded!');
+                $this->call('UserTableSeeder');
+		$this->command->info('UserTableSeeder table seeded!');
 
 
 
