@@ -16,13 +16,12 @@ Route::get('/', function (){
     return Redirect::to(URL::action('AuthController@getIndex'));
 });
 
-<<<<<<< HEAD
+
 Route::group(array('before' => 'auth'), function()
 {
     // Permet d'implÃ©menter post avec une architecture REST
-=======
 // Permet d'implÃ©menter post avec une architecture REST
->>>>>>> origin/master
+
     Route::resource('artist_event', 'Artist_eventsController');
     Route::resource('artist_genre', 'Artist_genresController');
     Route::resource('artist_musician', 'Artist_musiciansController');
@@ -38,16 +37,9 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('musicians', 'MusiciansController');
     Route::resource('platforms', 'PlatformsController');
     Route::resource('ticketcategories', 'TicketCategoriesController');
-<<<<<<< HEAD
+
     Route::resource('index', 'IndexController');
 });
-=======
-    
-// Route::group(array('before' => 'auth'), function()
-// {
-    
-// });
->>>>>>> origin/master
 
 // Routage pour le controller de la gestion des authentifications
 Route::controller('/auth', 'AuthController');
