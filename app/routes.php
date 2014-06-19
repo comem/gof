@@ -15,9 +15,8 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
-Route::group(array('before' => 'auth'), function()
-{
-    // Permet d'implÃ©menter post avec une architecture REST
+
+// Permet d'implÃ©menter post avec une architecture REST
     Route::resource('artist_event', 'Artist_eventsController');
     Route::resource('artist_genre', 'Artist_genresController');
     Route::resource('artist_musician', 'Artist_musiciansController');
@@ -33,7 +32,11 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('musicians', 'MusiciansController');
     Route::resource('platforms', 'PlatformsController');
     Route::resource('ticketcategories', 'TicketCategoriesController');
-});
+    
+// Route::group(array('before' => 'auth'), function()
+// {
+    
+// });
 
 // Routage pour le controller de la gestion des authentifications
 Route::controller('/auth', 'Auth');
