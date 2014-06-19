@@ -30,6 +30,7 @@ ClassLoader::addDirectories(array(
         app_path().'/libraries',
         app_path().'/validation',
 	app_path().'/database/seeds',
+         app_path().'/libraries',
 
 ));
 

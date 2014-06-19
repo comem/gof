@@ -22,7 +22,10 @@ class Group extends MyEloquent {
         return parent::validator($data, array(
 
             
-            'name' => 'unique|string|between:1,255|sometimes|required',
+            'name' => 'unique:groups|string|between:1,255|sometimes|required',
+            'created_at' => 'date|sometimes|required',
+            'updated_at' => 'date|sometimes|required',
+           
 
         ));
     }
