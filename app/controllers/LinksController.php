@@ -17,8 +17,7 @@ class LinksController extends \BaseController {
 		// Vérification des droits d'accès (ACL)
 			// A réaliser
 
-        // Retour de tous les messages
-        //return  Jsend::success(Link::all()->toArray());
+        // Retourne tous les liens
         dd("test");
 	}
 
@@ -165,7 +164,10 @@ class LinksController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		/** 
+        * Priorité 1C
+        * Correspond au DELETE des fonctions CRUD
+        */
 	}
 
 
