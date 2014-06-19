@@ -25,5 +25,14 @@ class UserTableSeeder extends Seeder {
 				'group_id' => 2,
 				'language_id' => 1
 			));
+                // emmanuel
+		User::create(array(
+				'email' => 'emmanuel.bezencon@heig-vd.ch',
+				'first_name' => 'emmanuel',
+				'last_name' => 'bezencon',
+				'password' => '$2y$10$wNSfYSxvd6RqYAqWaSkEIeFgA/C1yR4vAWfG.qSlVyQLpmXDhCJt2',
+				'group_id' => 2,
+				'language_id' => 1
+			));
 	}
 }
