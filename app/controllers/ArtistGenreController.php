@@ -29,22 +29,34 @@ class ArtistGenreController extends \BaseController {
         }
 
         $validationArtist = Artist::validate(array('id' => $artist_id));
-        $validationGenre = Genre::validate(array('genre_id' => $genre_id));
+        $validationGenre = Genre::validate(array('id' => $genre_id));
 
         if ($validationArtist !== true) {
             return Jsend::fail($validationArtist);
-        } 
+        }
         if ($validationGenre !== true) {
             return Jsend::fail($validationGenre);
         }
-        
-        if (!Artist::exist($artist_id)) {
-            return Jsend::error('resource not found');
+
+        if (!Artist::existTechId($artist_id)) {
+            return Jsend::error('artist not found');
         }
-        
+
         if (!Genre::existTechId($genre_id)) {
-            return Jsend::error('resource not found');
+            return Jsend::error('genre not found');
         }
+
+
+        if (!ArtistGenre::existTechId($artist_id, $genre_id)) {
+            $artistGenre = new ArtistGenre();
+            $artistGenre->artist_id = $artist_id;
+            $artistGenre->genre_id = $artist_id;
+            $artistGenre->save();
+        } else {
+            return Jsend::error('description already exists');
+        }
+
+        return Jsend::success(array("id_artist" => $artist_id, "id_genre" => $genre_id));
     }
 
     /**
