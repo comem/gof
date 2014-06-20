@@ -24,7 +24,10 @@ class TicketCategoriesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		/** 
+		* En dur dans la base de donnée (1D)
+		* Correspond au CREATE des fonctions CRUD
+		*/
 	}
 
 
@@ -70,7 +73,10 @@ class TicketCategoriesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		/** 
+		* Priorité 1C
+		* Correspond au UPDATE des fonctions CRUD
+		*/
 	}
 
 
@@ -82,7 +88,10 @@ class TicketCategoriesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		/** 
+		* Priorité 1C
+		* Correspond au DELETE des fonctions CRUD
+		*/
 	}
 
 
