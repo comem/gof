@@ -11,7 +11,7 @@ class CreateGroupsTable extends Migration {
 			$table->increments('id');
 			$table->string('name')->unique();
 			$table->timestamps();
-			$table->integer('iheritance')->unsigned()->nullable();
+			$table->integer('iheritance')->nullable()->unsigned();
 		});
 	}
 
