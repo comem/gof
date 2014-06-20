@@ -73,7 +73,10 @@ class PlatformsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		/** 
+		* Priorité 1C
+		* Correspond au UPDATE des fonctions CRUD
+		*/
 	}
 
 
@@ -85,7 +88,10 @@ class PlatformsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		/** 
+		* Priorité 1C
+		* Correspond au DELETE des fonctions CRUD
+		*/
 	}
 
 
