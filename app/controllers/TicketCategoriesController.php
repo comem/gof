@@ -48,20 +48,22 @@ class TicketCategoriesController extends \BaseController {
             $id = (int)$id;
         }
 
-        //Validation des attributs 
+        //Validation des types
         $validationTicketCategorie = TicketCategorie::validate(array('id' => $id));
         if ($validationTicketCategorie !== true) {
             return Jsend::fail($validationTicketCategorie);
         }
 
-        // Vérification de l'existence de la plateforme
-        $ticketcategory = TicketCategorie::find($id);
-        if (!isset($ticketcategory)) {
-            return Jsend::error('ticket category not found');
+        // Validation de l'existance de la plateforme
+        if (TicketCategorie::existTechId($id) !== true) {
+            return Jsend::fail($id);
         }
 
+        // Récupération de la plateforme
+        $ticketcategorie = TicketCategorie::find($id);
+
         // Retourne la plateforme encapsulée en JSEND si tout est OK
-        return Jsend::success($ticketcategory->toArray());
+        return Jsend::success($ticketcategorie->toArray());
 	}
 
 

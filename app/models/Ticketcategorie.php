@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Ticketcategorie extends MyEloquent {
+class TicketCategorie extends MyEloquent {
 
 	protected $table = 'ticketcategories';
 	public $timestamps = false;
@@ -23,6 +23,11 @@ class Ticketcategorie extends MyEloquent {
             'name_de' => 'string|between:1,255|sometimes|requiered|unique:ticketcategories',
             'deleted_at' => 'date|sometimes',
         ));
+    }
+
+    public static function existTechId($ticketcategorieId) {
+        $e = TicketCategorie::find($ticketcategorieId);
+        return $e != null;
     }
 
 }
