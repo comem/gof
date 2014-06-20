@@ -41,6 +41,19 @@ class Night extends MyEloquent {
         return $this->belongsToMany('Gift');
     }
 
+    public static function existBuisnessId($buisness_id){
+        $e = Night::where('start_date_hour', '=', $buisness_id)
+            ->first();
+        return $e != null;       // Si null, n’existe pas 
+    }
+    
+     public static function existTechId($tech_id){
+        $e = Night::where('id', '=', $tech_id)
+            ->first();
+        return $e != null;       // Si null, n’existe pas 
+    }
+    
+    
     public function validate($data = array()) {
         return parent::validator($data, array(
                     'id' => 'unsigned|sometimes|required',
