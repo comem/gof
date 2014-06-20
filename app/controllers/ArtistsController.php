@@ -8,7 +8,6 @@ class ArtistsController extends \BaseController {
      * @return Response
      */
     public function index() {
-        //Verification ACL
         return Jsend::success(Artist::all()->toArray());
     }
 
@@ -18,13 +17,16 @@ class ArtistsController extends \BaseController {
      * @return Response
      */
     public function store() {
-        //Verification ACL
         $artistName = Input::get('name');
         $artistSD = Input::get('short_description_de');
         $artistCD = Input::get('complete_description_de');
         $genres = Input::get('genre');
 
-        $validationArtist = Artist::validate(array('name' => $artistName, 'short_description_de' => $artistSD, 'complete_description_de' => $artistCD));
+        $validationArtist = Artist::validate(array(
+                    'name' => $artistName,
+                    'short_description_de' => $artistSD,
+                    'complete_description_de' => $artistCD,
+        ));
         if ($validationArtist !== true) {
             return Jsend::fail($validationArtist);
         } else {
@@ -56,7 +58,7 @@ class ArtistsController extends \BaseController {
         }
 
 
-        return Jsend::success($artist->id);
+        return Jsend::success(array("id" => $artist->id));
     }
 
     /**
@@ -66,7 +68,7 @@ class ArtistsController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //Vérification ACL
+
         if (ctype_digit($id)) {
             $id = (int) $id;
         }
@@ -91,8 +93,34 @@ class ArtistsController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        // Vérification ACL
-        
+
+        if (ctype_digit($id)) {
+            $id = (int) $id;
+        }
+
+        $artistName = Input::get('name');
+        $artistSD = Input::get('short_description_de');
+        $artistCD = Input::get('complete_description_de');
+        $validationArtist = Artist::validate(array(
+                    'name' => $artistName,
+                    'short_description_de' => $artistSD,
+                    'complete_description_de' => $artistCD,
+        ));
+        if ($validationArtist !== true) {
+            return Jsend::fail($validationArtist);
+        }
+
+        $artist = Artist::find($id);
+        if (!isset($artist)) {
+            return Jsend::error('resource not found');
+        }
+
+        $artist->name = $artistName;
+        $artist->short_description_de = $artistSD;
+        $artist->complete_description_de = $artistCD;
+        $artist->save();
+
+        return Jsend::success($artist->toArray());
     }
 
     /**
