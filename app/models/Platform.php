@@ -16,7 +16,7 @@ class Platform extends MyEloquent {
      * Cette méthode permet de lier la plateforme à un event.
      * @return L'event à qui correspond la plateforme.
      */
-	public function events()
+	public function nights()
 	{
 		return $this->belongsToMany('Night');
 	}
