@@ -22,26 +22,24 @@ class InstrumentsController extends \BaseController {
     public function store() {
         // Auth
 
+        $name_de = Input::get('name_de');
 
 
-        $instrument = Input::get('name_de');
+        if (Instrument::existBuisnessId($name_de) == true) {
 
-
-        if (Instrument::existBuisnessId($instrument) == true) {
-
-            return Jsend::error("Cette instrument est déjà enregistré");
+            return Jsend::error("instrument already exists in the database");
         }
 
-        $validationInstrum = Instrument::validate(array('instrument' => $instrument));
+        $validationInstrum = Instrument::validate(array('name_de' => $name_de));
 
         if ($validationInstrum !== true) {
-            return Jsend::error("Les données ne sont pas valide");
+            return Jsend::fail($validationInstrum);
         }
 
 
 
         $newinstrument = new Instrument();
-        $newinstrument->name_de = $instrument;
+        $newinstrument->name_de = $name_de;
         $newinstrument->save();
         return Jsend::success(array('name_de' => $newinstrument->name_de));
     }
@@ -59,7 +57,7 @@ class InstrumentsController extends \BaseController {
         }
 
         if (Instrument::existTechId($id) !== true) {
-            return Jsend::error("L'instrument n'existe pas");
+            return Jsend::error("instrument dosen't exists in the database");
         }
 
 
@@ -68,10 +66,9 @@ class InstrumentsController extends \BaseController {
 //        if ($validationInst !== true) {
 //            return Jsend::fail($validationInst);
 //        }
-
         // Vérification de l'existence de l'instrument
         $instrument = Instrument::find($id);
-        
+
         if (!isset($instrument)) {
             return Jsend::error('resource not found');
         }
@@ -141,7 +138,7 @@ class InstrumentsController extends \BaseController {
         if (!isset($instrument)) {
             return Jsend::error('resource not found');
         }
-        // Tout est OK, on mets à jour notre message
+
 
         $instrument->delete();
 

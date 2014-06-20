@@ -28,5 +28,11 @@ class Musician extends MyEloquent {
             'deleted_at' => 'date|sometimes',
         ));
     }
+    
+      public static function existTechId($tech_id){
+        $e = Musician::where('id', '=', $tech_id)
+            ->first();
+        return $e != null;       // Si null, n’existe pas 
+    }
 
 }
