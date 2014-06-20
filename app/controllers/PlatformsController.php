@@ -48,17 +48,19 @@ class PlatformsController extends \BaseController {
             $id = (int)$id;
         }
 
-        //Validation des attributs 
+        //Validation des types
         $validationPlatform = Platform::validate(array('id' => $id));
         if ($validationPlatform !== true) {
             return Jsend::fail($validationPlatform);
         }
 
-        // Vérification de l'existence de la plateforme
-        $platform = Platform::find($id);
-        if (!isset($platform)) {
-            return Jsend::error('platform not found');
+        // Validation de l'existance de la plateforme
+        if (Platform::existTechId($id) !== true) {
+            return Jsend::fail($id);
         }
+
+        // Récupération de la plateforme
+        $platform = Platform::find($id);
 
         // Retourne la plateforme encapsulée en JSEND si tout est OK
         return Jsend::success($platform->toArray());
