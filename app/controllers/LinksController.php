@@ -36,16 +36,28 @@ class LinksController extends \BaseController {
         $title_de = Input::get('title_de');
         $artist_id = Input::get('artist_id');
 
+        //Cast de artist_id car l'url l'envoit en String
         if (ctype_digit($artist_id)) {
             $artist_id = (int)$artist_id;
         }
+
+        // Validation des types
         $validationLink = Link::validate(array(
             'url' => $url,
             'name_de' => $name_de,
             'title_de' => $title_de,
             'artist_id' => $artist_id,
         ));
-        // Test avec l'unicité sur l'url???
+
+        // Validation de l'existance de l'artiste
+        if (Artist::existTechId($artist_id) !== true) {
+            return Jsend::error('artist already exists in the database');
+        }
+
+        // Validation de l'inexistance du lien
+        if (Link::existBusinessId($url) == true) {
+            return Jsend::error('link already exists in the database');
+        }
 
         // Tout est ok, on sauve le lien avec l'id de l'artiste
         $link = new Link();
@@ -54,10 +66,9 @@ class LinksController extends \BaseController {
         $link->title_de = $title_de;
         $link->artist_id = $artist_id;
         $link->save();
-        return Jsend::success();
 
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('link' => $link->id));	// Pourquoi ne rend pas l'id nouvellement créé?
+        return Jsend::success(array('id' => $link->id));	// Pourquoi ne rend pas l'id nouvellement créé?
 	}
 
 
