@@ -88,3 +88,34 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| ACL Filters
+|--------------------------------------------------------------------------
+|
+| The following filters are used to verify that the user of the current
+| session as the correct right for this application.
+|
+*/
+Route::filter('acl_rest', function()
+{
+
+    $routeInfo = Str::parseCallback(Route::currentRouteAction(), null);
+    $controller = class_basename($routeInfo[0]);
+    $action = $routeInfo[1];
+ 
+    $mapActionToCrudRole = array(
+       'index'  => 'VIEW',
+       'store'  => 'SAVE',
+       'show'   => 'VIEW',
+       'update' => 'MODIFY',
+       'destroy'=> 'ERASE'
+    );
+    $role = $mapActionToCrudRole[$action];
+
+
+    if (!Auth::user()->hasRoleForResource($role, $controller)) {
+        return Jsend::error('Forbidden', Jsend::HTTP_FAIL_ACL);
+    }
+});

@@ -13,7 +13,7 @@ class GroupTableSeeder extends Seeder {
 
 		// user
 		Group::create(array(
-				'name' => 'user'
+				'name' => 'staff'
 			));
 	}
 }

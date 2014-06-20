@@ -17,7 +17,7 @@ Route::get('/', function (){
 });
 
 
-Route::group(array('before' => 'auth'), function()
+Route::group(array('before' => array('auth', 'acl_rest')), function()
 {
     // Permet d'implÃ©menter post avec une architecture REST
 // Permet d'implÃ©menter post avec une architecture REST
@@ -37,7 +37,6 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('musicians', 'MusiciansController');
     Route::resource('platforms', 'PlatformsController');
     Route::resource('ticketcategories', 'TicketCategoriesController');
-
     Route::resource('index', 'IndexController');
 });
 
