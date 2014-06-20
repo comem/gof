@@ -26,4 +26,16 @@ class Instrument extends MyEloquent {
         ));
     }
 
+    
+     public static function existBuisnessId($buisness_id){
+        $e = Instrument::where('name_de', '=', $buisness_id)
+            ->first();
+        return $e != null;       // Si null, n’existe pas 
+    }
+    
+     public static function existTechId($tech_id){
+        $e = Instrument::where('id', '=', $tech_id)
+            ->first();
+        return $e != null;       // Si null, n’existe pas 
+    }
 }

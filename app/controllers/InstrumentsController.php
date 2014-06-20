@@ -10,6 +10,7 @@ class InstrumentsController extends \BaseController {
     public function index() {
         // Auth
        
+        
        return Jsend::success(Instrument::all()->toArray());
     }
 
@@ -20,12 +21,21 @@ class InstrumentsController extends \BaseController {
      */
     public function store() {
         // Auth
+        
+        
+        
         $instrument = Input::get('name_de');
+        
+           if (Instrument::existBuisnessId($instrument) !== true) {
+            return Jsend::fail($instrument);
+        }
+        
         $validationInstrum = Instrument::validate(array('instrument' => $instrument));
       
         if ($validationInstrum !== true) {
             return Jsend::fail($validationInstrum);
         }
+      
            
      
         $newinstrument = new Instrument();
@@ -48,6 +58,11 @@ class InstrumentsController extends \BaseController {
        if (ctype_digit($id)) {
             $id = (int)$id;
         }
+        
+         if (Instrument::existTechId($id) !== true) {
+            return Jsend::fail($id);
+        }
+        
         
         $validationInst = Instrument::validate(array('id' => $id));
            
@@ -135,5 +150,7 @@ class InstrumentsController extends \BaseController {
         return Jsend::success();
         
     }
+    
+ 
 
 }
