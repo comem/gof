@@ -34,7 +34,8 @@ class AuthController extends \BaseController {
     public function getLogout()
     {
         Auth::logout();
-        return Redirect::to('/');
+        //return Redirect::to('/');
+        echo("Logout ok, aurevoir");
     }
 
 

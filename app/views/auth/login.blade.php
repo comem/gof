@@ -17,3 +17,7 @@
         </fieldset>
         <input type="submit" value="Login">
     </form>
+    <form action="{{ URL::action('AuthController@getLogout'); }}" method="get" id="form_logout">
+       
+        <input type="submit" value="Logout">
+    </form>
