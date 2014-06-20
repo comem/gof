@@ -26,7 +26,7 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('artistgenre', 'ArtistGenreController');
     Route::resource('artist_musician', 'Artist_musiciansController');
     Route::resource('artists', 'ArtistsController');
-    Route::resource('event_platform', 'Event_platformsController');
+    Route::resource('nightsplatform', 'NightsPlatformController');
     Route::resource('event_ticketcategorie', 'Event_ticketcategoriesController');
     Route::resource('events', 'EventsController');
     Route::resource('eventtypes', 'EventtypesController');
