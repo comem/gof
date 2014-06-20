@@ -23,7 +23,7 @@ class NightsPlatformController extends \BaseController {
 	{
 
         $platform_id = Input::get('platform_id');
-        $event_id = Input::get('event_id');
+        $night_id = Input::get('night_id');
         $external_id = Input::get('external_id');
         $external_infos = Input::get('external_infos');
         $url = Input::get('url');
@@ -32,14 +32,14 @@ class NightsPlatformController extends \BaseController {
         if (ctype_digit($platform_id)) {
             $platform_id = (int)$platform_id;
         }
-        if (ctype_digit($event_id)) {
-            $event_id = (int)$event_id;
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
         }
 
         // Validation des types
-        $validationNightPlatform = Link::validate(array(
+        $validationNightPlatform = NightPlatform::validate(array(
             'platform_id' => $platform_id,
-            'event_id' => $event_id,
+            'night_id' => $night_id,
             'external_id' => $external_id,
             'external_infos' => $external_infos,
             'url' => $url,
@@ -48,26 +48,41 @@ class NightsPlatformController extends \BaseController {
             return Jsend::fail($validationNightPlatform);
         }
 
-        // Validation de l'existance de l'artiste
-        if (Artist::existTechId($artist_id) !== true) {
-            return Jsend::error('artist already exists in the database');
+        // Validation de l'existance de l'événement
+        if (Night::existTechId($night_id) !== true) {
+            return Jsend::error('night not found');
         }
 
-        // Validation de l'inexistance du lien
-        if (Link::existBusinessId($url) == true) {
-            return Jsend::error('link already exists in the database');
+        // Contrainte C4
+        // Lorsqu'un événement est crée, il doit y avoir au moin un arrist qui est le principal 
+        // de cet événement. C'est-à-dire min 1 is_support à false
+        // $nightC4 = Night::find($night_id);
+        // $performers = $nightC4->artists();
+        // dd($performers);
+
+        // C5
+
+        // Validation de l'existance de la plateforme
+        if (Night::existTechId($platform_id) !== true) {
+            return Jsend::error('platform not found');
         }
 
-        // Tout est ok, on sauve le lien avec l'id de l'artiste
-        $link = new Link();
-        $link->url = $url;
-        $link->name_de = $name_de;
-        $link->title_de = $title_de;
-        $link->artist_id = $artist_id;
-        $link->save();
+        // Validation de l'inexistance de la xpublication
+        if (NightPlatform::existTechId($night_id, $platform_id) == true) {
+            return Jsend::error('publication already exists in the database');
+        }
+
+        // Tout est ok, on sauve la publication avec les ids de l'événement et de la plateforme
+        $nightplatform = new NightPlatform();
+        $nightplatform->platform_id = $platform_id;
+        $nightplatform->night_id = $night_id;
+        $nightplatform->external_id = $external_id;
+        $nightplatform->external_infos = $external_infos;
+        $nightplatform->url = $url;
+        $nightplatform->save();
 
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $link->id));
+        return Jsend::success(array('id' => $nightplatform->id));
 	}
 
 
