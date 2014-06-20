@@ -158,7 +158,7 @@ class LinksController extends \BaseController {
         $link->name_de = $name_de;
         $link->title_de = $title_de;
         $link->save();
-        return Jsend::success();
+        return Jsend::success($link->toArray());
 	}
 
 
