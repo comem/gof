@@ -18,7 +18,7 @@ class LinksController extends \BaseController {
 			// A réaliser
 
         // Retourne tous les liens
-        dd("test");
+       
 	}
 
 
