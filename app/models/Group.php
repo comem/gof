@@ -14,6 +14,26 @@ class Group extends MyEloquent {
 	{
 		return $this->hasMany('User');
 	}
+        
+         public function hasResource($resourceName)
+    {
+        foreach ($this->resources as $resource) {
+            if ($resource->model == $resourceName) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function hasRoleForResource($roleName, $resourceName)
+    {
+        foreach ($this->resources as $resource) {
+            if ($resource->model == $resourceName && $resource->function == $roleName) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
         
