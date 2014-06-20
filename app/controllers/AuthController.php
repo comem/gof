@@ -12,7 +12,7 @@ class AuthController extends \BaseController {
 
     public function postCheck()
     {
-        // VÃ©rifie les "input", les acrÃ©ditations, et refuse les shadow accounts
+        // VÃ©rifie les "input" et les accréditations
         if (User::validate(Input::only('email', 'password')) !== true
                || !Auth::attempt(Input::only('email', 'password'))) {
             return Redirect::action('AuthController@getIndex')
