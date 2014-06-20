@@ -4,7 +4,6 @@ class TicketCategoriesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 *
 	 * @return Response
 	 */
 	public function index()
@@ -33,8 +32,7 @@ class TicketCategoriesController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
-	 *
-	 * @param  int  $id
+	 * @param  int  $id correspondant à l'id technique de la cathégorie de ticket à voir
 	 * @return Response
 	 */
 	public function show($id)

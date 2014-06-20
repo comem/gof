@@ -24,7 +24,6 @@ class LinksController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
 	 * @return Response
 	 */
 	public function store()
@@ -77,8 +76,7 @@ class LinksController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
-	 *
-	 * @param  int  $id
+	 * @param  int  $id correspondant à l'id technique du lien à voir.
 	 * @return Response
 	 */
 	public function show($id)
@@ -113,8 +111,7 @@ class LinksController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
+	 * @param  int  $id correspondant à l'id technique du lien à modifier
 	 * @return Response
 	 */
 	public function update($id)
