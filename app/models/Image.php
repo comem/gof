@@ -46,8 +46,8 @@ class Image extends MyEloquent {
      * @return True si l'mage existe.
      *         False si l'image n'existe pas.
      */
-    public static function existTechId($linkId) {
-        $e = Link::find($linkId);
+    public static function existTechId($imageId) {
+        $e = Image::find($imageId);
         return $e != null;
     }
 
