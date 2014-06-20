@@ -71,7 +71,7 @@ class LinksController extends \BaseController {
         $link->save();
 
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $link->id));	// Pourquoi ne rend pas l'id nouvellement créé?
+        return Jsend::success(array('id' => $link->id));	
 	}
 
 
