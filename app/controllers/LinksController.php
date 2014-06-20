@@ -81,9 +81,6 @@ class LinksController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		// Vérification des droits d'accès (ACL)
-			//A réaliser
-
         // Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
 		// Par contre la conversion se fait que pour des chaines Ok.
         if (ctype_digit($id)) {
