@@ -56,13 +56,33 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
-	 *
-	 * @param  int  $id
+	 * @param  int  $id correspondant à l'id technique du lien à voir.
 	 * @return Response
 	 */
 	public function show($id)
 	{
-		//
+		// Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
+		// Par contre la conversion se fait que pour des chaines Ok.
+        if (ctype_digit($id)) {
+            $id = (int)$id;
+        }
+
+        // Validation des types
+        $validationImage = Image::validate(array('id' => $id));
+        if ($validationImage !== true) {
+            return Jsend::fail($validationLink);
+        }
+
+        // Validation de l'existance de lu lien
+        if (Image::existTechId($id) !== true) {
+            return Jsend::fail($id);
+        }
+
+        // Récupération du lien 
+        $image = Image::find($id);
+
+        // Retourne le lien encapsulé en JSEND si tout est OK
+        return Jsend::success($image->toArray());
 	}
 
 
