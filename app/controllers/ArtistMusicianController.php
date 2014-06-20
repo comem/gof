@@ -1,6 +1,6 @@
 <?php
 
-class Artist_musician extends \BaseController {
+class ArtistMusicianController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -20,9 +20,15 @@ class Artist_musician extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		if (Instrument::existTechId($id) !== true) {
+            return Jsend::error("instrument dosen't exists in the database");
+        }
+            
 	}
 
+        
+        
+        
 
 	/**
 	 * Display the specified resource.
@@ -30,6 +36,8 @@ class Artist_musician extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+        
+        
 	public function show($id)
 	{
 		//

@@ -31,12 +31,19 @@ class ArtistsController extends \BaseController {
             return Jsend::fail($validationArtist);
         }
         foreach ($genres as $genre) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> Crud_ArtisteMusician_Florent
             $validationGenre = Genre::validate(array('id' => (int) $genre['id'], 'name_de' => $genre['name_de']));
             if ($validationGenre !== true) {
                 return Jsend::fail($validationGenre);
             }
+<<<<<<< HEAD
             if (!Genre::existTechId($genre['id'])) {
+=======
+            if (!Genre::existTechId((int) $genre['id'])) {
+>>>>>>> Crud_ArtisteMusician_Florent
                 return Jsend::error($genre['name_de'] . ' not found');
             }
         }
