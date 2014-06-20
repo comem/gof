@@ -17,16 +17,16 @@ Route::get('/', function (){
 });
 
 
-Route::group(array('before' => array('auth', 'acl_rest')), function()
+Route::group(array('before' => array()), function()
 {
-    // Permet d'implÃ©menter post avec une architecture REST
+// Permet d'implÃ©menter post avec une architecture REST
 // Permet d'implÃ©menter post avec une architecture REST
 
     Route::resource('artist_event', 'Artist_eventsController');
     Route::resource('artistgenre', 'ArtistGenreController');
     Route::resource('artist_musician', 'Artist_musiciansController');
     Route::resource('artists', 'ArtistsController');
-    Route::resource('event_platform', 'Event_platformsController');
+    Route::resource('nightsplatform', 'NightsPlatformController');
     Route::resource('event_ticketcategorie', 'Event_ticketcategoriesController');
     Route::resource('events', 'EventsController');
     Route::resource('eventtypes', 'EventtypesController');

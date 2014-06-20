@@ -53,7 +53,7 @@ class LinksController extends \BaseController {
 
         // Validation de l'existance de l'artiste
         if (Artist::existTechId($artist_id) !== true) {
-            return Jsend::error('artist already exists in the database');
+            return Jsend::error('artist not found');
         }
 
         // Validation de l'inexistance du lien

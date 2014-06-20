@@ -41,19 +41,40 @@ class Night extends MyEloquent {
         return $this->belongsToMany('Gift');
     }
 
-    public static function existBuisnessId($buisness_id){
-        $e = Night::where('start_date_hour', '=', $buisness_id)
+    public function artists() {
+        return $this->belongsToMany('Artist');
+    }    
+
+    /**
+     * Cette méthode vérifie l'existant due l'événement selon son identifiant métier.
+     * @param Un identifiant méditer correspondant à un attribut unique.
+     * @return True si le lien existe.
+     *         False si le lien n'existe pas.
+     */
+    public static function existBuisnessId($nightStartDateHour){
+        $e = Night::where('start_date_hour', '=', $nightStartDateHour)
             ->first();
         return $e != null;       // Si null, n’existe pas 
     }
     
-     public static function existTechId($tech_id){
-        $e = Night::where('id', '=', $tech_id)
+    /**
+     * Cette méthode vérifie l'existant de l'événement selon son identifiant technique.
+     * @param Un identifiant technique correspondant à la clé primaire de cet événement. 
+     * @return True si le lien existe.
+     *         False si le lien n'existe pas.
+     */
+    public static function existTechId($nightId){
+        $e = Night::where('id', '=', $nightId)
             ->first();
         return $e != null;       // Si null, n’existe pas 
     }
     
-    
+    /**
+     * Cette méthode valide les types des attributs selon une liste de critères par attribut.
+     * @param array $data Chaîne de caractère possèdant chaque attribut et leurs critères de validation. 
+     * @return True si les données sont valides ou pas. 
+     *         False si les données ne sont pas valides.
+     */
     public function validate($data = array()) {
         return parent::validator($data, array(
                     'id' => 'unsigned|sometimes|required',

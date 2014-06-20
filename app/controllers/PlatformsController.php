@@ -8,9 +8,6 @@ class PlatformsController extends \BaseController {
 	 */
 	public function index()
 	{
-		// Vérification des droits d'accès (ACL)
-			//A réaliser
-
         // Retourne toutes les plateformes
         return  Jsend::success(Platform::all()->toArray());
 	}
