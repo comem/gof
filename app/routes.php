@@ -23,7 +23,7 @@ Route::group(array('before' => array('auth', 'acl_rest')), function()
 // Permet d'implÃ©menter post avec une architecture REST
 
     Route::resource('artist_event', 'Artist_eventsController');
-    Route::resource('artist_genre', 'Artist_genresController');
+    Route::resource('artistgenre', 'ArtistGenreController');
     Route::resource('artist_musician', 'Artist_musiciansController');
     Route::resource('artists', 'ArtistsController');
     Route::resource('event_platform', 'Event_platformsController');

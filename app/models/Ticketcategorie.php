@@ -15,7 +15,7 @@ class TicketCategorie extends MyEloquent {
      * Cette méthode permet de lier la catégorie de ticket à un event'
      * @return L'event à qui correspond la catégorie de ticket.
      */
-	public function events()
+	public function nights()
 	{
 		return $this->belongsToMany('Night');
 	}

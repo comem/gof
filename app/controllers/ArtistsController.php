@@ -29,18 +29,18 @@ class ArtistsController extends \BaseController {
         ));
         if ($validationArtist !== true) {
             return Jsend::fail($validationArtist);
-        } else {
-            foreach ($genres as $genre) {
-                $validationGenre = Genre::validate(array('id' => (int) $genre['id'], 'name_de' => $genre['name_de']));
-                if ($validationGenre !== true) {
-                    return Jsend::fail($validationGenre);
-                } else {
-                    if (!Genre::existTechId((int) $genre['id'])) {
-                        return Jsend::error($genre['name_de'] . ' not found');
-                    }
-                }
+        }
+        foreach ($genres as $genre) {
+
+            $validationGenre = Genre::validate(array('id' => (int) $genre['id'], 'name_de' => $genre['name_de']));
+            if ($validationGenre !== true) {
+                return Jsend::fail($validationGenre);
+            }
+            if (!Genre::existTechId($genre['id'])) {
+                return Jsend::error($genre['name_de'] . ' not found');
             }
         }
+
         $artist = new Artist();
         $artist->name = $artistName;
         $artist->short_description_de = $artistSD;
