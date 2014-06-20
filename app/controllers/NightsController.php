@@ -9,7 +9,7 @@ class Events extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		return Jsend::success(Night::all()->toArray());
 	}
 
 
@@ -20,7 +20,11 @@ class Events extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$start_date_hour = Input::get('start_date_hour');
+                if (Night::existBuisnessId($start_date_hour) == true) {
+
+                    return Jsend::error("event already exist in the database");
+                }
 	}
 
 

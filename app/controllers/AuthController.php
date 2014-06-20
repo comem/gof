@@ -20,14 +20,22 @@ class AuthController extends \BaseController {
         }
         else
         {
-            return Redirect::intended('index');
+            //return Redirect::intended('auth');
+            echo("<h1>welcome to the HEAVEN, vous pouvez désormais travaillé</h1> <h2> Votre utilisateur </h2>");
+            echo (Auth::getUser());
+            echo("<h2>Votre groupe</h2>");
+            echo (Auth::getUser()->group);
+            echo ("<h2>Vos accés (ACL)</h2>");
+            echo (Auth::getUser()->group->resources);
+            //dd('welcome to the HEAVEN, vous êtes désormais loggé :D en'+ Auth::getUser()->getAuthIdentifier());
         }
     }
 
     public function getLogout()
     {
         Auth::logout();
-        return Redirect::to('/');
+        //return Redirect::to('/');
+        echo("Logout ok, aurevoir");
     }
 
 

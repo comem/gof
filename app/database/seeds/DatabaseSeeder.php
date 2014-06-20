@@ -68,6 +68,10 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('GroupTableSeeder table seeded!');
                 $this->call('UserTableSeeder');
 		$this->command->info('UserTableSeeder table seeded!');
+                $this->call('ResourceTableSeeder');
+		$this->command->info('ResourceTableSeeder table seeded!');
+                $this->call('GroupResourceTableSeeder');
+		$this->command->info('GroupResourceTableSeeder table seeded!');
 
 
 

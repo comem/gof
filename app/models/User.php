@@ -21,6 +21,29 @@ class User extends MyEloquent  implements UserInterface, RemindableInterface{
 	{
 		return $this->belongsTo('Group');
 	}
+        
+        public function hasResource($resourceName)
+        {
+ 
+                if ($this->group->hasResource($resourceName)) {
+                    return true;
+                }
+            else
+            {
+                return false;
+            }
+        }
+        
+         public function hasRoleForResource($roleName, $resourceName)
+    {
+            if ($this->group->hasRoleForResource($roleName, $resourceName)) {
+                return true;
+            }
+        else
+        {
+            return false;
+        }
+    }
 
 	public function language()
 	{
