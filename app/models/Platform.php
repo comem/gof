@@ -29,4 +29,14 @@ class Platform extends MyEloquent {
         ));
     }
 
+    public static function existTechId($platformId) {
+        $e = Platform::find($platformId);
+        return $e != null;
+    }
+
+    public static function existBusinessId($platformName) {
+        $e = Platform::where('name','=',$platformName)->first();
+        return $e != null;
+    }
+
 }
