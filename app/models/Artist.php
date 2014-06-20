@@ -25,6 +25,10 @@ class Artist extends MyEloquent {
 	{
 		return $this->hasMany('Link');
 	}
+
+	public function nights() {
+        return $this->belongsToMany('Night');
+    } 
         
         
     public static function validate($data = array())
