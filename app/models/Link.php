@@ -21,4 +21,14 @@ class Link extends MyEloquent {
         ));
     }
 
+    public static function existTechId($linkId) {
+        $e = Link::find($linkId);
+        return $e != null;
+    }
+
+    public static function existBusinessId($linkUrl) {
+        $e = Link::where('url','=',$linkUrl)->first();
+        return $e != null;
+    }
+
 }

@@ -17,8 +17,7 @@ class LinksController extends \BaseController {
 		// Vérification des droits d'accès (ACL)
 			// A réaliser
 
-        // Retour de tous les messages
-        //return  Jsend::success(Link::all()->toArray());
+        // Retourne tous les liens
         dd("test");
 	}
 
@@ -37,16 +36,31 @@ class LinksController extends \BaseController {
         $title_de = Input::get('title_de');
         $artist_id = Input::get('artist_id');
 
+        //Cast de artist_id car l'url l'envoit en String
         if (ctype_digit($artist_id)) {
             $artist_id = (int)$artist_id;
         }
+
+        // Validation des types
         $validationLink = Link::validate(array(
             'url' => $url,
             'name_de' => $name_de,
             'title_de' => $title_de,
             'artist_id' => $artist_id,
         ));
-        // Test avec l'unicité sur l'url???
+        if ($validationLink !== true) {
+            return Jsend::fail($validationLink);
+        }
+
+        // Validation de l'existance de l'artiste
+        if (Artist::existTechId($artist_id) !== true) {
+            return Jsend::error('artist already exists in the database');
+        }
+
+        // Validation de l'inexistance du lien
+        if (Link::existBusinessId($url) == true) {
+            return Jsend::error('link already exists in the database');
+        }
 
         // Tout est ok, on sauve le lien avec l'id de l'artiste
         $link = new Link();
@@ -55,10 +69,9 @@ class LinksController extends \BaseController {
         $link->title_de = $title_de;
         $link->artist_id = $artist_id;
         $link->save();
-        return Jsend::success();
 
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('link' => $link->id));	// Pourquoi ne rend pas l'id nouvellement créé?
+        return Jsend::success(array('id' => $link->id));	// Pourquoi ne rend pas l'id nouvellement créé?
 	}
 
 
@@ -79,17 +92,19 @@ class LinksController extends \BaseController {
             $id = (int)$id;
         }
 
-        //Validation des attributs 
+        // Validation des types
         $validationLink = Link::validate(array('id' => $id));
         if ($validationLink !== true) {
             return Jsend::fail($validationLink);
         }
 
-        // Vérification de l'existence du lien
-        $link = Link::find($id);
-        if (!isset($link)) {
-            return Jsend::error('link not found');
+        // Validation de l'existance de lu lien
+        if (Link::existTechId($id) !== true) {
+            return Jsend::fail($id);
         }
+
+        // Récupération du lien 
+        $link = Link::find($id);
 
         // Retourne le lien encapsulé en JSEND si tout est OK
         return Jsend::success($link->toArray());
@@ -117,41 +132,34 @@ class LinksController extends \BaseController {
         $url = Input::get('url');
         $name_de = Input::get('name_de');
         $title_de = Input::get('title_de');
-        $artist_id = Input::get('artist_id');
 
-        if (ctype_digit($artist_id)) {
-            $artist_id = (int)$artist_id;
-        }
-
+        // Validation des types du lien
         $validationLink = Link::validate(array(
             'url' => $url,
             'name_de' => $name_de,
-            'title_de' => $title_de,
-            'artist_id' => $artist_id,
-            'id' => $id
+            'title_de' => $title_de
         ));
-
         if ($validationLink !== true) {
             return Jsend::fail($validationLink);
         }
 
-        //Vérification du contenu ???
-
-        // Vérification de l'existence du lien
-        $link = Link::find($id);
-        if (!isset($link)) {
+        // Validation de l'existance du lien à modifier
+        if (Link::existTechId($id) !== true) {
             return Jsend::error('link not found');
         }
-        // Vérification de l'existence de l'artist
-        $artist = Artist::find($artist_id);
-        if (!isset($artist)) {
-            return Jsend::error('artist not found');
+
+        // Récupération du lien existant
+        $link = Link::find($id);
+
+        // Validation de l'inexistance du lien uploadé
+        if (Link::existBusinessId($url) == true) {
+            return Jsend::error('link already exists in the database');
         }
+
         // Tout est OK, on mets à jour notre lien
         $link->url = $url;
         $link->name_de = $name_de;
         $link->title_de = $title_de;
-        $link->artist_id = $artist_id;
         $link->save();
         return Jsend::success();
 	}
@@ -165,7 +173,10 @@ class LinksController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		/** 
+        * Priorité 1C
+        * Correspond au DELETE des fonctions CRUD
+        */
 	}
 
 
