@@ -12,5 +12,10 @@ class ArtistGenre extends MyEloquent {
             'genre_id' => 'unsigned|sometimes|required',
         ));
     }
+    
+    public static function existTechId($artist_id, $genre_id) {
+        $e = ArtistGenre::where('artist_id', '=', $artist_id)->where('genre_id', '=', $genre_id)->first();
+        return $e != null;
+    }
 
 }

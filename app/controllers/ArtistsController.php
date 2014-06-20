@@ -2,86 +2,107 @@
 
 class ArtistsController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-            //Verification ACL
-            return Jsend::success(Artist::all()->toArray());
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index() {
+        //Verification ACL
+        return Jsend::success(Artist::all()->toArray());
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store() {
+        //Verification ACL
+        $artistName = Input::get('name');
+        $artistSD = Input::get('short_description_de');
+        $artistCD = Input::get('complete_description_de');
+        $genres = Input::get('genre');
+
+        $validationArtist = Artist::validate(array('name' => $artistName, 'short_description_de' => $artistSD, 'complete_description_de' => $artistCD));
+        if ($validationArtist !== true) {
+            return Jsend::fail($validationArtist);
+        } else {
+            foreach ($genres as $genre) {
+                $validationGenre = Genre::validate(array('id' => (int) $genre['id'], 'name_de' => $genre['name_de']));
+                if ($validationGenre !== true) {
+                    return Jsend::fail($validationGenre);
+                } else {
+                    if (!Genre::existTechId((int) $genre['id'])) {
+                        return Jsend::error($genre['name_de'] . ' not found');
+                    }
+                }
+            }
+        }
+        $artist = new Artist();
+        $artist->name = $artistName;
+        $artist->short_description_de = $artistSD;
+        $artist->complete_description_de = $artistCD;
+        $artist->save();
+        foreach ($genres as $genre) {
+            if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
+                $description = new ArtistGenre();
+                $description->artist_id = $artist->id;
+                $description->genre_id = $genre['id'];
+                $description->save();
+            } else {
+                return Jsend::error('description already exists');
+            }
+        }
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+        return Jsend::success($artist->id);
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        //Vérification ACL
+        if (ctype_digit($id)) {
+            $id = (int) $id;
+        }
+        $validationArtist = Artist::validate(array('id' => $id));
+        if ($validationArtist !== true) {
+            return Jsend::fail($validationArtist);
+        }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+        $artist = Artist::find($id);
 
+        if (!isset($artist)) {
+            return Jsend::error('resource not found');
+        }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+        return Jsend::success($artist->toArray());
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
+        // Vérification ACL
+        
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        //
+    }
 
 }
