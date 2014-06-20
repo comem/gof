@@ -35,7 +35,7 @@ class InstrumentsController extends \BaseController {
         $validationInstrum = Instrument::validate(array('instrument' => $instrument));
 
         if ($validationInstrum !== true) {
-            return Jsend::fail($validationInstrum);
+            return Jsend::error("Les données ne sont pas valide");
         }
 
 
@@ -59,15 +59,15 @@ class InstrumentsController extends \BaseController {
         }
 
         if (Instrument::existTechId($id) !== true) {
-            return Jsend::fail($id);
+            return Jsend::error("L'instrument n'existe pas");
         }
 
 
-        $validationInst = Instrument::validate(array('id' => $id));
-
-        if ($validationInst !== true) {
-            return Jsend::fail($validationInst);
-        }
+//        $validationInst = Instrument::validate(array('id' => $id));
+//
+//        if ($validationInst !== true) {
+//            return Jsend::fail($validationInst);
+//        }
 
         // Vérification de l'existence de l'instrument
         $instrument = Instrument::find($id);
