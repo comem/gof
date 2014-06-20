@@ -40,4 +40,9 @@ class Artist extends MyEloquent {
         ));
     }
 
+    public static function existTechId($artistId) {
+        $e = Artist::find($artistId);
+        return $e != null;
+    }
+
 }

@@ -1,6 +1,8 @@
 <?php
 
-class TicketCategories extends \BaseController {
+class NightsPlatformController extends \BaseController {
+
+	//Cette classe correspond à la table "publications" du diagrame de class.
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +11,11 @@ class TicketCategories extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		// Vérification des droits d'accès (ACL)
+			//A réaliser
+
+        // Retourne toutes les publication
+        return  Jsend::success(Platform::all()->toArray());
 	}
 
 
