@@ -17,7 +17,7 @@ Route::get('/', function (){
 });
 
 
-Route::group(array('before' => array('auth', 'acl_rest')), function()
+Route::group(array('before' => array()), function()
 {
     // Permet d'implÃ©menter post avec une architecture REST
 // Permet d'implÃ©menter post avec une architecture REST
