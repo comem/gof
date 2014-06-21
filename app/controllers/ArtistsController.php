@@ -40,7 +40,7 @@ class ArtistsController extends \BaseController {
             if (!Genre::existTechId($genre['id'])) {
                 if (!Genre::existTechId((int) $genre['id'])) {
 
-                    return Jsend::error($genre['name_de'] . ' not found');
+                    return Jsend::error('genre not found');
                 }
             }
 
@@ -49,12 +49,12 @@ class ArtistsController extends \BaseController {
             $artist->short_description_de = $artistSD;
             $artist->complete_description_de = $artistCD;
             $artist->save();
+            
             foreach ($genres as $genre) {
                 if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
-                    $description = new ArtistGenre();
-                    $description->artist_id = $artist->id;
-                    $description->genre_id = $genre['id'];
-                    $description->save();
+
+                    $artist->genres()->attach($genre['id']);
+   
                     return Jsend::success(array("id" => $artist->id));
                 }
                 return Jsend::error('description already exists');
