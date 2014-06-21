@@ -5,11 +5,11 @@ class Night extends MyEloquent {
     protected $table = 'nights';
     public $timestamps = true;
 
-    public function event_types() {
+    public function nighttype() {
         return $this->belongsTo('NightType');
     }
 
-    public function images() {
+    public function image() {
         return $this->belongsTo('Image');
     }
 
