@@ -7,7 +7,7 @@ class ArtistsController extends \BaseController {
      * @return type
      */
     public function index() {
-        return Jsend::success(Artist::all()->toArray());
+        return Jsend::success(Artist::with('genres')->get());
     }
 
     /**
@@ -81,7 +81,7 @@ class ArtistsController extends \BaseController {
             return Jsend::error('resource not found');
         }
 
-        return Jsend::success($artist->toArray());
+        return Jsend::success($artist->with('genres')->find($id));
     }
 
     /**
