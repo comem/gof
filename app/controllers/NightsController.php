@@ -1,6 +1,6 @@
 <?php
 
-class Events extends \BaseController {
+class NightsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.

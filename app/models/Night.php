@@ -6,7 +6,7 @@ class Night extends MyEloquent {
     public $timestamps = true;
 
     public function nighttype() {
-        return $this->belongsTo('NightType');
+        return $this->belongsTo('Nighttype');
     }
 
     public function image() {

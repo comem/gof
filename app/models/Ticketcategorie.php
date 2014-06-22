@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class TicketCategorie extends MyEloquent {
+class Ticketcategorie extends MyEloquent {
 
 	protected $table = 'ticketcategories';
 	public $timestamps = false;
