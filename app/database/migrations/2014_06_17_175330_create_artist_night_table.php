@@ -12,7 +12,7 @@ class CreateArtistNightTable extends Migration {
 			$table->integer('night_id')->unsigned();
 			$table->integer('order');
 			$table->boolean('is_support');
-			$table->timestamp('artist_hour_arrival');
+			$table->datetime('artist_hour_arrival');
 			$table->primary(array('artist_id', 'night_id', 'order'));
 		});
 	}
