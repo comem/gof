@@ -29,7 +29,7 @@ Route::group(array('before' => array()), function()
     Route::resource('nightsplatform', 'NightsPlatformController');
     Route::resource('event_ticketcategorie', 'Event_ticketcategoriesController');
     Route::resource('events', 'EventsController');
-    Route::resource('eventtypes', 'EventtypesController');
+    Route::resource('nighttypes', 'NighttypesController');
     Route::resource('genres', 'GenresController');
     Route::resource('images', 'ImagesController');
     Route::resource('instruments', 'InstrumentsController');
