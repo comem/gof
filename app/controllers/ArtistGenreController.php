@@ -114,7 +114,7 @@ class ArtistGenreController extends \BaseController {
         
        
         if (ArtistGenre::existTechId($artist_id, $genre_id)) {
-            $artistGenre = ArtistGenre::where('artist_id', '=', $artist_id)->where('genre_id', '=', $genre_id);
+            $artistGenre = ArtistGenre::where('artist_id', '=', $artist_id)->where('genre_id', '=', $genre_id)->first();
             $artistGenre->artist_id = $updated_artist_id;
             $artistGenre->genre_id = $updated_genre_id;
             $artistGenre->save();

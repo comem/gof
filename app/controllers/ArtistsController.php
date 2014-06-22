@@ -3,18 +3,16 @@
 class ArtistsController extends \BaseController {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * 
+     * @return type
      */
     public function index() {
         return Jsend::success(Artist::all()->toArray());
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * 
+     * @return type
      */
     public function store() {
         $artistName = Input::get('name');
@@ -32,14 +30,15 @@ class ArtistsController extends \BaseController {
         }
         foreach ($genres as $genre) {
 
-            $validationGenre = Genre::validate(array('id' => (int) $genre['id'], 'name_de' => $genre['name_de']));
+            $validationGenre = Genre::validate(array(
+                'id' => (int) $genre['id'],
+                'name_de' => $genre['name_de']));
             if ($validationGenre !== true) {
                 return Jsend::fail($validationGenre);
             }
 
             if (!Genre::existTechId($genre['id'])) {
                 if (!Genre::existTechId((int) $genre['id'])) {
-
                     return Jsend::error('genre not found');
                 }
             }
@@ -52,10 +51,8 @@ class ArtistsController extends \BaseController {
             
             foreach ($genres as $genre) {
                 if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
-
                     $artist->genres()->attach($genre['id']);
-   
-                    return Jsend::success(array("id" => $artist->id));
+                    return Jsend::success($artist->toArray());
                 }
                 return Jsend::error('description already exists');
             }
