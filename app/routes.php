@@ -22,7 +22,7 @@ Route::group(array('before' => array()), function()
 // Permet d'implÃ©menter post avec une architecture REST
 // Permet d'implÃ©menter post avec une architecture REST
 
-    Route::resource('artist_event', 'Artist_eventsController');
+    Route::resource('artistnight', 'ArtistNightController');
     Route::resource('artistgenre', 'ArtistGenreController');
     Route::resource('artist_musician', 'Artist_musiciansController');
     Route::resource('artists', 'ArtistsController');
