@@ -69,8 +69,8 @@ class Night extends MyEloquent {
                     'contact_src' => 'string|between:1,255|sometimes',
                     'notes' => 'string|between:1,10000|sometimes',
                     'published_at' => 'date|sometimes',
-                    'created_at' => 'date|sometimes|requiered',
-                    'updated_at' => 'date|sometimes|requiered',
+                    'created_at' => 'date|sometimes|required',
+                    'updated_at' => 'date|sometimes|required',
                     'nighttype_id' => 'unsigned|sometimes|required',
                     'image_id' => 'unsigned|sometimes|required',
         ));
