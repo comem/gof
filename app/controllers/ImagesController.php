@@ -4,7 +4,7 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Response
+	 * @return Toutes les images
 	 */
 	public function index()
 	{
@@ -15,7 +15,12 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * @return Response
+	 * @var alt_de a récupérer comme contenu en get. Correspond à XXX de l'image.
+	 * @var caption_de a récupérer comme contenu en get. Correspond à XXX de l'image.
+	 * @var source a récupérer comme contenu en get. Correspond à la source de l'image (emplacement).
+	 * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste.  
+	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+	 * @return Sinon, un message de validation d'enregistrement contenant l'id de l'image créé.
 	 */
 	public function store()
 	{
@@ -57,7 +62,9 @@ class ImagesController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 * @param  int  $id correspondant à l'id technique du lien à voir.
-	 * @return Response
+	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+	 * @return Un message d'erreur si l'id technique est déjà en mémoire.
+	 * @return Sinon, un message de validation d'enregistrement contenant l'image correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
@@ -88,9 +95,9 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 *
+	 * Priorité 1B
 	 * @param  int  $id
-	 * @return Response
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function update($id)
 	{
@@ -103,9 +110,9 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 *
+	 * Ne se fait pas dans l'application (seulement soft delet)
 	 * @param  int  $id
-	 * @return Response
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function destroy($id)
 	{

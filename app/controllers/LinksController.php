@@ -4,8 +4,8 @@ class LinksController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 *
-	 * @return Response
+	 * Priorité 1C
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function index()
 	{
@@ -14,9 +14,6 @@ class LinksController extends \BaseController {
 		* Correspond au READ all des fonctions CRUD
 		*/
 
-		// Vérification des droits d'accès (ACL)
-			// A réaliser
-
         // Retourne tous les liens
        
 	}
@@ -24,7 +21,14 @@ class LinksController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * @return Response
+	 * @var url a récupérer comme contenu en get. Correspond à l'url du lien.
+     * @var name_de a récupérer comme contenu en get. au nom du lien.
+     * @var title_de a récupérer comme contenu en get. Correspond au titre du lien.
+     * @var artist_de a récupérer comme contenu en get. Correspond à l'id de l'artiste.  
+     * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Un message d'erreur si l'artiste n'existe pas.
+     * @return Un message d'erreur si le lien existe déjà.
+     * @return Sinon, un message de validation d'enregistrement contenant l'id du lien créé.
 	 */
 	public function store()
 	{
@@ -77,7 +81,9 @@ class LinksController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 * @param  int  $id correspondant à l'id technique du lien à voir.
-	 * @return Response
+	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Un message d'erreur si l'id technique est déjà en mémoire.
+     * @return Sinon, un message de validation d'enregistrement contenant le lien correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
@@ -109,7 +115,13 @@ class LinksController extends \BaseController {
 	/**
 	 * Update the specified resource in storage.
 	 * @param  int  $id correspondant à l'id technique du lien à modifier
-	 * @return Response
+     * @var url a récupérer comme contenu en get. Correspond à l'url du lien.
+     * @var name_de a récupérer comme contenu en get. au nom du lien.
+     * @var title_de a récupérer comme contenu en get. Correspond au titre du lien.
+	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Un message d'erreur si le lien n'existe pas.
+     * @return Un message d'erreur si l'artiste existe déjà.
+     * @return Sinon, un message de validation de modification contenant le lien correspondant à l'id technique.
 	 */
 	public function update($id)
 	{
@@ -161,9 +173,9 @@ class LinksController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 *
+	 * Priorité 1C
 	 * @param  int  $id
-	 * @return Response
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function destroy($id)
 	{
