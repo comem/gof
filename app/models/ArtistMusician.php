@@ -26,7 +26,7 @@ class ArtistMusician extends MyEloquent {
            
         ));
     }
-    public static function existTechId($instru_id,$artist_id,$musician_id) {
+    public static function existTechId($instrument_id,$artist_id,$musician_id) {
        
         $e = ArtistMusician::where('instrument_id', '=', $instrument_id)
             ->where('artist_id', '=', $artist_id)

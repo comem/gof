@@ -21,9 +21,9 @@ class MusiciansController extends \BaseController {
         $first_name = Input::get('first_name');
         $last_name = Input::get('last_name');
         $stagename = Input::get('stagename');
-        $instrumentArtist = Input::get('instrument');
-        
-     
+        $artistsInstruments = Input::get('artistsInstruments');
+
+
 
 
         $validationMusician = Musician::validate(array('first_name' => $first_name,
@@ -33,30 +33,28 @@ class MusiciansController extends \BaseController {
         if ($validationMusician !== true) {
             return Jsend::fail($validationMusician);
         }
-   
-        foreach ($instruments as $instru) {
 
-            $validationInstru = Instrument::validate(array('id' => (int) $instru['id'], 'name_de' => $instru['name_de']));
+        foreach ($artistsInstruments as $aI) {
+
+            $validationInstru = Instrument::validate(array('id' => (int) $aI['instrument_id']));
             if ($validationInstru !== true) {
                 return Jsend::fail($validationInstru);
             }
 
-            if (!Instrument::existTechId((int) $instru['id'])) {
-                return Jsend::error($instru['id'] . ' not found');
+            if (!Instrument::existTechId((int) $aI['instrument_id'])) {
+                return Jsend::error($aI['instrument_id'] . ' not found');
             }
-        }
-        
-        foreach ($artists as $artist) {
 
-            $validationArt = Artist::validate(array('id' => (int) $artist['id']));
+            $validationArt = Artist::validate(array('id' => (int) $aI['artist_id']));
             if ($validationArt !== true) {
                 return Jsend::fail($validationArt);
             }
 
-            if (!Artist::existTechId((int) $artist['id'])) {
-                return Jsend::error($artist['id'] . ' not found');
+            if (!Artist::existTechId((int) $aI['artist_id'])) {
+                return Jsend::error($aI['artist_id'] . ' not found');
             }
         }
+
 
 
         $musician = new Musician();
@@ -64,22 +62,33 @@ class MusiciansController extends \BaseController {
         $musician->last_name = $last_name;
         $musician->stagename = $stagename;
         $musician->save();
-        
-        dd($instruments);
 
-        foreach ($artists as $artist) {
-            foreach ($instruments as $instru) {
-                if (!ArtistMusician::existTechId($instru->id, $artist->id,$musician->id)) {
-                    $artistMusician = new ArtistMusician();
-                    $artistMusician->artist_id = $artist->id;
-                    $artistMusician->musician_id = $musician->id;
-                    $artistMusician->instrument_id = $instru->id;
-                    $artistMusician->save();
-                } else {
-                    return Jsend::error('$artistMusician already exists');
-                }
+
+        foreach ($artistsInstruments as $aI) {
+           
+            
+             $validationArtMus = ArtistMusician::validate(array('musician_id' => $musician->id,
+                'artist_id' => (int) $aI['artist_id'],
+                'instrument_id' => (int) $aI['instrument_id']));
+             
+               if ($validationArtMus!== true) {
+                return Jsend::fail($validationArtMus);
             }
+            
+             if (ArtistMusician::existTechId((int) $aI['instrument_id'],(int) $aI['artist_id'],$musician->id))
+                
+                {
+                return Jsend::error('assoicate ArtistMusician already exist');
+            }
+            
+             
+            $artistMusician = new ArtistMusician();
+            $artistMusician->musician_id = $musician->id;
+            $artistMusician->artist_id = (int) $aI['artist_id'];
+            $artistMusician->instrument_id = (int) $aI['instrument_id'];
+            $artistMusician->save();
         }
+
 
         return Jsend::success(array('first_name' => $first_name,
                     'last_name' => $last_name,
