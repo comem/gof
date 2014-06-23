@@ -24,7 +24,7 @@ Route::group(array('before' => array()), function()
 
     Route::resource('artistnight', 'ArtistNightController');
     Route::resource('artistgenre', 'ArtistGenreController');
-    Route::resource('artist_musician', 'Artist_musiciansController');
+    Route::resource('artistmusician', 'ArtistMusicianController');
     Route::resource('artists', 'ArtistsController');
     Route::resource('nightsplatform', 'NightsPlatformController');
     Route::resource('nightticketcategorie', 'NightTicketcategorieController');
