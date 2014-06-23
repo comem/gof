@@ -40,5 +40,16 @@ Route::group(array('before' => array()), function()
     Route::resource('index', 'IndexController');
 });
 
+
+Route::group(
+    array (
+        'prefix'    => 'api/v1',
+        'namespace' => 'api\v1',
+        'before'    => array(/*'auth', 'acl_rest'*/),
+    ), function() {
+        Route::resource('artists', 'ArtistsController');
+    }
+);
+
 // Routage pour le controller de la gestion des authentifications
 Route::controller('/auth', 'AuthController');
