@@ -29,16 +29,19 @@ class ArtistsController extends \BaseController {
             return Jsend::fail($validationArtist);
         }
         foreach ($genres as $genre) {
+            if (ctype_digit($genre['id'])) {
+                $genre['id'] = (int) $genre['id'];
+            }
 
             $validationGenre = Genre::validate(array(
-                'id' => (int) $genre['id'],
-                'name_de' => $genre['name_de']));
+                        'id' => $genre['id'],
+                        'name_de' => $genre['name_de']));
             if ($validationGenre !== true) {
                 return Jsend::fail($validationGenre);
             }
 
             if (!Genre::existTechId($genre['id'])) {
-                if (!Genre::existTechId((int) $genre['id'])) {
+                if (!Genre::existTechId($genre['id'])) {
                     return Jsend::error('genre not found');
                 }
             }
@@ -48,7 +51,7 @@ class ArtistsController extends \BaseController {
             $artist->short_description_de = $artistSD;
             $artist->complete_description_de = $artistCD;
             $artist->save();
-            
+
             foreach ($genres as $genre) {
                 if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
                     $artist->genres()->attach($genre['id']);
