@@ -18,7 +18,7 @@ class MusiciansController extends BaseController {
      */
     public function index() {
 
-        //
+          return Jsend::success(Musician::all()->toArray());
     }
 
     /**
@@ -181,5 +181,7 @@ class MusiciansController extends BaseController {
     public function destroy($id) {
         //
     }
+    
+ 
 
 }

@@ -118,7 +118,8 @@ class ArtistMusicianController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        
+        // mettre les parametre get. il va le trouver dans la requete.
     }
 
     /**
@@ -131,4 +132,5 @@ class ArtistMusicianController extends \BaseController {
         //
     }
 
+    
 }

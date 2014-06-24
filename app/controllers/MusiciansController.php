@@ -5,11 +5,11 @@ class MusiciansController extends \BaseController {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return l'ensemble pérstitant des musiciens
      */
     public function index() {
 
-        //
+       return Jsend::success(Musician::all()->toArray());
     }
 
     /**
