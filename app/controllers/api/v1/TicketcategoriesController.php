@@ -3,7 +3,6 @@
 namespace api\v1;
 
 use \Jsend;
-use \Input;
 use \Ticketcategorie;
 use \BaseController;
 

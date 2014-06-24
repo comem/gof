@@ -16,7 +16,11 @@ Route::get('/', function (){
     return Redirect::to(URL::action('AuthController@getIndex'));
 });
 
+<<<<<<< HEAD
 
+=======
+//array('auth', 'acl_rest')
+>>>>>>> master
 Route::group(array('before' => array('auth')), function()
 {
 // Permet d'implÃ©menter post avec une architecture REST
@@ -36,7 +40,7 @@ Route::group(array('before' => array('auth')), function()
     Route::resource('links', 'LinksController');
     Route::resource('musicians', 'MusiciansController');
     Route::resource('platforms', 'PlatformsController');
-    Route::resource('ticketcategories', 'TicketCategoriesController');
+    Route::resource('ticketcategories', 'TicketcategoriesController');
     Route::resource('index', 'IndexController');
 });
 

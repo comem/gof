@@ -17,7 +17,7 @@ class Genre extends MyEloquent {
 
     public static function validate($data = array()) {
         return parent::validator($data, array(
-                    'id' => 'unsigned|sometimes|required',
+                    'id' => 'integer:unsigned|sometimes|required',
                     'name_de' => 'string|between:1,255|sometimes|required',
                     'deleted_at' => 'datetime|sometimes',
         ));

@@ -44,10 +44,24 @@ class Night extends MyEloquent {
     public function artists() {
         return $this->belongsToMany('Artist');
     }  
+<<<<<<< HEAD
 
     public function artistNights(){
         return $this->hasMany('ArtistNight');
     }
+=======
+    
+    public static function comparison_date ($start_date_hour, $end_date_hour)
+    {
+        if (mktime($start_date_hour)<mktime($end_date_hour))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+   
+>>>>>>> master
 
     /**
      * Cette méthode vérifie l'existant due l'événement selon son identifiant métier.
@@ -81,23 +95,23 @@ class Night extends MyEloquent {
      */
     public function validate($data = array()) {
         return parent::validator($data, array(
-                    'id' => 'unsigned|sometimes|required',
+                    'id' => 'integer:unsigned|sometimes|required',
                     'start_date_hour' => 'date|sometimes|required|unique:nights',
                     'ending_date_hour' => 'date|sometimes|required',
                     'opening_doors' => 'date|sometimes',
                     'title_de' => 'string|between:1,255|sometimes|requiered',
-                    'nb_meal' => 'unsigned|sometimes|required',
-                    'nb_vegans_meal' => 'unsigned|sometimes|required',
+                    'nb_meal' => 'integer:unsigned|sometimes|required',
+                    'nb_vegans_meal' => 'integer:unsigned|sometimes|required',
                     'meal_notes' => 'string|between:1,10000|sometimes',
-                    'nb_places' => 'unsigned|sometimes|required',
+                    'nb_places' => 'integer:unsigned|sometimes|required',
                     'followed_by_private' => 'sometimes|required',
                     'contact_src' => 'string|between:1,255|sometimes',
                     'notes' => 'string|between:1,10000|sometimes',
                     'published_at' => 'date|sometimes',
                     'created_at' => 'date|sometimes|required',
                     'updated_at' => 'date|sometimes|required',
-                    'nighttype_id' => 'unsigned|sometimes|required',
-                    'image_id' => 'unsigned|sometimes|required',
+                    'nighttype_id' => 'integer:unsigned|sometimes|required',
+                    'image_id' => 'integer:unsigned|sometimes|required',
         ));
     }
 

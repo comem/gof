@@ -16,8 +16,8 @@ class NightPlatform extends MyEloquent {
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
-            'platform_id' => 'unsigned|sometimes|required',
-            'night_id' => 'unsigned|sometimes|required',
+            'platform_id' => 'integer:unsigned|sometimes|required',
+            'night_id' => 'integer:unsigned|sometimes|required',
             'external_id' => 'string|between:1,255|sometimes|required',
             'external_infos' => 'string|between:1,10000|sometimes',
             'url' => 'string|between:1,255|sometimes|required',
