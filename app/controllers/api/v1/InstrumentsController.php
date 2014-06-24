@@ -1,6 +1,13 @@
 <?php
+namespace api\v1;
 
-class InstrumentsController extends \BaseController {
+use \Jsend;
+use \Input;
+use \Link;
+use \Artist;
+use \BaseController;
+
+class InstrumentsController extends BaseController {
 
     /**
      * Display a listing of the resource.
