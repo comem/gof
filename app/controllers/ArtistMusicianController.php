@@ -13,12 +13,16 @@ class ArtistMusicianController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
-     * Permet d'enregistré une nouvelle association entre un musician , un instrument et un artist
-     * @var instrument_id(int), id de l'instrument
-     * @var artist_id(int), id de l'artist
-     * @var musician_id(int), id du musician 
+     * Permet d'enregistrer une nouvelle association entre un musician , un instrument et un artist
+     * @var instrument_id(int): id de l'instrument
+     * @var artist_id(int): id de l'artist
+     * @var musician_id(int): id du musician 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
+     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas.
+     * @return Jsend::error Un message d'erreur si le musician n'existe pas.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations des données enregistrée.
      * 
-     * @return Response JSON 
      */
     public function store() {
 
