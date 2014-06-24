@@ -176,7 +176,7 @@ class NightPlatformController extends \BaseController {
         $external_infos = Input::get('external_infos');
         $url = Input::get('url');
 
-        //Cast de platform_id et de event_id car l'url les envoit en String
+        //Cast de platform_id et de night_id car l'url les envoit en String
         if (ctype_digit($platform_id)) {
             $platform_id = (int)$platform_id;
         }
@@ -212,8 +212,9 @@ class NightPlatformController extends \BaseController {
         }
 
         // Récupération de la publication
-        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->get();
-        
+        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
+        //return Jsend::success($publication);
+
         // Tout est OK, mise-à-jour de la publication
         $publication->external_id = $external_id;
         $publication->external_infos = $external_infos;
