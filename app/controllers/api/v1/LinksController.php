@@ -1,14 +1,6 @@
 <?php
 
-namespace api\v1;
-
-use \Jsend;
-use \Input;
-use \Link;
-use \Artist;
-use \BaseController;
-
-class LinksController extends BaseController {
+class LinksController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -33,10 +25,10 @@ class LinksController extends BaseController {
      * @var name_de a récupérer comme contenu en get. au nom du lien.
      * @var title_de a récupérer comme contenu en get. Correspond au titre du lien.
      * @var artist_de a récupérer comme contenu en get. Correspond à l'id de l'artiste.  
-     * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Un message d'erreur si l'artiste n'existe pas.
-     * @return Un message d'erreur si le lien existe déjà.
-     * @return Sinon, un message de validation d'enregistrement contenant l'id du lien créé.
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
+     * @return Jsend::error Un message d'erreur si le lien existe déjà.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'id du lien créé.
 	 */
 	public function store()
 	{
@@ -89,9 +81,9 @@ class LinksController extends BaseController {
 	/**
 	 * Display the specified resource.
 	 * @param  int  $id correspondant à l'id technique du lien à voir.
-	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Sinon, un message de validation d'enregistrement contenant le lien correspondant à l'id technique.
+	 * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le lien correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
@@ -126,10 +118,10 @@ class LinksController extends BaseController {
      * @var url a récupérer comme contenu en get. Correspond à l'url du lien.
      * @var name_de a récupérer comme contenu en get. au nom du lien.
      * @var title_de a récupérer comme contenu en get. Correspond au titre du lien.
-	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Un message d'erreur si le lien n'existe pas.
-     * @return Un message d'erreur si l'artiste existe déjà.
-     * @return Sinon, un message de validation de modification contenant le lien correspondant à l'id technique.
+	 * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si le lien n'existe pas.
+     * @return Jsend::error Un message d'erreur si l'artiste existe déjà.
+     * @return Jsend::success Sinon, un message de validation de modification contenant le lien correspondant à l'id technique.
 	 */
 	public function update($id)
 	{
