@@ -50,6 +50,10 @@ class InstrumentsController extends \BaseController {
      */
     public function show($instrument_id) {
         // Auth
+        
+          $test= Request::header('hey');
+        dd($test);
+        
         if (ctype_digit($instrument_id)) {
             $instrument_id = (int) $instrument_id;
         }
