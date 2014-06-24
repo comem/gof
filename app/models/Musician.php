@@ -19,7 +19,7 @@ class Musician extends MyEloquent {
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
-            'id'      => 'unsigned|sometimes|required',
+            'id'      => 'integer:unsigned|sometimes|required',
             'first_name' => 'string|between:1,255|sometimes|required',
             'last_name' => 'string|between:1,255|sometimes',
             'stagename' => 'string|between:1,255|sometimes',

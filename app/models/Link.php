@@ -23,11 +23,11 @@ class Link extends MyEloquent {
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
-            'id' => 'unsigned|sometimes|required',
+            'id' => 'integer:unsigned|sometimes|required',
             'url' => 'string|between:1,255|sometimes|required|unique:links',
             'name_de' => 'string|between:1,255|sometimes|required',
             'title_de' => 'string|between:1,255|sometimes',
-            'artist_id' => 'unsigned|sometimes|required',
+            'artist_id' => 'integer:unsigned|sometimes|required',
         ));
     }
 

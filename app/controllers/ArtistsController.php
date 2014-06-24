@@ -53,12 +53,9 @@ class ArtistsController extends \BaseController {
             $artist->save();
 
             foreach ($genres as $genre) {
-                if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
-                    $artist->genres()->attach($genre['id']);
-                    return Jsend::success($artist->toArray());
-                }
-                return Jsend::error('description already exists');
+                $artist->genres()->attach($genre['id']);
             }
+            return Jsend::success($artist->toArray());
         }
     }
 

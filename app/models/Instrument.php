@@ -20,7 +20,7 @@ class Instrument extends MyEloquent {
     {
            
         return parent::validator($data, array(
-            'id' => 'unsigned|sometimes|required',
+            'id' => 'integer:unsigned|sometimes|required',
             'name_de' => 'string|between:1,255|sometimes|required',
             'created_at' => 'date|sometimes|required',
             'updated_at' => 'date|sometimes|required',

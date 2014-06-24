@@ -7,9 +7,9 @@ class ArtistNight extends MyEloquent {
 
     public static function validate($data = array()) {
         return parent::validator($data, array(
-                    'artist_id' => 'unsigned|sometimes|required',
-                    'night_id' => 'unsigned|sometimes|required',
-                    'order_id' => 'unsigned|sometimes|required',
+                    'artist_id' => 'integer:unsigned|sometimes|required',
+                    'night_id' => 'integer:unsigned|sometimes|required',
+                    'order_id' => 'index:unsigned|sometimes|required',
                     'is_support' => 'sometimes|required',
                     'artist_hour_of_arrival' => 'date|sometimes|required'
         ));

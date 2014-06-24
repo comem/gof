@@ -22,12 +22,14 @@ class ArtistsController extends BaseController {
 
     /**
      * Permet d'enregistrer un nouvel artist
-     * @param (string) name - Le nom de l'artist
-     * @param (string) short_description_de - Une courte description de l'artist
-     * @param (string) complete_description_de - Une description complete de l'artist
-     * @param (array) genre - Les genres de l'artist
+     * @var (string) name - Le nom de l'artist
+     * @var (string) short_description_de - Une courte description de l'artist
+     * @var (string) complete_description_de - Une description complete de l'artist
+     * @var (array) genre - Les genres de l'artist
      * 
-     * @return jsend
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si le genre n'existe pas.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'artist créé.
      */
     public function store() {
         $artistName = Input::get('name');
@@ -41,7 +43,7 @@ class ArtistsController extends BaseController {
                     'complete_description_de' => $artistCD,
         ));
         if ($validationArtist !== true) {
-            return Jsend::fail($validationArtist);
+            return Jsend::fail($validationArtist, 400);
         }
         foreach ($genres as $genre) {
             if (ctype_digit($genre['id'])) {
@@ -52,12 +54,12 @@ class ArtistsController extends BaseController {
                         'id' => $genre['id'],
                         'name_de' => $genre['name_de']));
             if ($validationGenre !== true) {
-                return Jsend::fail($validationGenre);
+                return Jsend::fail($validationGenre, 400);
             }
 
             if (!Genre::existTechId($genre['id'])) {
                 if (!Genre::existTechId($genre['id'])) {
-                    return Jsend::error('genre not found');
+                    return Jsend::error('genre not found', 404);
                 }
             }
 
@@ -81,7 +83,8 @@ class ArtistsController extends BaseController {
      * Permet d'afficher un artist
      *
      * @param  int  $id - l'id de l'artist à afficher
-     * @return jsend
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::success Sinon, un artist avec genre correspondant l'enregistrement demandé.
      */
     public function show($id) {
 
@@ -90,26 +93,28 @@ class ArtistsController extends BaseController {
         }
         $validationArtist = Artist::validate(array('id' => $id));
         if ($validationArtist !== true) {
-            return Jsend::fail($validationArtist);
+            return Jsend::fail($validationArtist, 400);
         }
 
         $artist = Artist::find($id);
 
         if (!isset($artist)) {
-            return Jsend::error('resource not found');
+            return Jsend::error('resource not found', 404);
         }
 
-        return Jsend::success($artist->with('genres')->find($id));
+        return Jsend::success($artist->with('genres')->find($id), 200);
     }
 
     /**
      * Permet de modifier un artist
-     * @param  int  $id - l'id de l'artist à modifier
-     * @param (string) name - Le nom de l'artist
-     * @param (string) short_description_de - Une courte description de l'artist
-     * @param (string) complete_description_de - Une description complete de l'artist
+     * @param int $id - l'id de l'artist a modifier
+     * @var (string) name - Le nom de l'artist
+     * @var (string) short_description_de - Une courte description de l'artist
+     * @var (string) complete_description_de - Une description complete de l'artist
      * 
-     * @return jsend
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'artist à modifier n'existe pas.
+     * @return Jsend::success Sinon, un message de validation de modification de l'artist concerné.
      */
     public function update($id) {
 

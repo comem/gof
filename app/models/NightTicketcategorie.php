@@ -8,10 +8,10 @@ class NightTicketcategorie extends MyEloquent {
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
-            'ticketcategorie_id' => 'unsigned|sometimes|required',
-            'night_id' => 'unsigned|sometimes|required',
-            'amount' => 'unsigned|sometimes|required',
-            'quantity_sold' => 'unsigned|sometimes',
+            'ticketcategorie_id' => 'integer:unsigned|sometimes|required',
+            'night_id' => 'integer:unsigned|sometimes|required',
+            'amount' => 'integer:unsigned|sometimes|required',
+            'quantity_sold' => 'integer:unsigned|sometimes',
             'comment' => 'string|between:1,255|sometimes',
         ));
     }
