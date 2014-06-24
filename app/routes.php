@@ -26,17 +26,10 @@ Route::group(array('before' => array()), function()
     Route::resource('artistgenre', 'ArtistGenreController');
     Route::resource('artistmusician', 'ArtistMusicianController');
     Route::resource('artists', 'ArtistsController');
-<<<<<<< HEAD
     Route::resource('nightplatform', 'NightPlatformController');
-    Route::resource('event_ticketcategorie', 'Event_ticketcategoriesController');
-    Route::resource('events', 'EventsController');
-    Route::resource('eventtypes', 'EventtypesController');
-=======
-    Route::resource('nightsplatform', 'NightsPlatformController');
     Route::resource('nightticketcategorie', 'NightTicketcategorieController');
     Route::resource('nights', 'NightsController');
     Route::resource('nighttypes', 'NighttypesController');
->>>>>>> master
     Route::resource('genres', 'GenresController');
     Route::resource('images', 'ImagesController');
     Route::resource('instruments', 'InstrumentsController');
@@ -55,6 +48,7 @@ Route::group(
         'before'    => array(/*'auth', 'acl_rest'*/),
     ), function() {
         Route::resource('artists', 'ArtistsController');
+        Route::resource('nightplatform', 'NightPlatformController');
     }
 );
 
