@@ -4,7 +4,7 @@ class PlatformsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Response
+	 * @return Toutes les plateformes
 	 */
 	public function index()
 	{
@@ -15,8 +15,8 @@ class PlatformsController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
+	 * En dur dans la base de donnée (1D)
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function store()
 	{
@@ -30,7 +30,9 @@ class PlatformsController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 * @param  int  $id correspondant à l'id technique de la plateforme à voir
-	 * @return Response
+	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Un message d'erreur si l'id technique est déjà en mémoire.
+     * @return Sinon, un message de validation d'enregistrement contenant la plateforme correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
@@ -64,9 +66,9 @@ class PlatformsController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 *
+	 * Priorité 1C
 	 * @param  int  $id
-	 * @return Response
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function update($id)
 	{
@@ -79,9 +81,9 @@ class PlatformsController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 *
+	 * Priorité 1C
 	 * @param  int  $id
-	 * @return Response
+	 * @return Rien (fonction non réalisée pour le moment)
 	 */
 	public function destroy($id)
 	{
