@@ -67,10 +67,8 @@ class NightPlatformController extends \BaseController {
         // de cet événement. C'est-à-dire min 1 is_support à false
         $performers = Night::find($night_id)->artists;
         foreach ($performers as $performer) {
-            printf($performer->pivot); 
-            printf("is_support = ");
-            printf($performer->pivot->is_support);
             $p = $performer->pivot->is_support;
+            printf($p);
         }
         dd($p);
         //return Jsend::success($performers);
