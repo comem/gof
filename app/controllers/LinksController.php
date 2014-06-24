@@ -32,8 +32,6 @@ class LinksController extends \BaseController {
 	 */
 	public function store()
 	{
-		// Vérification des droits d'accès (ACL)
-			//A réaliser
         $url = Input::get('url');
         $name_de = Input::get('name_de');
         $title_de = Input::get('title_de');
@@ -125,9 +123,6 @@ class LinksController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		// Vérification des droits d'accès (ACL)
-			//A réaliser
-
         // Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
 		// Par contre la conversion se fait que pour des chaines Ok.
         if (ctype_digit($id)) {
@@ -162,7 +157,7 @@ class LinksController extends \BaseController {
             return Jsend::error('link already exists in the database');
         }
 
-        // Tout est OK, on mets à jour notre lien
+        // Tout est OK, mise-à-jour du notre lien
         $link->url = $url;
         $link->name_de = $name_de;
         $link->title_de = $title_de;
