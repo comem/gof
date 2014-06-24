@@ -30,7 +30,7 @@ class Platform extends MyEloquent {
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
-            'id' => 'unsigned|sometimes|required',
+            'id' => 'integer:unsigned|sometimes|required',
             'name' => 'string|between:1,255|sometimes|requiered|unique:platforms',
             'client_id' => 'string|between:1,255|sometimes',
             'client_secret' => 'string|between:1,255|sometimes',

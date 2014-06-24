@@ -8,8 +8,8 @@ class ArtistGenre extends MyEloquent {
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
-            'artist_id' => 'unsigned|sometimes|required',
-            'genre_id' => 'unsigned|sometimes|required',
+            'artist_id' => 'integer:unsigned|sometimes|required',
+            'genre_id' => 'integer:unsigned|sometimes|required',
         ));
     }
     
