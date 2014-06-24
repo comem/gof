@@ -5,19 +5,18 @@ class InstrumentsController extends \BaseController {
     /**
      * Display a listing of the resource.
      *
-     * @return Response retourn tout les instruments de la table
+     * @return Response : retourne tout les instruments de la table
      */
     public function index() {
-        // Auth
-
 
         return Jsend::success(Instrument::all()->toArray());
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response Message de succes
+     * @var name_de(string): name de l'instrument , id metier 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'instrument existe déjà dans la base de données.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations des données enregistrée.
      */
     public function store() {
         // Auth
@@ -36,8 +35,6 @@ class InstrumentsController extends \BaseController {
             return Jsend::fail($validationInstrum);
         }
 
-
-
         $newinstrument = new Instrument();
         $newinstrument->name_de = $name_de;
         $newinstrument->save();
@@ -47,27 +44,22 @@ class InstrumentsController extends \BaseController {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id id de l'instrument
-     * @return Response l'instrument correspondant à l'id
+     * @var $id : identifiant technique de l'instrument 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas dans la base de données.
+     * @return Jsend::success Sinon, un message de validation  contenant les informations des données demandée.
      */
-    public function show($id) {
+    public function show($instrument_id) {
         // Auth
-        if (ctype_digit($id)) {
-            $id = (int) $id;
+        if (ctype_digit($instrument_id)) {
+            $instrument_id = (int) $instrument_id;
         }
 
-        if (Instrument::existTechId($id) !== true) {
+        if (Instrument::existTechId($instrument_id) !== true) {
             return Jsend::error("instrument dosen't exists in the database");
         }
 
-
-//        $validationInst = Instrument::validate(array('id' => $id));
-//
-//        if ($validationInst !== true) {
-//            return Jsend::fail($validationInst);
-//        }
-        // Vérification de l'existence de l'instrument
-        $instrument = Instrument::find($id);
+        $instrument = Instrument::find($instrument_id);
 
         if (!isset($instrument)) {
             return Jsend::error('resource not found');
@@ -77,14 +69,13 @@ class InstrumentsController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @var $id : identifiant technique de l'instrument 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas dans la base de données.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations à jour.
      */
     public function update($id) {
-        //Auth
-        // Validation des données et retour des messages en JSEND
+    
 
         if (ctype_digit($id)) {
             $id = (int) $id;
@@ -96,12 +87,10 @@ class InstrumentsController extends \BaseController {
                     'name_de' => $inst,
                     'id' => $id
         ));
-
-
+        
         if ($validationInst !== true) {
             return Jsend::fail($validationMsg);
         }
-        // Vérification de l'existence du message
 
         $instrument = Instrument::find($id);
         if (!isset($instrument)) {
@@ -110,14 +99,15 @@ class InstrumentsController extends \BaseController {
         // Tout est OK, on mets à jour notre message
         $instrument->message = $inst;
         $instrument->save();
-        return Jsend::success();
+        return Jsend::success($instrument->toArray());
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @var $id : identifiant technique de l'instrument à supprimer
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas dans la base de données.
+     * @return Jsend::success Sinon, un message de validation de suppression.
      */
     public function destroy($id) {
         //auth
