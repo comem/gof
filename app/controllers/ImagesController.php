@@ -4,7 +4,7 @@ class ImagesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Toutes les images
+	 * @return Jsend::success Toutes les images
 	 */
 	public function index()
 	{
@@ -19,8 +19,8 @@ class ImagesController extends \BaseController {
 	 * @var caption_de a récupérer comme contenu en get. Correspond à XXX de l'image.
 	 * @var source a récupérer comme contenu en get. Correspond à la source de l'image (emplacement).
 	 * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste.  
-	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-	 * @return Sinon, un message de validation d'enregistrement contenant l'id de l'image créé.
+	 * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+	 * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'id de l'image créé.
 	 */
 	public function store()
 	{
@@ -62,9 +62,9 @@ class ImagesController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 * @param  int  $id correspondant à l'id technique du lien à voir.
-	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-	 * @return Un message d'erreur si l'id technique est déjà en mémoire.
-	 * @return Sinon, un message de validation d'enregistrement contenant l'image correspondant à l'id technique.
+	 * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+	 * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
+	 * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'image correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
