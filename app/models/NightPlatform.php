@@ -28,20 +28,6 @@ class NightPlatform extends MyEloquent {
         ));
     }
 
-    // public static function updateWithHybridID($p){
-    //     DB::table('night_platform')
-    //         ->where(function($query, $p)
-    //         {
-    //             $query->where('night_id', '=', $p->night_id)
-    //                   ->where('platform_id', '=', $p->platform_id);
-    //         })
-    //         ->update(array(
-    //             'external_id' => $p->external_id
-    //         ));
-
-    //     dd("update OK");
-    // }
-
     /**
      * Cette méthode vérifie l'existant de la publication selon son identifiant hybride.
      * @param int $event_id Un id technique formant la clé primaire hybride.
