@@ -20,7 +20,7 @@ class NightsController extends \BaseController {
         $start_date_hour = Input::get('start_date_hour');
         $ending_date_hour = Input::get('ending_date_hour');
         $opening_doors = Input::get('opening_doors');
-        $title_de = Input::get('opening_doors');
+        $title_de = Input::get('title_de');
         $nb_meal = Input::get('nb_meal');
         $nb_vegans_meal = Input::get('nb_vegans_meal');
         $meal_notes = Input::get('meal_notes');
@@ -30,6 +30,8 @@ class NightsController extends \BaseController {
         $notes = Input::get('notes');
         $nighttype_id = Input::get('nighttype_id');
         $image_id = Input::get('image_id');
+        $ticket_categorie = Input::get('ticket_categorie');
+
 
 
 
