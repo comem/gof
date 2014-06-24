@@ -4,11 +4,13 @@ namespace api\v1;
 
 use \Jsend;
 use \Input;
+use \DB;
 use \Genre;
 use \Artist;
-use \ArtistGenre;
+use \Musician;
+use \ArtistMusician;
+use \Instrument;
 use \BaseController;
-
 
 class ArtistsController extends BaseController {
 
@@ -35,16 +37,32 @@ class ArtistsController extends BaseController {
         $artistName = Input::get('name');
         $artistSD = Input::get('short_description_de');
         $artistCD = Input::get('complete_description_de');
-        $genres = Input::get('genre');
+        $genres = Input::get('genres');
+        $musicianInstruments = Input::get('musicianInstruments');
+        $musicians = Input::get('musicians');
+
+
+
+        DB::beginTransaction();
 
         $validationArtist = Artist::validate(array(
                     'name' => $artistName,
                     'short_description_de' => $artistSD,
                     'complete_description_de' => $artistCD,
         ));
+
+
         if ($validationArtist !== true) {
             return Jsend::fail($validationArtist, 400);
         }
+
+        $artist = new Artist();
+        $artist->name = $artistName;
+        $artist->short_description_de = $artistSD;
+        $artist->complete_description_de = $artistCD;
+        $artist->save();
+
+
         foreach ($genres as $genre) {
             if (ctype_digit($genre['id'])) {
                 $genre['id'] = (int) $genre['id'];
@@ -52,31 +70,98 @@ class ArtistsController extends BaseController {
 
             $validationGenre = Genre::validate(array(
                         'id' => $genre['id'],
-                        'name_de' => $genre['name_de']));
+            ));
             if ($validationGenre !== true) {
+
                 return Jsend::fail($validationGenre, 400);
             }
 
             if (!Genre::existTechId($genre['id'])) {
                 if (!Genre::existTechId($genre['id'])) {
+
                     return Jsend::error('genre not found', 404);
                 }
             }
+            $artist->genres()->attach($genre['id']);
+        }
 
-            $artist = new Artist();
-            $artist->name = $artistName;
-            $artist->short_description_de = $artistSD;
-            $artist->complete_description_de = $artistCD;
-            $artist->save();
 
-            foreach ($genres as $genre) {
-                if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
-                    $artist->genres()->attach($genre['id']);
-                    return Jsend::success($artist->toArray(), 201);
+        if (isset($musicianInstruments)) {
+            foreach ($musicianInstruments as $musicianInstrument) {
+                if (ctype_digit($musicianInstrument['musician_id'])) {
+                    $musicianInstrument['musician_id'] = (int) $musicianInstrument['musician_id'];
                 }
-                return Jsend::error('description already exists');
+                if (ctype_digit($musicianInstrument['instrument_id'])) {
+                    $musicianInstrument['instrument_id'] = (int) $musicianInstrument['instrument_id'];
+                }
+
+                $musician_id = $musicianInstrument['musician_id'];
+                $instrument_id = $musicianInstrument['instrument_id'];
+                $validationMusician = Musician::validate(array('id' => $musician_id));
+                if ($validationMusician !== true) {
+                    return Jsend::fail($validationMusician, 400);
+                }
+
+                if (!Musician::existTechId($musician_id)) {
+                    return Jsend::error('musician id :' . $musician_id . ' not found');
+                }
+
+                $validationInstrument = Instrument::validate(array('id' => $instrument_id));
+                if ($validationMusician !== true) {
+                    return Jsend::fail($validationInstrument, 400);
+                }
+
+                if (!Instrument::existTechId($instrument_id)) {
+                    return Jsend::error('instrument id :' . $instrument_id . ' not found', 404);
+                }
+                $artistMusician = new ArtistMusician();
+                $artistMusician->musician_id = $musician_id;
+                $artistMusician->artist_id = $artist->id;
+                $artistMusician->instrument_id = $instrument_id;
+                $artistMusician->save();
             }
         }
+
+        if (isset($musicians)) {
+
+            foreach ($musicians as $musician) {
+                $first_name = $musician['first_name'];
+                $last_name = $musician['last_name'];
+                $stagename = $musician['stagename'];
+                $musicianInstrument_id = $musician['instrument_id'];
+                $validationInstrument = Instrument::validate(array('id' => $musicianInstrument_id));
+                $validationMusician = Musician::validate(array(
+                            'first_name' => $first_name,
+                            'last_name' => $last_name,
+                            'stagename' => $stagename
+                ));
+
+                if ($validationMusician !== true) {
+                    return Jsend::fail($validationMusician, 400);
+                }
+
+                if ($validationInstrument !== true) {
+                    return Jsend::fail($validationInstrument, 400);
+                }
+
+                if (Instrument::existTechId($musicianInstrument_id) !== true) {
+                    return Jsend::error("instrument dosen't exists in the database", 404);
+                }
+
+                $musicianToSave = new Musician();
+                $musicianToSave->first_name = $first_name;
+                $musicianToSave->last_name = $last_name;
+                $musicianToSave->stagename = $stagename;
+                $musicianToSave->save();
+                $artistMusician = new ArtistMusician();
+                $artistMusician->musician_id = $musicianToSave->id;
+                $artistMusician->artist_id = $artist->id;
+                $artistMusician->instrument_id = $musicianInstrument_id;
+                $artistMusician->save();
+            }
+        }
+        DB::commit();
+        return Jsend::success($artist->toArray());
     }
 
     /**
