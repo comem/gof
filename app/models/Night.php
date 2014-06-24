@@ -43,7 +43,11 @@ class Night extends MyEloquent {
 
     public function artists() {
         return $this->belongsToMany('Artist');
-    }    
+    }  
+
+    public function artistNights(){
+        return $this->hasMany('ArtistNight');
+    }
 
     /**
      * Cette méthode vérifie l'existant due l'événement selon son identifiant métier.
