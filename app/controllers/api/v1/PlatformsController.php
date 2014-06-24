@@ -5,7 +5,6 @@ namespace api\v1;
 use \Jsend;
 use \Input;
 use \Platform;
-use \Artist;
 use \BaseController;
 
 class PlatformsController extends BaseController {

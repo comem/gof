@@ -7,7 +7,7 @@ use \Input;
 use \Ticketcategorie;
 use \BaseController;
 
-class TicketcategoriesController extends \BaseController {
+class TicketcategoriesController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
