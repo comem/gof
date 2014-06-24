@@ -213,7 +213,7 @@ class NightPlatformController extends \BaseController {
 
         // Récupération de la publication
         $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
-        //return Jsend::success($publication);
+        return Jsend::success($publication);
 
         // Tout est OK, mise-à-jour de la publication
         $publication->external_id = $external_id;
