@@ -14,7 +14,6 @@ class CreateNightPlatformTable extends Migration {
 			$table->text('external_infos')->nullable();
 			$table->string('url');
 			$table->timestamps();
-			$table->softDeletes();
 			$table->primary(array('platform_id', 'night_id'));
 		});
 	}

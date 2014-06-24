@@ -6,7 +6,7 @@ class NightPlatformController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Tous les événements
+	 * @return Jsend::success Toutes les publications.
 	 */
 	public function index()
 	{
@@ -19,14 +19,16 @@ class NightPlatformController extends \BaseController {
 	 * Store a newly created resource in storage.
 	 * @var platform_id a récupérer comme contenu en get. Correspond à l'id de la plateforme.
      * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
-     * @var external_id a récupérer comme contenu en get. Correspond à l'id externe de la plateforme.
-     * @var external_infos a récupérer comme contenu en get. Correspond aux autres infos externes de la plateforme.
-     * @var url a récupérer comme contenu en get. Correspond à l'url de la plateforme.  
-     * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Un message d'erreur si l'événement n'existe pas.
-     * @return Un message d'erreur si la plateforme n'existe pas.
-     * @return Un message d'erreur si la publication existe déjà.
-     * @return Sinon, un message de validation d'enregistrement contenant l'id du lien créé.
+     * @var external_id a récupérer comme contenu en get. Correspond à l'id externe de la publication.
+     * @var external_infos a récupérer comme contenu en get. Correspond aux autres infos externes de la publication.
+     * @var url a récupérer comme contenu en get. Correspond à l'url de la publication.  
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
+     * @return Jsend::error Un message d'erreur s'il n'y a pas d'artiste nommé comme principal pour l'événement.
+     * @return Jsend::error Un message d'erreur si l'événement de comprend pas d'image qui le symbolise.
+     * @return Jsend::error Un message d'erreur si la plateforme n'existe pas.
+     * @return Jsend::error Un message d'erreur si la publication existe déjà.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'id hybride de la publication.
 	 */
 	public function store()
 	{
@@ -63,24 +65,32 @@ class NightPlatformController extends \BaseController {
         }
 
         // Contrainte C4
-        // Lorsqu'un événement est crée, il doit y avoir au moin un arrist qui est le principal 
-        // de cet événement. C'est-à-dire min 1 is_support à false
-        $performers = Night::find($night_id)->artists;
+        // Si un événement est publié, il doit y avoir au moin un artiste qui est nommé comme principal 
+        // pour cet événement. C'est-à-dire min 1 "is_support" à 0.
+        $performers = Night::find($night_id)->artistNights;
+        $constraintValid = false;
         foreach ($performers as $performer) {
-            $p = $performer->pivot->is_support;
-            printf($p);
+            $is_support = $performer->is_support;
+            if ($is_support == false) {
+                $constraintValid = true;
+            }
         }
-        dd($p);
-        //return Jsend::success($performers);
+        if ($constraintValid == false){
+            return Jsend::error('There are no principal artist for this event. It is necessary to appoint a principal artist for each event.');   
+        }
 
-        // C5
+        // Contrainte C5
+        // Si un événement est publié, il doit être symbolisé par une image.
+        if (Night::find($night_id)->image_id == null) {
+            return Jsend::error('The event has no image that symbolizes.');
+        }
 
         // Validation de l'existance de la plateforme
-        if (Night::existTechId($platform_id) !== true) {
+        if (Platform::existTechId($platform_id) !== true) {
             return Jsend::error('platform not found');
         }
 
-        // Validation de l'inexistance de la xpublication
+        // Validation de l'inexistance de la publication
         if (NightPlatform::existTechId($night_id, $platform_id) == true) {
             return Jsend::error('publication already exists in the database');
         }
@@ -94,32 +104,123 @@ class NightPlatformController extends \BaseController {
         $nightplatform->url = $url;
         $nightplatform->save();
 
-        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $nightplatform->id));
+        // Et on retourne l'id de la publication nouvellement créée (encapsulé en JSEND)
+        return Jsend::success(array(
+            'platform_id' => $nightplatform->platform_id,
+            'night_id' => $nightplatform->night_id,
+        ));
 	}
 
 
 	/**
 	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param  int  $platform_id correspondant à l'id technique de la plateforme.
+     * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::fail Un message d'erreur si l'id hybride est déjà en mémoire.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la publication correspondant à l'id hybride.
 	 */
-	public function show($id)
+	public function show($platform_id)
 	{
-		//
+        // Récupération par le header
+        $night_id = Request::header('night_id');
+
+		//Cast de platform_id et de event_id car l'url les envoit en String
+        if (ctype_digit($platform_id)) {
+            $platform_id = (int)$platform_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
+
+        // Validation des types
+        $validationNightPlatform = NightPlatform::validate(array(
+            'platform_id' => $platform_id,
+            'night_id' => $night_id,
+        ));
+        if ($validationNightPlatform !== true) {
+            return Jsend::fail($validationNightPlatform);
+        }
+
+        // Validation de l'existance de la publication
+        if (NightPlatform::existTechId($night_id, $platform_id) !== true) {
+            return Jsend::error('publication not found');
+        }
+
+        // Récupération de la publication 
+        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->get();
+
+        // Retourne la publication encapsulée en JSEND si tout est OK
+        return Jsend::success($publication->toArray());
 	}
 
 
 	/**
 	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param  int  $id correspondant à l'id technique de la plateforme (formant l'id hybride de la publication).
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id technique de l'événement (formant l'id hybride de la publication).
+     * @var external_id a récupérer comme contenu en get. Correspond l'id externe de la publication.
+     * @var external_indos a récupérer comme contenu en get. Correspond aux informations externes de la publication.
+     * @var url a récupérer comme contenu en get. Correspond à l'url de la publication.
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
+     * @return Jsend::error Un message d'erreur si la plateforme liée à la modification n'existe pas.
+     * @return Jsend::error Un message d'erreur si la publication à modifier n'existe pas.
+     * @return Jsend::success Sinon, un message de validation de modification contenant la publication correspondante à l'id hybride.
 	 */
-	public function update($id)
+	public function update($platform_id)
 	{
-		//
+
+        $night_id = Input::get('night_id');
+        $external_id = Input::get('external_id');
+        $external_infos = Input::get('external_infos');
+        $url = Input::get('url');
+
+        //Cast de platform_id et de night_id car l'url les envoit en String
+        if (ctype_digit($platform_id)) {
+            $platform_id = (int)$platform_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
+
+        // Validation des types
+        $validationNightPlatform = NightPlatform::validate(array(
+            'platform_id' => $platform_id,
+            'night_id' => $night_id,
+            'external_id' => $external_id,
+            'external_infos' => $external_infos,
+            'url' => $url,
+        ));
+        if ($validationNightPlatform !== true) {
+            return Jsend::fail($validationNightPlatform);
+        }
+
+        // Validation de l'existance de l'événement
+        if (Night::existTechId($night_id) !== true) {
+            return Jsend::error('night not found');
+        }
+
+        // Validation de l'existance de la plateforme
+        if (Platform::existTechId($platform_id) !== true) {
+            return Jsend::error('platform not found');
+        }
+
+        // Validation de l'existance de la publication
+        if (NightPlatform::existTechId($night_id, $platform_id) !== true) {
+            return Jsend::error('publication not found');
+        }
+
+        // Récupération de la publication
+        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
+        //return Jsend::success($publication);
+
+        // Tout est OK, mise-à-jour de la publication
+        $publication->external_id = $external_id;
+        $publication->external_infos = $external_infos;
+        $publication->url = $url;
+        $publication->save();
+        return Jsend::success($publication->toArray());
 	}
 
 

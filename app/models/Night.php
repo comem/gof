@@ -44,6 +44,10 @@ class Night extends MyEloquent {
     public function artists() {
         return $this->belongsToMany('Artist');
     }  
+
+    public function artistNights(){
+        return $this->hasMany('ArtistNight');
+    }
     
     public static function comparison_date ($start_date_hour, $end_date_hour)
     {
@@ -53,8 +57,6 @@ class Night extends MyEloquent {
         }
         return false;
     }
-    
-   
 
     /**
      * Cette méthode vérifie l'existant due l'événement selon son identifiant métier.
