@@ -55,7 +55,7 @@ class InstrumentsController extends \BaseController {
         }
 
         if (Instrument::existTechId($instrument_id) !== true) {
-            return Jsend::error("instrument dosen't exists in the database");
+            return Jsend::error("instrument doesn't exists in the database");
         }
 
         $instrument = Instrument::find($instrument_id);
