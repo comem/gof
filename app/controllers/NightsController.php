@@ -29,8 +29,7 @@ class NightsController extends \BaseController {
         $contract_src = Input::get('contract_src');
         $notes = Input::get('notes');
         $nighttype_id = Input::get('nighttype_id');
-        $image_id = Input::get('image_id');
-        
+        $image_id = Input::get('image_id');       
         $ticket_categorie = Input::get('ticket_categorie');
 
 
@@ -104,24 +103,7 @@ class NightsController extends \BaseController {
                  return Jsend::fail("The actual event overlaps an existing one");
             }
         }
-//        'id' => 'integer:unsigned|sometimes|required',
-//                    'start_date_hour' => 'date|sometimes|required|unique:nights',
-//                    'ending_date_hour' => 'date|sometimes|required',
-//                    'opening_doors' => 'date|sometimes',
-//                    'title_de' => 'string|between:1,255|sometimes|requiered',
-//                    'nb_meal' => 'integer:unsigned|sometimes|required',
-//                    'nb_vegans_meal' => 'integer:unsigned|sometimes|required',
-//                    'meal_notes' => 'string|between:1,10000|sometimes',
-//                    'nb_places' => 'integer:unsigned|sometimes|required',
-//                    'followed_by_private' => 'sometimes|required',
-//                    'contact_src' => 'string|between:1,255|sometimes',
-//                    'notes' => 'string|between:1,10000|sometimes',
-//                    'published_at' => 'date|sometimes',
-//                    'created_at' => 'date|sometimes|required',
-//                    'updated_at' => 'date|sometimes|required',
-//                    'nighttype_id' => 'integer:unsigned|sometimes|required',
-//                    'image_id' => 'integer:unsigned|sometimes|required',
-                
+               
            $night = new Night();
            $night->start_date_hour = $start_date_hour;
            $night->ending_date_hour = $ending_date_hour;
@@ -137,8 +119,48 @@ class NightsController extends \BaseController {
            $night->nighttype_id = $nighttype_id;
            $night->image_id = $image_id;
            $night->save();
+           $nightId = $night->id;
+           foreach ($ticket_categorie as $tc)
+        {
+            $ticketCatId= $tc['ticket_categorie_id'];
+            $amount = $tc['amount'];
+            $quantitySold = $tc['quantitySold'];
+            $comment = $tc['comment'];
+            
+           $validationNightTicketCat = TicketCategorie::validate(array(
+            'night_id' => $nightId,
+            'ticketcategorie_id' => $ticketCatId,
+            'amount' => $amount,
+            'quantity_sold' => $quantitySold,
+            'comment' => $comment,
+                ));
+        
+        if ($validationNightTicketCat !== true) {
+            return Jsend::fail($validationNightTicketCat);
+        }
+        
+        if (!TicketCategorie::existTechId($ticketCatId)) {
+            return Jsend::error('ticketcategorie not found');
+        }
+        
+        if (!Night::existTechId($nightId)) {
+            return Jsend::error('night not found');
+        }
+        
+        if (NightTicketcategorie::existTechId($ticketCatId, $nightId)) {
+            return Jsend::error('nightticketcategorie already exists');
+        }
+
+        $nightTicketCat = new NightTicketcategorie();
+        $nightTicketCat->night_id = $nightId;
+        $nightTicketCat->ticketcategorie_id = $ticketCatId;
+        $nightTicketCat->amount = $amount;
+        $nightTicketCat->quantity_sold = $quantitySold;
+        $nightTicketCat->comment_de = $comment;
+        $nightTicketCat->save();
+        }
            // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $link->id));	
+           return Jsend::success(array('id' => $night->id));	
            
     }
 
