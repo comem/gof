@@ -11,7 +11,7 @@ class Nighttype extends Eloquent {
 
 	protected $dates = ['deleted_at'];
 
-	public function events()
+	public function nights()
 	{
 		return $this->hasMany('Night');
 	}
