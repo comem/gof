@@ -66,7 +66,7 @@ class NightTicketcategorieController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id1) {
+    public function show($id) {
         
     }
 

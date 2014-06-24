@@ -51,7 +51,7 @@ class Night extends MyEloquent {
     
     public static function comparison_date ($start_date_hour, $end_date_hour)
     {
-        if (mktime($start_date_hour)<mktime($end_date_hour))
+        if (strtotime($start_date_hour)<strtotime($end_date_hour))
         {
             return true;
         }
@@ -88,13 +88,13 @@ class Night extends MyEloquent {
      * @return True si les données sont valides ou pas. 
      *         False si les données ne sont pas valides.
      */
-    public function validate($data = array()) {
+    public static function validate($data = array()) {
         return parent::validator($data, array(
                     'id' => 'integer:unsigned|sometimes|required',
                     'start_date_hour' => 'date|sometimes|required|unique:nights',
                     'ending_date_hour' => 'date|sometimes|required',
                     'opening_doors' => 'date|sometimes',
-                    'title_de' => 'string|between:1,255|sometimes|requiered',
+                    'title_de' => 'string|between:1,255|sometimes|required',
                     'nb_meal' => 'integer:unsigned|sometimes|required',
                     'nb_vegans_meal' => 'integer:unsigned|sometimes|required',
                     'meal_notes' => 'string|between:1,10000|sometimes',
@@ -106,7 +106,7 @@ class Night extends MyEloquent {
                     'created_at' => 'date|sometimes|required',
                     'updated_at' => 'date|sometimes|required',
                     'nighttype_id' => 'integer:unsigned|sometimes|required',
-                    'image_id' => 'integer:unsigned|sometimes|required',
+                    'image_id' => 'integer:unsigned|sometimes',
         ));
     }
 

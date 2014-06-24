@@ -29,8 +29,9 @@ class NightsController extends \BaseController {
         $contract_src = Input::get('contract_src');
         $notes = Input::get('notes');
         $nighttype_id = Input::get('nighttype_id');
-        $image_id = Input::get('image_id');       
+        $image_id = Input::get('image_id');
         $ticket_categorie = Input::get('ticket_categorie');
+
 
 
 
@@ -39,129 +40,119 @@ class NightsController extends \BaseController {
 
             return Jsend::error("event already exist in the database");
         }
-        
-        if ($image_id != null)
-        {
-            if (existTechId($image_id)==false)
-            {
+
+        if ($image_id != null) {
+            if (existTechId($image_id) == false) {
                 return Jsend::error("Image doesn't exist in the database");
             }
         }
-        
-        foreach ($ticket_categorie as $tc)
-        {
-            $ticket_categorie_id= $tc['ticket_categorie_id'];
-            if (Ticketcategorie::existTechId($ticket_categorie_id))
-            {
-                return Jsend::error("ticketcategorie doesn't exist in the database");
+
+        foreach ($ticket_categorie as $tc) {
+            $ticketCatId = $tc['ticket_categorie_id'];
+            $amount = $tc['amount'];
+            $quantitySold = $tc['quantitySold'];
+            $comment = $tc['comment'];
+
+            $validationNightTicketCat = TicketCategorie::validate(array(
+                        'night_id' => '1',
+                        'ticketcategorie_id' => $ticketCatId,
+                        'amount' => $amount,
+                        'quantity_sold' => $quantitySold,
+                        'comment' => $comment,
+            ));
+
+            if ($validationNightTicketCat !== true) {
+                return Jsend::fail($validationNightTicketCat);
+            }
+
+            if (!TicketCategorie::existTechId($ticketCatId)) {
+                return Jsend::error('ticketcategorie not found');
             }
         }
-        
+
         // Validation des types
         $validationNight = Night::validate(array(
-            'start_date_hour' => $start_date_hour,
-            'ending_date_hour' => $ending_date_hour,
-            'opening_doors' => $opening_doors,
-            'title_de' => $title_de,
-            'nb_meal' => $nb_meal,
-            'nb_vegans_meal' => $nb_vegans_meal,
-            'meal_notes' => $meal_notes,
-            'nb_places' => $nb_places,
-            'followed_by_private' => $followed_by_private,
-            'contract_src' => $contract_src,
-            'notes' => $notes,
-            'nighttype_id' => $nighttype_id,
-            'image_id' => $image_id
+                    'start_date_hour' => $start_date_hour,
+                    'ending_date_hour' => $ending_date_hour,
+                    'opening_doors' => $opening_doors,
+                    'title_de' => $title_de,
+                    'nb_meal' => $nb_meal,
+                    'nb_vegans_meal' => $nb_vegans_meal,
+                    'meal_notes' => $meal_notes,
+                    'nb_places' => $nb_places,
+                    'followed_by_private' => $followed_by_private,
+                    'contract_src' => $contract_src,
+                    'notes' => $notes,
+                    'nighttype_id' => $nighttype_id,
+                    'image_id' => $image_id
         ));
         if ($validationNight !== true) {
             return Jsend::fail($validationNight);
         }
-        
-        if(!Night::comparison_date($start_date_hour, $ending_date_hour))
-        {
-            return Jsend::fail("The start date is after the ending date");
+
+
+
+        if (!Night::comparison_date($start_date_hour, $ending_date_hour)) {
+            return Jsend::fail(array('id' => "The start date is after the ending date"
+                        , 'date_1' => $start_date_hour
+                        , 'date_2' => $ending_date_hour));
         }
-        
-        if ($opening_doors != null)
-        {
-            if(Night::comparison_date($start_date_hour, $opening_doors))
-            {
+
+
+
+        if ($opening_doors != null) {
+            if (Night::comparison_date($start_date_hour, $opening_doors)) {
                 return Jsend::fail("The opening door is after the start date");
             }
         }
-        
+
         $all_night = Night::all();
-        
-        foreach ($all_night as $night)
-        {
-            if (Night::comparison_date($night->start_date_hour, $start_date_hour) && Night::comparison_date($start_date_hour, $night->ending_date_hour))
-            {
-                 return Jsend::fail("The actual event overlaps an existing one");
+
+        foreach ($all_night as $night) {
+            $start_night = $night->start_date_hour;
+            $end_night = $night->ending_date_hour;
+
+
+            if (Night::comparison_date($start_night, $start_date_hour) && Night::comparison_date($start_date_hour, $end_night)) {
+                return Jsend::fail("The actual event overlaps an existing one");
             }
-            if (Night::comparison_date($night->start_date_hour, $ending_date_hour) && Night::comparison_date($ending_date_hour, $night->ending_date_hour))
-            {
-                 return Jsend::fail("The actual event overlaps an existing one");
+            if (Night::comparison_date($start_night, $ending_date_hour) && Night::comparison_date($ending_date_hour, $end_night)) {
+                return Jsend::fail("The actual event overlaps an existing one");
             }
-        }
-               
-           $night = new Night();
-           $night->start_date_hour = $start_date_hour;
-           $night->ending_date_hour = $ending_date_hour;
-           $night->opening_doors = $opening_doors;
-           $night->title_de = $title_de;
-           $night->nb_meal = $nb_meal;
-           $night->nb_vegans_meal = $nb_vegans_meal;
-           $night->meal_notes = $meal_notes;
-           $night->nb_places=$nb_places;
-           $night->followed_by_private = $followed_by_private;
-           $night->contact_src = $contact_src;
-           $night->notes = $notes;
-           $night->nighttype_id = $nighttype_id;
-           $night->image_id = $image_id;
-           $night->save();
-           $nightId = $night->id;
-           foreach ($ticket_categorie as $tc)
-        {
-            $ticketCatId= $tc['ticket_categorie_id'];
-            $amount = $tc['amount'];
-            $quantitySold = $tc['quantitySold'];
-            $comment = $tc['comment'];
-            
-           $validationNightTicketCat = TicketCategorie::validate(array(
-            'night_id' => $nightId,
-            'ticketcategorie_id' => $ticketCatId,
-            'amount' => $amount,
-            'quantity_sold' => $quantitySold,
-            'comment' => $comment,
-                ));
-        
-        if ($validationNightTicketCat !== true) {
-            return Jsend::fail($validationNightTicketCat);
-        }
-        
-        if (!TicketCategorie::existTechId($ticketCatId)) {
-            return Jsend::error('ticketcategorie not found');
-        }
-        
-        if (!Night::existTechId($nightId)) {
-            return Jsend::error('night not found');
-        }
-        
-        if (NightTicketcategorie::existTechId($ticketCatId, $nightId)) {
-            return Jsend::error('nightticketcategorie already exists');
         }
 
-        $nightTicketCat = new NightTicketcategorie();
-        $nightTicketCat->night_id = $nightId;
-        $nightTicketCat->ticketcategorie_id = $ticketCatId;
-        $nightTicketCat->amount = $amount;
-        $nightTicketCat->quantity_sold = $quantitySold;
-        $nightTicketCat->comment_de = $comment;
-        $nightTicketCat->save();
+        $night = new Night();
+        $night->start_date_hour = $start_date_hour;
+        $night->ending_date_hour = $ending_date_hour;
+        if ($opening_doors != '') {
+            $night->opening_doors = $opening_doors;
         }
-           // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-           return Jsend::success(array('id' => $night->id));	
-           
+        $night->title_de = $title_de;
+        $night->nb_meal = $nb_meal;
+        $night->nb_vegans_meal = $nb_vegans_meal;
+        $night->meal_notes = $meal_notes;
+        $night->nb_places = $nb_places;
+        $night->followed_by_private = $followed_by_private;
+        $night->contact_src = $contract_src;
+        $night->notes = $notes;
+        $night->nighttype_id = $nighttype_id;
+        if ($image_id != '') {
+            $night->image_id = $image_id;
+        }
+
+        $night->save();
+        $nightId = $night->id;
+        foreach ($ticket_categorie as $tc) {
+            $nightTicketCat = new NightTicketcategorie();
+            $nightTicketCat->night_id = $nightId;
+            $nightTicketCat->ticketcategorie_id = $ticketCatId;
+            $nightTicketCat->amount = $amount;
+            $nightTicketCat->quantity_sold = $quantitySold;
+            $nightTicketCat->comment_de = $comment;
+            $nightTicketCat->save();
+        }
+        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
+        return Jsend::success(array('id' => $night->id));
     }
 
     /**
@@ -170,8 +161,23 @@ class NightsController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
-        //
+    public function show($night_id) {
+        // Auth
+        if (ctype_digit($night_id)) {
+            $night_id = (int) $night_id;
+        }
+
+        if (Night::existTechId($night_id) !== true) {
+            return Jsend::error("night doesn't exists in the database");
+        }
+
+        $night = Night::find($night_id);
+
+        if (!isset($night)) {
+            return Jsend::error('Night id : ' . $night_id . 'resource not found');
+        }
+        // Retourne le message encapsulé en JSEND si tout est OK
+        return Jsend::success($night->toArray());
     }
 
     /**
