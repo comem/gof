@@ -1,12 +1,12 @@
 <?php
 
-class NightsPlatformController extends \BaseController {
+class NightPlatformController extends \BaseController {
 
 	//Cette classe correspond à la table "publications" du diagrame de class.
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Response
+	 * @return Tous les événements
 	 */
 	public function index()
 	{
@@ -17,7 +17,16 @@ class NightsPlatformController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * @return Response
+	 * @var platform_id a récupérer comme contenu en get. Correspond à l'id de la plateforme.
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
+     * @var external_id a récupérer comme contenu en get. Correspond à l'id externe de la plateforme.
+     * @var external_infos a récupérer comme contenu en get. Correspond aux autres infos externes de la plateforme.
+     * @var url a récupérer comme contenu en get. Correspond à l'url de la plateforme.  
+     * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Un message d'erreur si l'événement n'existe pas.
+     * @return Un message d'erreur si la plateforme n'existe pas.
+     * @return Un message d'erreur si la publication existe déjà.
+     * @return Sinon, un message de validation d'enregistrement contenant l'id du lien créé.
 	 */
 	public function store()
 	{
@@ -56,9 +65,13 @@ class NightsPlatformController extends \BaseController {
         // Contrainte C4
         // Lorsqu'un événement est crée, il doit y avoir au moin un arrist qui est le principal 
         // de cet événement. C'est-à-dire min 1 is_support à false
-        // $nightC4 = Night::find($night_id);
-        // $performers = $nightC4->artists();
-        // dd($performers);
+        $performers = Night::find($night_id)->artists;
+        foreach ($performers as $performer) {
+            $p = $performer->pivot->is_support;
+            printf($p);
+        }
+        dd($p);
+        //return Jsend::success($performers);
 
         // C5
 
