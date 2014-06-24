@@ -211,12 +211,7 @@ class NightPlatformController extends \BaseController {
             return Jsend::error('publication not found');
         }
 
-<<<<<<< HEAD
-
-        Night::find($night_id)->roles()->updateExistingPivot($platform_id, array(
-=======
         Night::find($night_id)->platforms()->updateExistingPivot($platform_id, array(
->>>>>>> NightsPlatform
             'external_id' => $external_id,
             'external_infos' => $external_infos,
             'url' => $url
