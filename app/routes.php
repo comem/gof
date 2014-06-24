@@ -22,14 +22,21 @@ Route::group(array('before' => array()), function()
 // Permet d'implÃ©menter post avec une architecture REST
 // Permet d'implÃ©menter post avec une architecture REST
 
-    Route::resource('artist_event', 'Artist_eventsController');
+    Route::resource('artistnight', 'ArtistNightController');
     Route::resource('artistgenre', 'ArtistGenreController');
-    Route::resource('artist_musician', 'Artist_musiciansController');
+    Route::resource('artistmusician', 'ArtistMusicianController');
     Route::resource('artists', 'ArtistsController');
+<<<<<<< HEAD
     Route::resource('nightplatform', 'NightPlatformController');
     Route::resource('event_ticketcategorie', 'Event_ticketcategoriesController');
     Route::resource('events', 'EventsController');
     Route::resource('eventtypes', 'EventtypesController');
+=======
+    Route::resource('nightsplatform', 'NightsPlatformController');
+    Route::resource('nightticketcategorie', 'NightTicketcategorieController');
+    Route::resource('nights', 'NightsController');
+    Route::resource('nighttypes', 'NighttypesController');
+>>>>>>> master
     Route::resource('genres', 'GenresController');
     Route::resource('images', 'ImagesController');
     Route::resource('instruments', 'InstrumentsController');
@@ -39,6 +46,17 @@ Route::group(array('before' => array()), function()
     Route::resource('ticketcategories', 'TicketCategoriesController');
     Route::resource('index', 'IndexController');
 });
+
+
+Route::group(
+    array (
+        'prefix'    => 'api/v1',
+        'namespace' => 'api\v1',
+        'before'    => array(/*'auth', 'acl_rest'*/),
+    ), function() {
+        Route::resource('artists', 'ArtistsController');
+    }
+);
 
 // Routage pour le controller de la gestion des authentifications
 Route::controller('/auth', 'AuthController');

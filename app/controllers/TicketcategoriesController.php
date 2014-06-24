@@ -1,6 +1,6 @@
 <?php
 
-class TicketCategoriesController extends \BaseController {
+class TicketcategoriesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -10,7 +10,7 @@ class TicketCategoriesController extends \BaseController {
 	{
 
         // Retourne toutes les catégories de ticket
-        return  Jsend::success(TicketCategorie::all()->toArray());
+        return  Jsend::success(Ticketcategorie::all()->toArray());
 	}
 
 
@@ -47,18 +47,18 @@ class TicketCategoriesController extends \BaseController {
         }
 
         //Validation des types
-        $validationTicketCategorie = TicketCategorie::validate(array('id' => $id));
+        $validationTicketCategorie = Ticketcategorie::validate(array('id' => $id));
         if ($validationTicketCategorie !== true) {
             return Jsend::fail($validationTicketCategorie);
         }
 
         // Validation de l'existance de la plateforme
-        if (TicketCategorie::existTechId($id) !== true) {
+        if (Ticketcategorie::existTechId($id) !== true) {
             return Jsend::fail($id);
         }
 
         // Récupération de la plateforme
-        $ticketcategorie = TicketCategorie::find($id);
+        $ticketcategorie = Ticketategorie::find($id);
 
         // Retourne la plateforme encapsulée en JSEND si tout est OK
         return Jsend::success($ticketcategorie->toArray());

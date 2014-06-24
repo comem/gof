@@ -1,18 +1,33 @@
 <?php
 
-class ArtistsController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Genre;
+use \Artist;
+use \ArtistGenre;
+use \BaseController;
+
+
+class ArtistsController extends BaseController {
 
     /**
-     * 
-     * @return type
+     * Permet d'afficher tous les artists
+     * @return jsend
      */
     public function index() {
         return Jsend::success(Artist::with('genres')->get());
     }
 
     /**
+     * Permet d'enregistrer un nouvel artist
+     * @param (string) name - Le nom de l'artist
+     * @param (string) short_description_de - Une courte description de l'artist
+     * @param (string) complete_description_de - Une description complete de l'artist
+     * @param (array) genre - Les genres de l'artist
      * 
-     * @return type
+     * @return jsend
      */
     public function store() {
         $artistName = Input::get('name');
@@ -55,7 +70,7 @@ class ArtistsController extends \BaseController {
             foreach ($genres as $genre) {
                 if (!ArtistGenre::existTechId($artist->id, $genre['id'])) {
                     $artist->genres()->attach($genre['id']);
-                    return Jsend::success($artist->toArray());
+                    return Jsend::success($artist->toArray(), 201);
                 }
                 return Jsend::error('description already exists');
             }
@@ -63,10 +78,10 @@ class ArtistsController extends \BaseController {
     }
 
     /**
-     * Display the specified resource.
+     * Permet d'afficher un artist
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id - l'id de l'artist à afficher
+     * @return jsend
      */
     public function show($id) {
 
@@ -88,10 +103,13 @@ class ArtistsController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Permet de modifier un artist
+     * @param  int  $id - l'id de l'artist à modifier
+     * @param (string) name - Le nom de l'artist
+     * @param (string) short_description_de - Une courte description de l'artist
+     * @param (string) complete_description_de - Une description complete de l'artist
+     * 
+     * @return jsend
      */
     public function update($id) {
 
@@ -125,13 +143,10 @@ class ArtistsController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Pas implémentée pour l'instant
      */
     public function destroy($id) {
-        //
+        
     }
 
 }

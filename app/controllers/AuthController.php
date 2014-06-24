@@ -14,20 +14,13 @@ class AuthController extends \BaseController {
     {
         // VÃ©rifie les "input" et les accréditations
         if (User::validate(Input::only('email', 'password')) !== true
-               || !Auth::attempt(Input::only('email', 'password'))) {
+               || !Auth::attempt(Input::only('email', 'password'),true)) {
             return Redirect::action('AuthController@getIndex')
                     ->with('error', true);
         }
         else
         {
-            //return Redirect::intended('auth');
-            echo("<h1>welcome to the HEAVEN, vous pouvez désormais travaillé</h1> <h2> Votre utilisateur </h2>");
-            echo (Auth::getUser());
-            echo("<h2>Votre groupe</h2>");
-            echo (Auth::getUser()->group);
-            echo ("<h2>Vos accés (ACL)</h2>");
-            echo (Auth::getUser()->group->resources);
-            //dd('welcome to the HEAVEN, vous êtes désormais loggé :D en'+ Auth::getUser()->getAuthIdentifier());
+            return Redirect::intended('/');
         }
     }
 

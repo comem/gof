@@ -5,11 +5,11 @@ class Night extends MyEloquent {
     protected $table = 'nights';
     public $timestamps = true;
 
-    public function event_types() {
-        return $this->belongsTo('NightType');
+    public function nighttype() {
+        return $this->belongsTo('Nighttype');
     }
 
-    public function images() {
+    public function image() {
         return $this->belongsTo('Image');
     }
 
@@ -90,8 +90,8 @@ class Night extends MyEloquent {
                     'contact_src' => 'string|between:1,255|sometimes',
                     'notes' => 'string|between:1,10000|sometimes',
                     'published_at' => 'date|sometimes',
-                    'created_at' => 'date|sometimes|requiered',
-                    'updated_at' => 'date|sometimes|requiered',
+                    'created_at' => 'date|sometimes|required',
+                    'updated_at' => 'date|sometimes|required',
                     'nighttype_id' => 'unsigned|sometimes|required',
                     'image_id' => 'unsigned|sometimes|required',
         ));

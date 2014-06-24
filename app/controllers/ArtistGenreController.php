@@ -75,8 +75,54 @@ class ArtistGenreController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update($artist_id, $genre_id) {
+        
+        dd($artist_id, $genre_id);
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int) $artist_id;
+        }
+        if (ctype_digit($genre_id)) {
+            $genre_id = (int) $genre_id;
+        }
+
+        $updated_artist_id = Input::get('artist_id');
+        $updated_genre_id = Input::get('genre_id');
+        
+        $validationArtist = Artist::validate(array(
+                    'id' => $updated_artist_id,
+        ));
+        
+        $validationGenre = Genre::validate(array(
+                    'id' => $updated_genre_id,
+        ));
+        
+        if ($validationArtist !== true) {
+            return Jsend::fail($validationArtist);
+        }
+         if ($validationGenre !== true) {
+            return Jsend::fail($validationGenre);
+        }
+        
+
+        if (!Artist::existTechId($updated_artist_id)) {
+            return Jsend::error('artist not found');
+        }
+        if (!Genre::existTechId($updated_genre_id)) {
+            return Jsend::error('genre not found');
+        }
+       
+        
+       
+        if (ArtistGenre::existTechId($artist_id, $genre_id)) {
+            $artistGenre = ArtistGenre::where('artist_id', '=', $artist_id)->where('genre_id', '=', $genre_id)->first();
+            $artistGenre->artist_id = $updated_artist_id;
+            $artistGenre->genre_id = $updated_genre_id;
+            $artistGenre->save();
+            return Jsend::success($artistGenre->toArray());
+            
+        } 
+         return Jsend::error('description not found');
+        
     }
 
     /**

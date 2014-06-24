@@ -24,7 +24,8 @@ class Genre extends MyEloquent {
     }
 
     public static function existBusinessId($id) {
-        
+        $e = Genre::where('name_de', '=', $id)->first();
+        return $e != null;
     }
 
     public static function existTechId($id) {
