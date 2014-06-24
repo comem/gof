@@ -16,8 +16,8 @@ Route::get('/', function (){
     return Redirect::to(URL::action('AuthController@getIndex'));
 });
 
-
-Route::group(array('before' => array('auth', 'acl_rest')), function()
+//array('auth', 'acl_rest')
+Route::group(array('before' => array('auth')), function()
 {
 // Permet d'implÃ©menter post avec une architecture REST
 // Permet d'implÃ©menter post avec une architecture REST

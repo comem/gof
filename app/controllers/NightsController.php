@@ -30,7 +30,10 @@ class NightsController extends \BaseController {
         $notes = Input::get('notes');
         $nighttype_id = Input::get('nighttype_id');
         $image_id = Input::get('image_id');
+        
         $ticket_categorie = Input::get('ticket_categorie');
+        $amounts = Input::get('amount');
+        $comments = Input::get('comments');
 
 
 
