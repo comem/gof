@@ -148,8 +148,7 @@ class NightPlatformController extends \BaseController {
         }
 
         // Récupération de la publication 
-        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->get();
-
+        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
         // Retourne la publication encapsulée en JSEND si tout est OK
         return Jsend::success($publication->toArray());
 	}
@@ -211,15 +210,28 @@ class NightPlatformController extends \BaseController {
             return Jsend::error('publication not found');
         }
 
+<<<<<<< HEAD
         // Récupération de la publication
         $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
         return Jsend::success($publication);
+=======
+        Night::find($night_id)->roles()->updateExistingPivot($platform_id, array(
+            'external_id' => $external_id,
+            'external_infos' => $external_infos,
+            'url' => $url
+        ));
 
-        // Tout est OK, mise-à-jour de la publication
-        $publication->external_id = $external_id;
-        $publication->external_infos = $external_infos;
-        $publication->url = $url;
-        $publication->save();
+        // // Récupération de la publication
+        // $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
+>>>>>>> NightsPlatform
+
+        // // Tout est OK, mise-à-jour de la publication
+        // $valid = NightPlatform::updateWithHybridID($publication);
+        // dd($valid);
+        // // $publication->external_id = $external_id;
+        // // $publication->external_infos = $external_infos;
+        // // $publication->url = $url;
+        // // $publication->update();
         return Jsend::success($publication->toArray());
 	}
 

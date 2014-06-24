@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class NightPlatform extends MyEloquent {
 
 	protected $table = 'night_platform';
+    // protected $primaryKey = array('night_id', 'platform_id');
+    // public $incrementing = false;
 	public $timestamps = true;
 
     /**
@@ -25,6 +27,20 @@ class NightPlatform extends MyEloquent {
             'updated_at' => 'date|sometimes|required',
         ));
     }
+
+    // public static function updateWithHybridID($p){
+    //     DB::table('night_platform')
+    //         ->where(function($query, $p)
+    //         {
+    //             $query->where('night_id', '=', $p->night_id)
+    //                   ->where('platform_id', '=', $p->platform_id);
+    //         })
+    //         ->update(array(
+    //             'external_id' => $p->external_id
+    //         ));
+
+    //     dd("update OK");
+    // }
 
     /**
      * Cette méthode vérifie l'existant de la publication selon son identifiant hybride.

@@ -20,7 +20,6 @@ Route::get('/', function (){
 Route::group(array('before' => array('auth')), function()
 {
 // Permet d'implÃ©menter post avec une architecture REST
-// Permet d'implÃ©menter post avec une architecture REST
 
     Route::resource('artistnight', 'ArtistNightController');
     Route::resource('artistgenre', 'ArtistGenreController');
