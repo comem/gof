@@ -1,6 +1,13 @@
 <?php
 
-class ImagesController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Image;
+use \BaseController;
+
+class ImagesController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.

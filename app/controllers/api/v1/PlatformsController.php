@@ -1,16 +1,23 @@
 <?php
 
-class TicketcategoriesController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Platform;
+use \Artist;
+use \BaseController;
+
+class PlatformsController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Jsend::success Toutes les catégories de tickets
+	 * @return Jsend::success Toutes les plateformes
 	 */
 	public function index()
 	{
-
-        // Retourne toutes les catégories de ticket
-        return  Jsend::success(Ticketcategorie::all()->toArray());
+        // Retourne toutes les plateformes
+        return  Jsend::success(Platform::all()->toArray());
 	}
 
 
@@ -30,10 +37,10 @@ class TicketcategoriesController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
-	 * @param  int  $id correspondant à l'id technique de la cathégorie de ticket à voir
+	 * @param  int  $id correspondant à l'id technique de la plateforme à voir
 	 * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la catégorie de ticket correspondant à l'id technique.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la plateforme correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
@@ -47,21 +54,21 @@ class TicketcategoriesController extends \BaseController {
         }
 
         //Validation des types
-        $validationTicketCategorie = Ticketcategorie::validate(array('id' => $id));
-        if ($validationTicketCategorie !== true) {
-            return Jsend::fail($validationTicketCategorie);
+        $validationPlatform = Platform::validate(array('id' => $id));
+        if ($validationPlatform !== true) {
+            return Jsend::fail($validationPlatform);
         }
 
         // Validation de l'existance de la plateforme
-        if (Ticketcategorie::existTechId($id) !== true) {
+        if (Platform::existTechId($id) !== true) {
             return Jsend::fail($id);
         }
 
         // Récupération de la plateforme
-        $ticketcategorie = Ticketategorie::find($id);
+        $platform = Platform::find($id);
 
         // Retourne la plateforme encapsulée en JSEND si tout est OK
-        return Jsend::success($ticketcategorie->toArray());
+        return Jsend::success($platform->toArray());
 	}
 
 
