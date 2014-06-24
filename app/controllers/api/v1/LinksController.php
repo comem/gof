@@ -1,6 +1,14 @@
 <?php
 
-class LinksController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Link;
+use \Artist;
+use \BaseController;
+
+class LinksController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.

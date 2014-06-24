@@ -4,7 +4,7 @@ class PlatformsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * @return Toutes les plateformes
+	 * @return Jsend::success Toutes les plateformes
 	 */
 	public function index()
 	{
@@ -30,9 +30,9 @@ class PlatformsController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 * @param  int  $id correspondant à l'id technique de la plateforme à voir
-	 * @return Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Sinon, un message de validation d'enregistrement contenant la plateforme correspondant à l'id technique.
+	 * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la plateforme correspondant à l'id technique.
 	 */
 	public function show($id)
 	{
