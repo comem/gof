@@ -39,6 +39,12 @@ class NightTicketcategorieController extends \BaseController {
         if (ctype_digit($night_id)) {
             $night_id = (int)$night_id;
         }
+        if (ctype_digit($amount)) {
+            $amount = (int)$amounr;
+        }
+        if (ctype_digit($quantitySold)) {
+            $quantitySold = (int)$quantitySold;
+        }
 
         // Validation des types
         $validationNightTicketCat = NightTicketcategorie::validate(array(
@@ -154,6 +160,12 @@ class NightTicketcategorieController extends \BaseController {
         }
         if (ctype_digit($night_id)) {
             $night_id = (int)$night_id;
+        }
+        if (ctype_digit($amount)) {
+            $amount = (int)$amounr;
+        }
+        if (ctype_digit($quantitySold)) {
+            $quantitySold = (int)$quantitySold;
         }
 
         // Validation des types

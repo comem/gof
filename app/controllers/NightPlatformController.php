@@ -236,7 +236,7 @@ class NightPlatformController extends \BaseController {
 	{
         $night_id = Input::get('night_id');
 
-        //Cast de platform_id et de event_id car l'url les envoit en String
+        //Cast de platform_id et de night_id car l'url les envoit en String
         if (ctype_digit($platform_id)) {
             $platform_id = (int)$platform_id;
         }

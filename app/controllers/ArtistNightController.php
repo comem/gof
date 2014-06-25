@@ -186,12 +186,54 @@ class ArtistNightController extends \BaseController {
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param int $order correspondant à une partie de l'id hybrdide de l'interprète (performer).
+     * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artist.
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'interprète (performer) n'est pas existant.
+     * @return Jsend::success Sinon, un message de validation de supression de l'interprète (performer).
      */
-    public function destroy($id) {
-        //
+    public function destroy($order)
+    {
+
+        $artist_id = Input::get('artist_id');
+        $night_id = Input::get('night_id');
+
+        //Cast de order_id, artist_id et de night_id car l'url les envoit en String
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int)$artist_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
+        if (ctype_digit($order)) {
+            $order = (int)$order;
+        }
+
+        // Validation des types
+        $validationArtistNight = ArtistNight::validate(array(
+            'artist_id' => $artist_id,
+            'night_id' => $night_id,
+            'order' => $order,
+        ));
+        if ($validationArtistNight !== true) {
+            return Jsend::fail($validationArtistNight);
+        }
+
+        // Validation de l'existance de l'interprète (performer)
+        if (ArtistNight::existTechId($artist_id, $night_id, $order) !== true) {
+            return Jsend::error('performer not found');
+        }
+
+        //Supression de l'interprète/performer (table pivot avec id hybrid "order").
+        // Réalisé grace au niveau en-dessous de Eloquent -> Query Builder
+        DB::table('artist_night')
+            ->where('night_id', '=', $night_id)
+            ->where('artist_id', '=', $artist_id)
+            ->where('order', '=', $order)
+            ->delete();
+
+        return Jsend::success('Performer deleted');
     }
 
 }
