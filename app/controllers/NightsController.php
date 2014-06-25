@@ -187,7 +187,96 @@ class NightsController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+         if (ctype_digit($id)) {
+            $id = (int) $id;
+        }
+        $start_date_hour = Input::get('start_date_hour');
+        $ending_date_hour = Input::get('ending_date_hour');
+        $opening_doors = Input::get('opening_doors');
+        $title_de = Input::get('title_de');
+        $nb_meal = Input::get('nb_meal');
+        $nb_vegans_meal = Input::get('nb_vegans_meal');
+        $meal_notes = Input::get('meal_notes');
+        $nb_places = Input::get('nb_places');
+        $followed_by_private = Input::get('followed_by_private');
+        $contract_src = Input::get('contract_src');
+        $notes = Input::get('notes');
+        $nighttype_id = Input::get('nighttype_id');
+        $image_id = Input::get('image_id');
+         // Validation des types
+        
+        
+        $validationNight = Night::validate(array(
+                    'start_date_hour' => $start_date_hour,
+                    'ending_date_hour' => $ending_date_hour,
+                    'opening_doors' => $opening_doors,
+                    'title_de' => $title_de,
+                    'nb_meal' => $nb_meal,
+                    'nb_vegans_meal' => $nb_vegans_meal,
+                    'meal_notes' => $meal_notes,
+                    'nb_places' => $nb_places,
+                    'followed_by_private' => $followed_by_private,
+                    'contract_src' => $contract_src,
+                    'notes' => $notes,
+                    'nighttype_id' => $nighttype_id,
+                    'image_id' => $image_id
+        ));
+        if ($validationNight !== true) {
+            return Jsend::fail($validationNight);
+        }
+   
+        $night = Night::find($id);
+        if (!isset($night)) {
+            return Jsend::error('resource not found');
+        }
+        if (!Night::comparison_date($start_date_hour, $ending_date_hour)) {
+            return Jsend::fail(array('id' => "The start date is after the ending date"
+                        , 'date_1' => $start_date_hour
+                        , 'date_2' => $ending_date_hour));
+        }
+
+
+
+        if ($opening_doors != null) {
+            if (Night::comparison_date($start_date_hour, $opening_doors)) {
+                return Jsend::fail("The opening door is after the start date");
+            }
+        }
+        $all_night = Night::all();
+
+        foreach ($all_night as $night) {
+            $start_night = $night->start_date_hour;
+            $end_night = $night->ending_date_hour;
+            if ($night->id!=$id)
+            {
+                if (Night::comparison_date($start_night, $start_date_hour) && Night::comparison_date($start_date_hour, $end_night)) {
+                    return Jsend::fail("The actual event overlaps an existing one");
+                }
+                if (Night::comparison_date($start_night, $ending_date_hour) && Night::comparison_date($ending_date_hour, $end_night)) {
+                    return Jsend::fail("The actual event overlaps an existing one");
+                }
+            }
+        }
+        $night->start_date_hour = $start_date_hour;
+        $night->ending_date_hour = $ending_date_hour;
+        if ($opening_doors != '') {
+            $night->opening_doors = $opening_doors;
+        }
+        $night->title_de = $title_de;
+        $night->nb_meal = $nb_meal;
+        $night->nb_vegans_meal = $nb_vegans_meal;
+        $night->meal_notes = $meal_notes;
+        $night->nb_places = $nb_places;
+        $night->followed_by_private = $followed_by_private;
+        $night->contact_src = $contract_src;
+        $night->notes = $notes;
+        $night->nighttype_id = $nighttype_id;
+        if ($image_id != '') {
+            $night->image_id = $image_id;
+        }
+
+        $night->save();
+         return Jsend::success($night->toArray());
     }
 
     /**
@@ -197,7 +286,26 @@ class NightsController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+         if (ctype_digit($id)) {
+            $id = (int) $id;
+        }
+        $night = Night::find($id);
+        if (!isset($night)) {
+            return Jsend::error('resource not found');
+        }
+        
+//        $performers = $night->artistNights;
+//        $sharings = $night->nightPlatform;
+//        $ticketCategories = $night->nightTicketcategorie;
+        //Night::find($night_id)->platforms()->detach($platform_id);
+        $night->platforms()->detach();
+        $night->ticketcategories()->detach();
+        $night->artists()->detach();
+        $night->delete();
+
+
+         return Jsend::success('Night deleted');
+        
     }
 
 }

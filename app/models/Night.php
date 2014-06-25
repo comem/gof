@@ -49,6 +49,14 @@ class Night extends MyEloquent {
         return $this->hasMany('ArtistNight');
     }
     
+    public function nightPlatforms (){
+        return $this->hasMany('NightPlatform');
+    }
+    
+    public function nightTicketcategorie () {
+        return $this->hasMany('NightTicketcategorie');
+    }
+    
     public static function comparison_date ($start_date_hour, $end_date_hour)
     {
         if (strtotime($start_date_hour)<strtotime($end_date_hour))
@@ -91,7 +99,7 @@ class Night extends MyEloquent {
     public static function validate($data = array()) {
         return parent::validator($data, array(
                     'id' => 'integer:unsigned|sometimes|required',
-                    'start_date_hour' => 'date|sometimes|required|unique:nights',
+                    'start_date_hour' => 'date|sometimes|required',
                     'ending_date_hour' => 'date|sometimes|required',
                     'opening_doors' => 'date|sometimes',
                     'title_de' => 'string|between:1,255|sometimes|required',
