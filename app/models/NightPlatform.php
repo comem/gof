@@ -30,7 +30,7 @@ class NightPlatform extends MyEloquent {
 
     /**
      * Cette méthode vérifie l'existant de la publication selon son identifiant hybride.
-     * @param int $event_id Un id technique formant la clé primaire hybride.
+     * @param int $night_id Un id technique formant la clé primaire hybride.
      * @param int $platform_id Un id technique formant la clé primaire hybride.
      * @return True si la plateforme existe.
      *         False si la plateforme n'existe pas.
