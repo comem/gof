@@ -4,8 +4,7 @@ class ArtistNightController extends \BaseController {
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * @return Jsend::success Tous les performers
      */
     public function index() {
         return Jsend::success(ArtistNight::all()->toArray());
@@ -13,79 +12,88 @@ class ArtistNightController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
+     * @var order a récupérer comme contenu en get. Correspond à un attribut d'ordre (formant l'id hybride du performer).
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
+     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
+     * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
+     * @var $artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
+     * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
+     * @return Jsend::error Un message d'erreur si le performer existe déjà.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le performer créé.
      */
     public function store() {
 
-
-
-        $artistId = Input::get('artist_id');
-        $nightId = Input::get('night_id');
+        $artist_id = Input::get('artist_id');
+        $night_id = Input::get('night_id');
         $order = Input::get('order');
-        $isSupport = Input::get('is_support');
-        $artistHourArrival = Input::get('artist_hour_arrival');
+        $is_support = Input::get('is_support');
+        $artist_hour_arrival = Input::get('artist_hour_arrival');
 
-        if (ctype_digit($artistId)) {
-            $artistId = (int) $artistId;
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int) $artist_id;
         }
 
-        if (ctype_digit($nightId)) {
-            $nightId = (int) $nightId;
+        if (ctype_digit($night_id)) {
+            $night_id = (int) $night_id;
         }
 
         $validationArtistNight = ArtistNight::validate(array(
-                    'artist_id' => $artistId,
-                    'night_id' => $nightId,
-                    'order' => $order,
-                    'is_support' => $isSupport,
-                    'artist_hour_arrival' => $artistHourArrival,
+            'artist_id' => $artist_id,
+            'night_id' => $night_id,
+            'order' => $order,
+            'is_support' => $is_support,
+            'artist_hour_arrival' => $artist_hour_arrival,
         ));
 
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
         }
 
-        if (!Artist::existTechId($nightId)) {
+        if (!Artist::existTechId($night_id)) {
             return Jsend::error('artist not found');
         }
 
-        if (!Night::existTechId($nightId)) {
+        if (!Night::existTechId($night_id)) {
             return Jsend::error('night not found');
         }
 
-        if (ArtistNight::existTechId($artistId, $nightId, $order)) {
+        if (ArtistNight::existTechId($artist_id, $night_id, $order)) {
             return Jsend::error('artistnight already exists');
         }
 
         $artistNight = new ArtistNight();
-        $artistNight->artist_id = $artistId;
-        $artistNight->night_id = $nightId;
+        $artistNight->artist_id = $artist_id;
+        $artistNight->night_id = $night_id;
         $artistNight->order = $order;
-        $artistNight->is_support = $isSupport;
-        $artistNight->artist_hour_arrival = $artistHourArrival;
+        $artistNight->is_support = $is_support;
+        $artistNight->artist_hour_arrival = $artist_hour_arrival;
         $artistNight->save();
 
 
-        // Et on retourne l'id du message nouvellement créé (encapsulé en JSEND)
+        // Retour de l'id du message nouvellement créé (encapsulé en JSEND)
         return Jsend::success($artistNight->toArray());
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param  int $order correspondant à un attribut d'ordre de performer (formant l'id hybride du performer).
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
+     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le performer correspondant à l'id hybride.
      */
-    public function show($id) {
+    public function show($order) {
 
         // Récupération par le header
         $night_id = Request::header('night_id');
-        $order = Request::header('order');
+        $artist_id = Request::header('artist_id');
 
         //Cast de platform_id et de event_id car l'url les envoit en String
-        if (ctype_digit($id)) {
-            $id = (int) $id;
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int) $artist_id;
         }
         if (ctype_digit($night_id)) {
             $night_id = (int) $night_id;
@@ -96,21 +104,21 @@ class ArtistNightController extends \BaseController {
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-                    'artist_id' => $id,
-                    'night_id' => $night_id,
-                    'order' => $order,
+            'artist_id' => $artist_id,
+            'night_id' => $night_id,
+            'order' => $order,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight, 400);
         }
 
         // Validation de l'existance de l'artistnight
-        if (!ArtistNight::existTechId($id, $night_id, $order)) {
+        if (!ArtistNight::existTechId($order, $night_id, $artist_id)) {
             return Jsend::error('artistnight not found', 404);
         }
 
         // Récupération de l'artistnight
-        $artistNight = ArtistNight::where('artist_id', '=', $id)->where('night_id', '=', $night_id)->where('order', '=', $order)->first();
+        $artistNight = ArtistNight::where('artist_id', '=', $artist_id)->where('night_id', '=', $night_id)->where('order', '=', $order)->first();
 
         // Retourne la publication encapsulée en JSEND si tout est OK
         return Jsend::success($artistNight->toArray());
