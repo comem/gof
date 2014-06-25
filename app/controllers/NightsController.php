@@ -15,9 +15,26 @@ class NightsController extends \BaseController {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * Save an Event
+     * @var (date) start_date_hour - Date of the beginning event
+     * @var (date) ending_date_hour - Date of the ending event
+     * @var (date) opening_doors - OPTIONNAL - Date of the opening doors
+     * @var (string) title_de - The title of the event
+     * @var (int) nb_meal - The number of meal
+     * @var (int) nb_vegans_meal - The number of vegans meal
+     * @var (string) meal_notes - OPTIONNAL - The notes of the meal
+     * @var (int) nb_places - OPTIONNAL - The number of places in the event
+     * @var (boolean) followed_by_private - OPTIONNAL - If the event is organized by a private organisator
+     * @var (string) contract_src - OPTIONNAL - The source of the contract (The directory for example)
+     * @var (string) notes - OPTIONNAL - A note about the evenement
+     * @var (int) nighttype_id - The id of the event type
+     * @var (int) image_id - The id of the illustration image
+     * @var (array) "ticket_categorie": [{"ticket1": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)},
+     * "ticket2": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)}}] - The category ticket concerned by the event
+     * 
+     * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message with the id of the new Event created
      */
     public function store() {
         $start_date_hour = Input::get('start_date_hour');
@@ -158,11 +175,12 @@ class NightsController extends \BaseController {
         return Jsend::success(array('id' => $night->id));
     }
 
-    /**
+     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param  $night_id The id of the demanded ressources
+     * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message with the event searched
      */
     public function show($night_id) {
         // Auth
@@ -183,11 +201,27 @@ class NightsController extends \BaseController {
         return Jsend::success($night->toArray());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     /**
+     * Update an event
+     * @param  $night_id The id of the demanded ressources
+     * @var (date) start_date_hour - Date of the beginning event
+     * @var (date) ending_date_hour - Date of the ending event
+     * @var (date) opening_doors - OPTIONNAL - Date of the opening doors
+     * @var (string) title_de - The title of the event
+     * @var (int) nb_meal - The number of meal
+     * @var (int) nb_vegans_meal - The number of vegans meal
+     * @var (string) meal_notes - OPTIONNAL - The notes of the meal
+     * @var (int) nb_places - OPTIONNAL - The number of places in the event
+     * @var (boolean) followed_by_private - OPTIONNAL - If the event is organized by a private organisator
+     * @var (string) contract_src - OPTIONNAL - The source of the contract (The directory for example)
+     * @var (string) notes - OPTIONNAL - A note about the evenement
+     * @var (int) nighttype_id - The id of the event type
+     * @var (int) image_id - The id of the illustration image
+     
+     * 
+     * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist
+     * @return Jsend::success A validation message with the new Event
      */
     public function update($id) {
          if (ctype_digit($id)) {
@@ -283,10 +317,11 @@ class NightsController extends \BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Remove the specified ressrouces
+     * @param  $night_id The id of the demanded ressources
+     * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message
      */
     public function destroy($id) {
          if (ctype_digit($id)) {
