@@ -117,7 +117,7 @@ class NightPlatformController extends \BaseController {
 	 * @param  int  $platform_id correspondant à l'id technique de la plateforme.
      * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::fail Un message d'erreur si l'id hybride est déjà en mémoire.
+     * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
      * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la publication correspondant à l'id hybride.
 	 */
 	public function show($platform_id)
