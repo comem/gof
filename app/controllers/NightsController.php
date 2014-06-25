@@ -2,6 +2,9 @@
 
 class NightsController extends \BaseController {
 
+    
+    //Cette classe correspond à la table "events" du diagrame de class.
+    
     /**
      * Display a listing of the resource.
      *
