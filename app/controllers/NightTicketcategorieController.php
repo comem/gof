@@ -91,9 +91,7 @@ class NightTicketcategorieController extends \BaseController {
      * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
      * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le ticket correspondant à l'id hybride.
      */
-<<<<<<< HEAD
-    public function show($id) {
-=======
+
     public function show($ticketCat_id) {
 
         // Récupération par le header
@@ -126,7 +124,6 @@ class NightTicketcategorieController extends \BaseController {
         
         // Retourne le ticket encapsulée en JSEND si tout est OK
         return Jsend::success($ticket->toArray());
->>>>>>> dev-Manu
         
     }
 
