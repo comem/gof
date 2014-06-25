@@ -123,7 +123,7 @@ class ArtistNightController extends BaseController {
         }
 
         // Validation de l'existance de l'artistnight
-        if (!ArtistNight::existTechId($order, $night_id, $artist_id)) {
+        if (!ArtistNight::existTechId($artist_id, $night_id, $order)) {
             return Jsend::error('artistnight not found', 404);
         }
 
