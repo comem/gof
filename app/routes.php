@@ -50,7 +50,7 @@ Route::group(
         Route::resource('nightplatform', 'NightPlatformController');
         Route::resource('musicians', 'MusiciansController');
         Route::resource('musicians', 'MusiciansController');
-
+        Route::resource('artistnight', 'ArtistNight');
         Route::resource('nightticketcategorie', 'NightTicketcategorieController');
         Route::resource('images', 'ImagesController');
         Route::resource('links', 'LinksController');
