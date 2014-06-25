@@ -211,28 +211,56 @@ class NightPlatformController extends \BaseController {
             return Jsend::error('publication not found');
         }
 
+        //Modification de la publication (table pivot).
         Night::find($night_id)->platforms()->updateExistingPivot($platform_id, array(
             'external_id' => $external_id,
             'external_infos' => $external_infos,
             'url' => $url
         ));
 
-        // Récupération de la publication 
-        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
-        
+        // Récupération de la publication pour retourner l'objet modifié
+        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();    
         return Jsend::success($publication->toArray());
 	}
 
 
 	/**
 	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param  int  $platform_id correspondant à l'id technique de la plateforme.
+     * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si la publication n'est pas existante
+     * @return Jsend::success Sinon, un message de validation de supression de la publication.
 	 */
-	public function destroy($id)
+	public function destroy($platform_id)
 	{
-		//
+        $night_id = Input::get('night_id');
+
+        //Cast de platform_id et de event_id car l'url les envoit en String
+        if (ctype_digit($platform_id)) {
+            $platform_id = (int)$platform_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
+
+        // Validation des types
+        $validationNightPlatform = NightPlatform::validate(array(
+            'platform_id' => $platform_id,
+            'night_id' => $night_id,
+        ));
+        if ($validationNightPlatform !== true) {
+            return Jsend::fail($validationNightPlatform);
+        }
+
+        // Validation de l'existance de la publication
+        if (NightPlatform::existTechId($night_id, $platform_id) !== true) {
+            return Jsend::error('publication not found');
+        }
+
+        // Supression de la publication (table pivot).
+        Night::find($night_id)->platforms()->detach($platform_id);
+        return Jsend::success('Publication deleted');
 	}
 
 
