@@ -4,6 +4,7 @@ namespace api\v1;
 
 use \Jsend;
 use \Input;
+use \Request;
 use \Image;
 use \BaseController;
 
