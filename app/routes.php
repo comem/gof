@@ -49,6 +49,13 @@ Route::group(
         Route::resource('artists', 'ArtistsController');
         Route::resource('nightplatform', 'NightPlatformController');
         Route::resource('musicians', 'MusiciansController');
+        Route::resource('musicians', 'MusiciansController');
+
+        Route::resource('nightticketcategorie', 'NightTicketcategorieController');
+        Route::resource('images', 'ImagesController');
+        Route::resource('links', 'LinksController');
+        Route::resource('platforms', 'PlatformsController');
+
     }
 );
 
