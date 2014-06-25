@@ -1,5 +1,6 @@
 <?php
 
+
 class ArtistMusicianController extends \BaseController {
 
     /**
@@ -69,8 +70,73 @@ class ArtistMusicianController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($artist_id) {
+        
+        
+   
+        $instrument_id = Input::get('instrument_id');
+        $musician_id = Input::get('musician_id');
+        
+               if (ctype_digit($musician_id)) {
+            $musician_id = (int) $musician_id;
+        }
+        if (ctype_digit($instrument_id)) {
+            $instrument_id = (int) $instrument_id;
+        }
+
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int) $artist_id;
+        }
+        // Validation Artist
+        $validationArt = Artist::validate(array('id' => $artist_id));
+        if ($validationArt !== true) {
+            return Jsend::fail($validationArt);
+        }
+       
+
+        if (!Artist::existTechId($artist_id)) {
+            return Jsend::error($artist_id . ' not found');
+        }
+        
+        // Validation Musician
+        $validationMusician = Musician::validate(array('id' => $musician_id));
+        if ($validationMusician !== true) {
+            return Jsend::fail($validationMusician, 400);
+        }
+        
+         
+        if (!Musician::existTechId($musician_id)) {
+            return Jsend::error('musician id :' . $musician_id . ' not found', 404);
+        }
+        // Validation instrument
+
+        $validationInstrument = Instrument::validate(array('id' => $instrument_id));
+        if ($validationMusician !== true) {
+            return Jsend::fail($validationInstrument, 400);
+        }
+
+        if (!Instrument::existTechId($instrument_id)) {
+            return Jsend::error('instrument id :' . $instrument_id . ' not found', 404);
+        }
+        
+        if (!ArtistMusician::existTechId($instrument_id, $artist_id, $musician_id)) {
+            return Jsend::error("association doesn't exist");
+        }
+        
+        
+            DB::table('artist_musician')
+            ->where('instrument_id', '=', $instrument_id)
+            ->where('artist_id', '=', $artist_id)
+            ->where('musician_id', '=', $musician_id)
+            ->delete();
+
+        
+        
+         return Jsend::success('Association deleted');
+        
+        
+        
+        
     }
 
     public static function saveArtistMusician($artist_id, $instrument_id, $musician_id) {
@@ -113,7 +179,11 @@ class ArtistMusicianController extends \BaseController {
         if (!Instrument::existTechId($instrument_id)) {
             return Jsend::error('instrument id :' . $instrument_id . ' not found', 404);
         }
-
+        
+        if (ArtistMusician::existTechId($instrument_id, $artist_id, $musician_id)) {
+            return Jsend::error('association alredy exist');
+        }
+        
 
         $artistMusician = new ArtistMusician();
         $artistMusician->musician_id = $musician_id;
@@ -123,5 +193,7 @@ class ArtistMusicianController extends \BaseController {
         
         return $artistMusician;
     }
+    
+  
 
 }

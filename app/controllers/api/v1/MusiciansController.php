@@ -12,7 +12,6 @@ use \ArtistMusicianController;
 use \ArtistMusician;
 use \Musician;
 use \DB;
-
 use \InstrumentsController;
 
 class MusiciansController extends BaseController {

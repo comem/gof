@@ -55,6 +55,7 @@ Route::group(
         Route::resource('images', 'ImagesController');
         Route::resource('links', 'LinksController');
         Route::resource('platforms', 'PlatformsController');
+         Route::resource('artistmusician', 'ArtistMusicianController');
 
     }
 );
