@@ -48,6 +48,7 @@ Route::group(
     ), function() {
         Route::resource('artists', 'ArtistsController');
         Route::resource('nightplatform', 'NightPlatformController');
+        Route::resource('musicians', 'MusiciansController');
     }
 );
 
