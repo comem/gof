@@ -12,7 +12,7 @@ class NightTicketcategorie extends MyEloquent {
             'night_id' => 'integer:unsigned|sometimes|required',
             'amount' => 'integer:unsigned|sometimes|required',
             'quantity_sold' => 'integer:unsigned|sometimes',
-            'comment' => 'string|between:1,255|sometimes',
+            'comment_de' => 'string|between:1,255|sometimes',
         ));
     }
     
