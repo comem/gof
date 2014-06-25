@@ -119,80 +119,82 @@ class ArtistNightController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param  int $order correspondant à un attribut d'ordre de performer (formant l'id hybride du performer).
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
+     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
+     * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
+     * @var $artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
+     * @return Jsend::error Un message d'erreur si l'artiste lié à la modification n'existe pas.
+     * @return Jsend::error Un message d'erreur si le performer n'existe pas.
+     * @return Jsend::success Sinon, un message de validation de modification contenant le performer correspondant à l'id hybride.
      */
-    public function update($id) {
+    public function update($order) {
 
-        $nightId = Input::get('night_id');
-        $order = Input::get('order');
-        $isSupport = Input::get('is_support');
-        $artistHourArrival = Input::get('artist_hour_arrival');
+        $night_id = Input::get('night_id');
+        $artist_id = Input::get('artist_id');
+        $is_support = Input::get('is_support');
+        $artist_hour_arrival = Input::get('artist_hour_arrival');
 
         //Cast de platform_id et de night_id car l'url les envoit en String
-        if (ctype_digit($id)) {
-            $id = (int) $id;
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int)$artist_id;
         }
-
-        if (ctype_digit($nightId)) {
-            $nightId = (int) $nightId;
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
         }
         if (ctype_digit($order)) {
-            $order = (int) $order;
+            $order = (int)$order;
         }
-
+        if (ctype_digit($is_support)) {
+            $is_support = (int)$is_support;
+        }
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-                    'artist_id' => $id,
-                    'night_id' => $nightId,
-                    'order' => $order,
-                    'is_support' => $isSupport,
-                    'artist_hour_arrival' => $artistHourArrival,
+            'artist_id' => $artist_id,
+            'night_id' => $night_id,
+            'order' => $order,
+            'is_support' => $is_support,
+            'artist_hour_arrival' => $artist_hour_arrival,
         ));
-
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
         }
 
-//        // Validation de l'existance de l'événement
-//        if (Night::existTechId($night_id) !== true) {
-//            return Jsend::error('night not found');
-//        }
-//
-//        // Validation de l'existance de la plateforme
-//        if (Platform::existTechId($platform_id) !== true) {
-//            return Jsend::error('platform not found');
-//        }
-//
-//        // Validation de l'existance de la publication
-//        if (NightPlatform::existTechId($night_id, $platform_id) !== true) {
-//            return Jsend::error('publication not found');
-//        }
-//
-//        Night::find($night_id)->platforms()->updateExistingPivot($platform_id, array(
-//            'external_id' => $external_id,
-//            'external_infos' => $external_infos,
-//            'url' => $url
-//        ));
-//
-//        // Récupération de la publication 
-//        $publication = NightPlatform::where('platform_id', '=', $platform_id)->where('night_id', '=', $night_id)->first();
-//
-//        return Jsend::success($publication->toArray());
-//        //
+        // Validation de l'existance de l'événement
+        if (Night::existTechId($night_id) !== true) {
+            return Jsend::error('night not found');
+        }
 
-        //Query Builder pour l'update (a voir si ça fonctionne)
+        // Validation de l'existance de l'artiste
+        if (Artist::existTechId($artist_id) !== true) {
+            return Jsend::error('artist not found');
+        }
+
+        // Validation de l'existance de l'interprète (performer)
+        if (ArtistNight::existTechId($artist_id, $night_id, $order) !== true) {
+            return Jsend::error('performer not found');
+        }
+
+        //Modification de l'interprète (performer)
+        //Query Builder pour l'update 
         DB::table('artist_night')
             ->where('night_id', '=', $night_id)
             ->where('artist_id', '=', $artist_id)
             ->where('order', '=', $order)
             ->update(array(
-                'is_support' => $isSupport,
-                'artist_hour_arrival' => $artistHourArrival
+                'is_support' => $is_support,
+                'artist_hour_arrival' => $artist_hour_arrival)
             );
 
+        // Récupération du performer pour retourner l'objet modifié
+        $performer = ArtistNight::where('night_id', '=', $night_id)
+                                ->where('artist_id', '=', $artist_id)
+                                ->where('order', '=', $order)
+                                ->first();
+        return Jsend::success($performer->toArray());
 
     }
 
