@@ -8,9 +8,10 @@ use \DB;
 use \Genre;
 use \Artist;
 use \ArtistMusicianController;
-use \Instrument;
 use \BaseController;
-use \MusiciansController;
+use \LinksController;
+
+//use \MusiciansController;
 
 class ArtistsController extends BaseController {
 
@@ -40,10 +41,14 @@ class ArtistsController extends BaseController {
         $artistSD = Input::get('short_description_de');
         $artistCD = Input::get('complete_description_de');
         $genres = Input::get('genres');
+        $links = Input::get('links');
         $musicianInstruments = Input::get('musicianInstruments');
         $musicians = Input::get('musicians');
+        $images = Input::get('images');
 
         DB::beginTransaction();
+
+        
 
         $artist = static::saveArtist($artistName, $artistSD, $artistCD, $genres);
 
@@ -51,31 +56,37 @@ class ArtistsController extends BaseController {
             return $artist;
         }
 
+        if (isset($links)) {
+            foreach ($links as $link) {
+                $linkSaved = LinksController::saveLink($link['url'], $link['name_de'], $link['title_de'], $artist->id);
+                if (!is_a($linkSaved, 'Link')) {
+                    return $linkSaved;
+                }
+            }
+        }
+
         if (isset($musicianInstruments)) {
             foreach ($musicianInstruments as $musicianInstrument) {
-                ArtistMusicianController::saveArtistMusician($artist->id, $musicianInstrument['musician_id'], $musicianInstrument['instrument_id']);
+                $artistMusician = ArtistMusicianController::saveArtistMusician($artist->id, $musicianInstrument['instrument_id'], $musicianInstrument['musician_id']);
+                if (!is_a($artistMusician, 'ArtistMusician')) {
+                    return Jsend::error($artistMusician);
+                }
             }
         }
 
         if (isset($musicians)) {
-
             foreach ($musicians as $musician) {
-                $musicianToSave = MusiciansController::saveMusician($musician);
+                $musicianToSave = MusiciansController::saveMusician($musician['first_name'], $musician['last_name'], $musician['stagename']);
                 if (!is_a($musicianToSave, 'Musician')) {
                     return $musicianToSave;
                 }
-                
-                $musicianInstrument_id = $musician['instrument_id'];
-                $validationInstrument = Instrument::validate(array('id' => $musicianInstrument_id));
-                if ($validationInstrument !== true) {
-                    return Jsend::fail($validationInstrument, 400);
-                }
 
-                if (Instrument::existTechId($musicianInstrument_id) !== true) {
-                    return Jsend::error("instrument dosen't exists in the database", 404);
+                foreach ($musician['instruments'] as $instrument) {
+                    $artistMusician = ArtistMusicianController::saveArtistMusician($artist->id, $instrument['id'], $musicianToSave->id);
+                    if (!is_a($artistMusician, 'ArtistMusician')) {
+                        return Jsend::error($artistMusician);
+                    }
                 }
-                
-                ArtistMusicianController::saveArtistMusician($artist->id, $musicianInstrument_id, $musicianToSave->id);
             }
         }
         DB::commit();
@@ -176,7 +187,9 @@ class ArtistsController extends BaseController {
         $artist->complete_description_de = $artistCD;
         $artist->save();
 
-
+        if (!isset($genres)) {
+            return Jsend::fail('genre is required');
+        }
         foreach ($genres as $genre) {
             if (ctype_digit($genre['id'])) {
                 $genre['id'] = (int) $genre['id'];
