@@ -7,10 +7,7 @@ use \Input;
 use \DB;
 use \Genre;
 use \Artist;
-use \Musician;
 use \ArtistMusicianController;
-use \ArtistMusician;
-use \Exception;
 use \Instrument;
 use \BaseController;
 use \MusiciansController;
@@ -30,11 +27,13 @@ class ArtistsController extends BaseController {
      * @var (string) name - Le nom de l'artist
      * @var (string) short_description_de - Une courte description de l'artist
      * @var (string) complete_description_de - Une description complete de l'artist
-     * @var (array) genre - Les genres de l'artist
+     * @var (array) "genres": [{"id":"(int)"}] - Les genres de l'artist
+     * @var (array) "musicianInstruments": [{"musician_id": "(int)","instrument_id": "(int)"}] - Les musicians avec leur instrument
+     * @var (array) "musicians": [{"first_name": "(string)","last_name": "(String)","stagename": "(String)","instrument_id": "(int)"}] - Le nouveau musician à créer
      * 
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si le genre n'existe pas.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'artist créé.
+     * @return Jsend::error Un message d'erreur si une ressource n'existe pas.
+     * @return Jsend::success Un message de validation avec l'artist créé s'il a été enregistré.
      */
     public function store() {
         $artistName = Input::get('name');
@@ -44,38 +43,43 @@ class ArtistsController extends BaseController {
         $musicianInstruments = Input::get('musicianInstruments');
         $musicians = Input::get('musicians');
 
+        DB::beginTransaction();
 
-  
-            DB::beginTransaction();
+        $artist = static::saveArtist($artistName, $artistSD, $artistCD, $genres);
 
-            $artist = static::saveArtist($artistName, $artistSD, $artistCD, $genres);
+        if (!is_a($artist, 'Artist')) {
+            return $artist;
+        }
 
-
-            if (isset($musicianInstruments)) {
-                foreach ($musicianInstruments as $musicianInstrument) {
-                    ArtistMusicianController::saveArtistMusician($musicianInstrument['musician_id'], $artist->id, $musicianInstrument['instrument_id']);
-                }
+        if (isset($musicianInstruments)) {
+            foreach ($musicianInstruments as $musicianInstrument) {
+                ArtistMusicianController::saveArtistMusician($artist->id, $musicianInstrument['musician_id'], $musicianInstrument['instrument_id']);
             }
+        }
 
-            if (isset($musicians)) {
+        if (isset($musicians)) {
 
-                foreach ($musicians as $musician) {
-                    $musicianToSave = MusiciansController::saveMusician($musician);
-                    $musicianInstrument_id = $musician['instrument_id'];
-                    $validationInstrument = Instrument::validate(array('id' => $musicianInstrument_id));
-                    if ($validationInstrument !== true) {
-                        return Jsend::fail($validationInstrument, 400);
-                    }
-
-                    if (Instrument::existTechId($musicianInstrument_id) !== true) {
-                        return Jsend::error("instrument dosen't exists in the database", 404);
-                    }
-
-                    ArtistMusicianController::saveArtistMusician($musicianToSave->id, $artist->id, $musicianInstrument_id);
+            foreach ($musicians as $musician) {
+                $musicianToSave = MusiciansController::saveMusician($musician);
+                if (!is_a($musicianToSave, 'Musician')) {
+                    return $musicianToSave;
                 }
+                
+                $musicianInstrument_id = $musician['instrument_id'];
+                $validationInstrument = Instrument::validate(array('id' => $musicianInstrument_id));
+                if ($validationInstrument !== true) {
+                    return Jsend::fail($validationInstrument, 400);
+                }
+
+                if (Instrument::existTechId($musicianInstrument_id) !== true) {
+                    return Jsend::error("instrument dosen't exists in the database", 404);
+                }
+                
+                ArtistMusicianController::saveArtistMusician($artist->id, $musicianInstrument_id, $musicianToSave->id);
             }
-            DB::commit();
-        
+        }
+        DB::commit();
+
         return Jsend::success($artist->toArray(), 201);
     }
 
@@ -188,6 +192,7 @@ class ArtistsController extends BaseController {
 
             if (!Genre::existTechId($genre['id'])) {
                 if (!Genre::existTechId($genre['id'])) {
+
                     return Jsend::error('genre not found', 404);
                 }
             }
