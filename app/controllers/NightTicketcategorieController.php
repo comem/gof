@@ -32,7 +32,7 @@ class NightTicketcategorieController extends \BaseController {
         $quantitySold = Input::get('quantity_sold');
         $comment_de = Input::get('comment_de');
 
-        //Cast de platform_id et de event_id car l'url les envoit en String
+        //Cast de ticketCat_id et de event_id car l'url les envoit en String
         if (ctype_digit($ticketCat_id)) {
             $ticketCat_id = (int)$ticketCat_id;
         }
@@ -40,8 +40,8 @@ class NightTicketcategorieController extends \BaseController {
             $night_id = (int)$night_id;
         }
 
-        // Validation de l'existance de l'événement
-        $validationNightTicketCat = TicketCategorie::validate(array(
+        // Validation des types
+        $validationNightTicketCat = NightTicketcategorie::validate(array(
             'night_id' => $night_id,
             'ticketcategorie_id' => $ticketCat_id,
             'amount' => $amount,
@@ -85,11 +85,44 @@ class NightTicketcategorieController extends \BaseController {
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $ticketCat_id correspondant à l'id technique de la catégorie de ticket.
+     * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le ticket correspondant à l'id hybride.
      */
-    public function show($id1) {
+    public function show($ticketCat_id) {
+
+        // Récupération par le header
+        $night_id = Request::header('night_id');
+
+        //Cast de ticketCat_id et de event_id car l'url les envoit en String
+        if (ctype_digit($ticketCat_id)) {
+            $ticketCat_id = (int)$ticketCat_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
+
+        // Validation des types
+        $validationNightTicketCat = NightTicketcategorie::validate(array(
+            'night_id' => $night_id,
+            'ticketcategorie_id' => $ticketCat_id,
+        ));
+        if ($validationNightTicketCat !== true) {
+            return Jsend::fail($validationNightTicketCat);
+        }
+
+        // Validation de l'existance du ticket
+        if (NightTicketcategorie::existTechId($night_id, $ticketCat_id) !== true) {
+            return Jsend::error('ticket not found');
+        }
+
+        // Récupération du ticket
+        $ticket = NightTicketcategorie::where('ticketcategorie_id', '=', $ticketCat_id)->where('night_id', '=', $night_id)->first();
+        
+        // Retourne le ticket encapsulée en JSEND si tout est OK
+        return Jsend::success($ticket->toArray());
         
     }
 
