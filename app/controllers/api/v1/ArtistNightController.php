@@ -1,6 +1,16 @@
 <?php
 
-class ArtistNightController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Request;
+use \Artist;
+use \Night;
+use \ArtistNight;
+use \BaseController;
+
+class ArtistNightController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -256,52 +266,6 @@ class ArtistNightController extends \BaseController {
             ->delete();
 
         return Jsend::success('Performer deleted');
-    }
-
-    public static function saveArtistNight($artistId, $nightId, $order, $isSupport, $artistHourArrival) {
-        if (ctype_digit($artistId)) {
-            $artistId = (int) $artistId;
-        }
-
-        if (ctype_digit($nightId)) {
-            $nightId = (int) $nightId;
-        }
-
-        $validationArtistNight = ArtistNight::validate(array(
-                    'artist_id' => $artistId,
-                    'night_id' => $nightId,
-                    'order' => $order,
-                    'is_support' => $isSupport,
-                    'artist_hour_arrival' => $artistHourArrival,
-        ));
-
-        if ($validationArtistNight !== true) {
-            return Jsend::fail($validationArtistNight);
-        }
-
-        if (!Artist::existTechId($nightId)) {
-            return Jsend::error('artist not found');
-        }
-
-        if (!Night::existTechId($nightId)) {
-            return Jsend::error('night not found');
-        }
-
-        if (ArtistNight::existTechId($artistId, $nightId, $order)) {
-            return Jsend::error('artistnight already exists');
-        }
-
-        $artistNight = new ArtistNight();
-        $artistNight->artist_id = $artistId;
-        $artistNight->night_id = $nightId;
-        $artistNight->order = $order;
-        $artistNight->is_support = $isSupport;
-        $artistNight->artist_hour_arrival = $artistHourArrival;
-        $artistNight->save();
-
-
-
-        return $artistNight;
     }
 
 }
