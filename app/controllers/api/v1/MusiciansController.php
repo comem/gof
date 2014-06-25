@@ -11,6 +11,9 @@ use \BaseController;
 use \ArtistMusicianController;
 use \ArtistMusician;
 use \Musician;
+use \DB;
+
+use \InstrumentsController;
 
 class MusiciansController extends BaseController {
 
@@ -42,7 +45,15 @@ class MusiciansController extends BaseController {
         $last_name = Input::get('last_name');
         $stagename = Input::get('stagename');
         $artistsInstruments = Input::get('artistsInstruments');
+       
 
+        DB::beginTransaction();
+
+
+
+        if (!isset($artistsInstruments)) {
+            return Jsend::fail("Artist and Instrument required");
+        }
 
         $musician = MusiciansController::saveMusician($first_name, $last_name, $stagename);
 
@@ -50,37 +61,34 @@ class MusiciansController extends BaseController {
             return Jsend::error($musician);
         }
 
-
         
-        if (isset($artistsInstruments)) {
+        
+        foreach ($artistsInstruments as $aI) {
 
-            foreach ($artistsInstruments as $aI) {
+            $artist_id = $aI['artist_id'];
 
-                $instrument_id = $aI['instrument_id'];
-                $artist_id = $aI['artist_id'];
-                
+
+            foreach ($aI['instruments'] as $instru) {
+
+                $instrument_id = $instru['instrument_id'];
+
+
                 $artistMusician = ArtistMusicianController::saveArtistMusician($artist_id, $instrument_id, $musician->id);
-             
+
                 if (!is_a($artistMusician, 'ArtistMusician')) {
-                    return Jsend::error($artistMusician);
+                    return Jsend::fail($artistMusician);
                 }
             }
-
-            return Jsend::success(array('first_name' => $first_name,
-                        'last_name' => $last_name,
-                        'stagename' => $stagename,
-                        'association' => 'artist and instrument'));
         }
-
+        DB::commit();
         return Jsend::success(array('first_name' => $first_name,
                     'last_name' => $last_name,
                     'stagename' => $stagename,
-                    'association' => 'none'));
+                    'association' => 'artist and instrument'));
     }
 
     /**
      * Affiche le musician correspondant à l'id passée en paramètre
-     *
      * @param  int  $id correspond à l'identifiant du musician
      * @return Response retourne le musician correspondant à l'id
      */
