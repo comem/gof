@@ -48,6 +48,10 @@ Route::group(
     ), function() {
         Route::resource('artists', 'ArtistsController');
         Route::resource('nightplatform', 'NightPlatformController');
+        Route::resource('nightticketcategorie', 'NightTicketcategorieController');
+        Route::resource('images', 'ImagesController');
+        Route::resource('links', 'LinksController');
+        Route::resource('platforms', 'PlatformsController');
     }
 );
 
