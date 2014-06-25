@@ -115,7 +115,7 @@ class NightTicketcategorieController extends \BaseController {
         }
 
         // Validation de l'existance du ticket
-        if (NightTicketcategorie::existTechId($night_id, $ticketCat_id) !== true) {
+        if (NightTicketcategorie::existTechId($ticketCat_id, $night_id) !== true) {
             return Jsend::error('ticket not found');
         }
 
@@ -179,7 +179,7 @@ class NightTicketcategorieController extends \BaseController {
         }
 
         // Validation de l'existance du ticket
-        if (NightTicketcategorie::existTechId($night_id, $ticketCat_id) !== true) {
+        if (NightTicketcategorie::existTechId($ticketCat_id, $night_id) !== true) {
             return Jsend::error('ticket not found');
         }
 
@@ -225,7 +225,7 @@ class NightTicketcategorieController extends \BaseController {
         }
 
         // Validation de l'existance du ticket
-        if (NightTicketcategorie::existTechId($night_id, $ticketCat_id) !== true) {
+        if (NightTicketcategorie::existTechId($ticketCat_id, $night_id) !== true) {
             return Jsend::error('ticket not found');
         }
 
