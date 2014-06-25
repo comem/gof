@@ -123,7 +123,7 @@ class NightPlatformController extends BaseController {
 
 	/**
 	 * Display the specified resource.
-	 * @param  int  $platform_id correspondant à l'id technique de la plateforme.
+	 * @param  int $platform_id correspondant à l'id technique de la plateforme.
      * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::fail Un message d'erreur si l'id hybride est déjà en mémoire.
@@ -166,7 +166,7 @@ class NightPlatformController extends BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * @param  int  $id correspondant à l'id technique de la plateforme (formant l'id hybride de la publication).
+	 * @param  int $platform_id correspondant à l'id technique de la plateforme (formant l'id hybride de la publication).
      * @var night_id a récupérer comme contenu en get. Correspond à l'id technique de l'événement (formant l'id hybride de la publication).
      * @var external_id a récupérer comme contenu en get. Correspond l'id externe de la publication.
      * @var external_indos a récupérer comme contenu en get. Correspond aux informations externes de la publication.
@@ -235,7 +235,7 @@ class NightPlatformController extends BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * @param  int  $platform_id correspondant à l'id technique de la plateforme.
+	 * @param  int $platform_id correspondant à l'id technique de la plateforme.
      * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::error Un message d'erreur si la publication n'est pas existante
