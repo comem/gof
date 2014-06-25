@@ -28,23 +28,15 @@ class InstrumentsController extends BaseController {
         // Auth
 
         $name_de = Input::get('name_de');
+        
+        $instrument = InstrumentsController::saveInstrument($name_de);
+        
+         if (!is_a($instrument, 'Instrument')) {
+                    return Jsend::fail($instrument);
+                    }
 
-
-        if (Instrument::existBuisnessId($name_de) == true) {
-
-            return Jsend::error("instrument already exists in the database");
-        }
-
-        $validationInstrum = Instrument::validate(array('name_de' => $name_de));
-
-        if ($validationInstrum !== true) {
-            return Jsend::fail($validationInstrum);
-        }
-
-        $newinstrument = new Instrument();
-        $newinstrument->name_de = $name_de;
-        $newinstrument->save();
-        return Jsend::success(array('name_de' => $newinstrument->name_de));
+        
+        return Jsend::success(array('name_de' => $instrument->name_de));
     }
 
     /**
@@ -142,4 +134,26 @@ class InstrumentsController extends BaseController {
         return Jsend::success();
     }
 
+    
+    public static function saveInstrument($name_de){
+       
+        if (Instrument::existBuisnessId($name_de) == true) {
+
+            return Jsend::error("instrument: " .$name_de."  already exists in the database");
+        }
+
+        $validationInstrum = Instrument::validate(array('name_de' => $name_de));
+
+        if ($validationInstrum !== true) {
+            return Jsend::fail($validationInstrum);
+        }
+
+        $newinstrument = new Instrument();
+        $newinstrument->name_de = $name_de;
+        $newinstrument->save();
+        
+        return $newinstrument;
+    }
+    
+    
 }
