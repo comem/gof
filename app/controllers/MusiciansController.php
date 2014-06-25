@@ -9,7 +9,7 @@ class MusiciansController extends \BaseController {
      */
     public function index() {
 
-       return Jsend::success(Musician::all()->toArray());
+        return Jsend::success(Musician::all()->toArray());
     }
 
     /**
@@ -47,18 +47,18 @@ class MusiciansController extends \BaseController {
 
         if ($artistsInstruments !== null) {
             foreach ($artistsInstruments as $aI) {
-                
+
                 $instrument_id = $aI['instrument_id'];
                 $artist_id = $aI['artist_id'];
 
-                if (ctype_digit( $instrument_id)) {
-                     $instrument_id = (int) $instrument_id;
+                if (ctype_digit($instrument_id)) {
+                    $instrument_id = (int) $instrument_id;
                 }
 
-                if (ctype_digit( $artist_id )) {
-                     $artist_id  = (int) $artist_id ;
+                if (ctype_digit($artist_id)) {
+                    $artist_id = (int) $artist_id;
                 }
-             
+
 
                 $validationInstru = Instrument::validate(array('id' => $instrument_id));
                 if ($validationInstru !== true) {
@@ -69,15 +69,14 @@ class MusiciansController extends \BaseController {
                     return Jsend::error($instrument_id . ' not found');
                 }
 
-                $validationArt = Artist::validate(array('id' =>  $artist_id ));
+                $validationArt = Artist::validate(array('id' => $artist_id));
                 if ($validationArt !== true) {
                     return Jsend::fail($validationArt);
                 }
 
-                if (!Artist::existTechId( $artist_id )) {
-                    return Jsend::error( $artist_id  . ' not found');
+                if (!Artist::existTechId($artist_id)) {
+                    return Jsend::error($artist_id . ' not found');
                 }
-                  
             }
         }
 
@@ -91,57 +90,53 @@ class MusiciansController extends \BaseController {
         $musician->stagename = $stagename;
         $musician->save();
 
-        if ($artistsInstruments !== null){
-        
-        foreach ($artistsInstruments as $aI) {
+        if ($artistsInstruments !== null) {
 
-               $instrument_id = $aI['instrument_id'];
+            foreach ($artistsInstruments as $aI) {
+
+                $instrument_id = $aI['instrument_id'];
                 $artist_id = $aI['artist_id'];
 
-                if (ctype_digit( $instrument_id)) {
-                     $instrument_id = (int)  $instrument_id;
+                if (ctype_digit($instrument_id)) {
+                    $instrument_id = (int) $instrument_id;
                 }
 
-                if (ctype_digit( $artist_id )) {
-                     $artist_id =  (int) $artist_id ;
+                if (ctype_digit($artist_id)) {
+                    $artist_id = (int) $artist_id;
                 }
 
 
 
-            $validationArtMus = ArtistMusician::validate(array('musician_id' => $musician->id,
-                        'artist_id' => $artist_id,
-                        'instrument_id' =>  $instrument_id));
+                $validationArtMus = ArtistMusician::validate(array('musician_id' => $musician->id,
+                            'artist_id' => $artist_id,
+                            'instrument_id' => $instrument_id));
 
-            if ($validationArtMus !== true) {
-                return Jsend::fail($validationArtMus);
+                if ($validationArtMus !== true) {
+                    return Jsend::fail($validationArtMus);
+                }
+
+                if (ArtistMusician::existTechId($instrument_id, $artist_id, $musician->id)) {
+                    return Jsend::error('assoicate ArtistMusician already exist');
+                }
+
+
+                $artistMusician = new ArtistMusician();
+                $artistMusician->musician_id = $musician->id;
+                $artistMusician->artist_id = $artist_id;
+                $artistMusician->instrument_id = $instrument_id;
+                $artistMusician->save();
+
+                return Jsend::success(array('first_name' => $first_name,
+                            'last_name' => $last_name,
+                            'stagename' => $stagename,
+                            'association' => 'artist and instrument'));
             }
-
-            if (ArtistMusician::existTechId( $instrument_id, $artist_id, $musician->id)) {
-                return Jsend::error('assoicate ArtistMusician already exist');
-            }
-
-
-            $artistMusician = new ArtistMusician();
-            $artistMusician->musician_id = $musician->id;
-            $artistMusician->artist_id = $artist_id;
-            $artistMusician->instrument_id =  $instrument_id;
-            $artistMusician->save();
-            
-            return Jsend::success(array('first_name' => $first_name,
-                    'last_name' => $last_name,
-                    'stagename' => $stagename,
-                    'association' => 'artist and instrument'));
-            
-             
-        }
-        
         }
 
         return Jsend::success(array('first_name' => $first_name,
                     'last_name' => $last_name,
                     'stagename' => $stagename,
                     'association' => 'none'));
-                    
     }
 
     /**
@@ -188,5 +183,30 @@ class MusiciansController extends \BaseController {
     public function destroy($id) {
         //
     }
+
+    public static function saveMusician($musician) {
+        $first_name = $musician['first_name'];
+        $last_name = $musician['last_name'];
+        $stagename = $musician['stagename'];
+
+        $validationMusician = Musician::validate(array(
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'stagename' => $stagename
+        ));
+
+        if ($validationMusician !== true) {
+            return Jsend::fail($validationMusician, 400);
+        }
+
+        $musicianToSave = new Musician();
+        $musicianToSave->first_name = $first_name;
+        $musicianToSave->last_name = $last_name;
+        $musicianToSave->stagename = $stagename;
+        $musicianToSave->save();
+        
+        return $musicianToSave;
+    }
+    
 
 }
