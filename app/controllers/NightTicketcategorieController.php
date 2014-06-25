@@ -54,7 +54,7 @@ class NightTicketcategorieController extends \BaseController {
         
         // Validation de l'existance de la catégorie de ticket
         if (!TicketCategorie::existTechId($ticketCat_id)) {
-            return Jsend::error('ticketcategorie not found');
+            return Jsend::error('ticket category not found');
         }
         
         // Validation de l'existance de l'événement
@@ -85,7 +85,7 @@ class NightTicketcategorieController extends \BaseController {
 
     /**
      * Display the specified resource.
-     * @param  int  $ticketCat_id correspondant à l'id technique de la catégorie de ticket.
+     * @param  int $ticketCat_id correspondant à l'id technique de la catégorie de ticket.
      * @var night_id a récupérer comme contenu en get dans le header. Correspond à l'id de l'événement.
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
@@ -103,7 +103,7 @@ class NightTicketcategorieController extends \BaseController {
         if (ctype_digit($night_id)) {
             $night_id = (int)$night_id;
         }
-
+ 
         // Validation des types
         $validationNightTicketCat = NightTicketcategorie::validate(array(
             'night_id' => $night_id,
@@ -128,12 +128,70 @@ class NightTicketcategorieController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param  int $ticketCat_id correspondant à l'id technique de la catégorie de ticket (formant l'id hybride de la publication).
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
+     * @var amount a récupérer comme contenu en get. Correspond au prix du ticket.
+     * @var quantitySold a récupérer comme contenu en get. Correspond au nombre de ticket vendu.
+     * @var comment a récupérer comme contenu en get. Correspond à un commentaire sur ce ticket. 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
+     * @return Jsend::error Un message d'erreur si la catégorie de ticket liée à la modification n'existe pas.
+     * @return Jsend::error Un message d'erreur si le ticket à modifier n'existe pas.
+     * @return Jsend::success Sinon, un message de validation de modification contenant le ticket correspondante à l'id hybride.
      */
-    public function update($id) {
-        //
+    public function update($ticketCat_id) {
+        
+        $night_id = Input::get('night_id');
+        $ticketCat_id = Input::get('ticketcategorie_id');
+        $amount = Input::get('amount');
+        $quantitySold = Input::get('quantity_sold');
+        $comment_de = Input::get('comment_de');
+
+        //Cast de ticketCat_id et de event_id car l'url les envoit en String
+        if (ctype_digit($ticketCat_id)) {
+            $ticketCat_id = (int)$ticketCat_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
+
+        // Validation des types
+        $validationNightTicketCat = NightTicketcategorie::validate(array(
+            'night_id' => $night_id,
+            'ticketcategorie_id' => $ticketCat_id,
+            'amount' => $amount,
+            'quantity_sold' => $quantitySold,
+            'comment_de' => $comment_de,
+        ));
+        if ($validationNightTicketCat !== true) {
+            return Jsend::fail($validationNightTicketCat);
+        }
+
+        // Validation de l'existance de l'événement
+        if (Night::existTechId($night_id) !== true) {
+            return Jsend::error('night not found');
+        }
+
+        // Validation de l'existance de la catégorie de ticket
+        if (TicketCategorie::existTechId($ticketCat_id) !== true) {
+            return Jsend::error('ticket category not found');
+        }
+
+        // Validation de l'existance du ticket
+        if (NightTicketcategorie::existTechId($night_id, $ticketCat_id) !== true) {
+            return Jsend::error('ticket not found');
+        }
+
+        //Modification du ticket (table pivot).
+        Night::find($night_id)->ticketcategories()->updateExistingPivot($ticketCat_id, array(
+            'amount' => $amount,
+            'quantity_sold' => $quantitySold,
+            'comment_de' => $comment_de
+        ));
+
+        // Récupération du ticket pour retourner l'objet modifié
+        $ticket = NightTicketcategorie::where('ticketcategorie_id', '=', $ticketCat_id)->where('night_id', '=', $night_id)->first();    
+        return Jsend::success($ticket->toArray());
     }
 
     /**
