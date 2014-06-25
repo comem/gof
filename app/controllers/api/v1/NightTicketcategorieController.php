@@ -1,6 +1,16 @@
 <?php
 
-class NightTicketcategorieController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Request;
+use \Night;
+use \TicketCategorie;
+use \NightTicketcategorie;
+use \BaseController;
+
+class NightTicketcategorieController extends BaseController {
 
     /**
      * Display a listing of the resource.

@@ -45,6 +45,10 @@ class Night extends MyEloquent {
         return $this->belongsToMany('Artist');
     }  
 
+    /**
+     * Cette méthode permet de lier l'événement à un interprète (performer = table pivot)
+     * @return L'interprète lié à cet événement.
+     */
     public function artistNights(){
         return $this->hasMany('ArtistNight');
     }
