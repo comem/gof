@@ -10,6 +10,7 @@ use \Artist;
 use \ArtistMusicianController;
 use \BaseController;
 use \LinksController;
+use \ArtistNightController;
 
 //use \MusiciansController;
 
@@ -24,13 +25,16 @@ class ArtistsController extends BaseController {
     }
 
     /**
-     * Permet d'enregistrer un nouvel artist
-     * @var (string) name - Le nom de l'artist
-     * @var (string) short_description_de - Une courte description de l'artist
-     * @var (string) complete_description_de - Une description complete de l'artist
-     * @var (array) "genres": [{"id":"(int)"}] - Les genres de l'artist
-     * @var (array) "musicianInstruments": [{"musician_id": "(int)","instrument_id": "(int)"}] - Les musicians avec leur instrument
-     * @var (array) "musicians": [{"first_name": "(string)","last_name": "(String)","stagename": "(String)","instrument_id": "(int)"}] - Le nouveau musician à créer
+     * Allows to save a new artist
+     * @var (string) name - the artist name
+     * @var (string) short_description_de - A short description
+     * @var (string) complete_description_de - A complete description
+     * @var (array) "genres": [{"id":"(int)"}] - the artist genres
+     * @var (array) "links": [{"url": "(string)","name_de": "(string)","title_de": "(string)"}] - the existing musicians
+     * @var (array) "musicianInstruments": [{"musician_id": "(int)","instrument_id": "(int)"}] - the existing musicians
+     * @var (array) "musicians": [{"first_name": "(string)","last_name": "(string)","stagename": "(string)","instruments": [{"id": "(int)"},{"id": "(int)"}] - the new musicians
+     * @var (array) "night":{"id": "(int)","order": "(int)","isSupport": "(tinyint)","artist_hour_arrival": "(datetime)"}
+        }
      * 
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::error Un message d'erreur si une ressource n'existe pas.
@@ -44,11 +48,14 @@ class ArtistsController extends BaseController {
         $links = Input::get('links');
         $musicianInstruments = Input::get('musicianInstruments');
         $musicians = Input::get('musicians');
+        $night = Input::get('night');
         $images = Input::get('images');
+        
+        
 
         DB::beginTransaction();
 
-        
+
 
         $artist = static::saveArtist($artistName, $artistSD, $artistCD, $genres);
 
@@ -87,6 +94,14 @@ class ArtistsController extends BaseController {
                         return Jsend::error($artistMusician);
                     }
                 }
+            }
+        }
+
+        if (isset($night)) {
+            
+            $performerToSave = ArtistNightController::saveArtistNight($artist->id, $night['id'], $night['order'], $night['isSupport'], $night['artist_hour_arrival']);
+            if (!is_a($performerToSave, 'ArtistNight')) {
+                return $performerToSave;
             }
         }
         DB::commit();
