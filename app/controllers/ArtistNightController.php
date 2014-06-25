@@ -182,6 +182,18 @@ class ArtistNightController extends \BaseController {
 //
 //        return Jsend::success($publication->toArray());
 //        //
+
+        //Query Builder pour l'update (a voir si ça fonctionne)
+        DB::table('artist_night')
+            ->where('night_id', '=', $night_id)
+            ->where('artist_id', '=', $artist_id)
+            ->where('order', '=', $order)
+            ->update(array(
+                'is_support' => $isSupport,
+                'artist_hour_arrival' => $artistHourArrival
+            );
+
+
     }
 
     /**
