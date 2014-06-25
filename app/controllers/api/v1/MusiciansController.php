@@ -75,7 +75,7 @@ class MusiciansController extends BaseController {
         return Jsend::success(array('first_name' => $first_name,
                     'last_name' => $last_name,
                     'stagename' => $stagename,
-                    'without association'));
+                    'association' => 'none'));
     }
 
     /**
