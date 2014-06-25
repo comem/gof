@@ -7,6 +7,7 @@ use \Input;
 use \DB;
 use \Genre;
 use \Artist;
+use \Image;
 use \ArtistMusicianController;
 use \BaseController;
 use \LinksController;
@@ -29,12 +30,11 @@ class ArtistsController extends BaseController {
      * @var (string) name - the artist name
      * @var (string) short_description_de - A short description
      * @var (string) complete_description_de - A complete description
-     * @var (array) "genres": [{"id":"(int)"}] - the artist genres
+     * @var (array) "genres": [{"id": "(int)"}] - the artist genres
      * @var (array) "links": [{"url": "(string)","name_de": "(string)","title_de": "(string)"}] - the existing musicians
      * @var (array) "musicianInstruments": [{"musician_id": "(int)","instrument_id": "(int)"}] - the existing musicians
      * @var (array) "musicians": [{"first_name": "(string)","last_name": "(string)","stagename": "(string)","instruments": [{"id": "(int)"},{"id": "(int)"}] - the new musicians
-     * @var (array) "night":{"id": "(int)","order": "(int)","isSupport": "(tinyint)","artist_hour_arrival": "(datetime)"}
-        }
+     * @var (array) "night" :{"id": "(int)","order": "(int)","isSupport": "(tinyint)","artist_hour_arrival": "(datetime)"}
      * 
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::error Un message d'erreur si une ressource n'existe pas.
@@ -50,8 +50,8 @@ class ArtistsController extends BaseController {
         $musicians = Input::get('musicians');
         $night = Input::get('night');
         $images = Input::get('images');
-        
-        
+
+
 
         DB::beginTransaction();
 
@@ -98,10 +98,19 @@ class ArtistsController extends BaseController {
         }
 
         if (isset($night)) {
-            
+
             $performerToSave = ArtistNightController::saveArtistNight($artist->id, $night['id'], $night['order'], $night['isSupport'], $night['artist_hour_arrival']);
             if (!is_a($performerToSave, 'ArtistNight')) {
                 return $performerToSave;
+            }
+        }
+
+        if (isset($images)) {
+            foreach ($images as $image) {
+                $imageSaved = static::saveIllustration($artist->id, $image['id']);
+                if (!is_a($imageSaved, 'Image')) {
+                    return $imageSaved;
+                }
             }
         }
         DB::commit();
@@ -228,6 +237,24 @@ class ArtistsController extends BaseController {
         }
 
         return $artist;
+    }
+
+    public static function saveIllustration($artistId, $imageId) {
+
+
+        if (!Image::existTechId($imageId)) {
+            return Jsend::error('image not found', 404);
+        }
+
+        $image = Image::find($imageId);
+        if ($image->artist_id !== null) {
+            return Jsend::fail('this image belongs already to an artist', 400);
+        }
+
+
+        $image->artist_id = $artistId;
+        $image->save();
+        return $image;
     }
 
 }
