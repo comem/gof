@@ -4,60 +4,83 @@ class NightTicketcategorieController extends \BaseController {
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * @return Jsend::success Toutes les catégories de tickets
      */
     public function index() {
+        // Retourne toutes les publication
         return Jsend::success(NightTicketcategorie::all()->toArray());
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
+     * @var ticketCat_id a récupérer comme contenu en get. Correspond à l'id de la catégorie de ticket.
+     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
+     * @var amount a récupérer comme contenu en get. Correspond au prix du ticket.
+     * @var quantitySold a récupérer comme contenu en get. Correspond au nombre de ticket vendu.
+     * @var comment a récupérer comme contenu en get. Correspond à un commentaire sur ce ticket. 
+     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Jsend::error Un message d'erreur si la catégorie de ticket n'existe pas.
+     * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
+     * @return Jsend::error Un message d'erreur si le ticket existe déjà.
+     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'id hybride du ticket.
      */
     public function store() {
-        $nightId = Input::get('night_id');
-        $ticketCatId = Input::get('ticketcategorie_id');
+
+        $night_id = Input::get('night_id');
+        $ticketCat_id = Input::get('ticketcategorie_id');
         $amount = Input::get('amount');
         $quantitySold = Input::get('quantity_sold');
-        $comment = Input::get('comment_de');
+        $comment_de = Input::get('comment_de');
 
+        //Cast de platform_id et de event_id car l'url les envoit en String
+        if (ctype_digit($ticketCat_id)) {
+            $ticketCat_id = (int)$ticketCat_id;
+        }
+        if (ctype_digit($night_id)) {
+            $night_id = (int)$night_id;
+        }
 
+        // Validation de l'existance de l'événement
         $validationNightTicketCat = TicketCategorie::validate(array(
-            'night_id' => $nightId,
-            'ticketcategorie_id' => $ticketCatId,
+            'night_id' => $night_id,
+            'ticketcategorie_id' => $ticketCat_id,
             'amount' => $amount,
             'quantity_sold' => $quantitySold,
-            'comment' => $comment,
-                ));
-        
+            'comment_de' => $comment_de,
+        ));
         if ($validationNightTicketCat !== true) {
             return Jsend::fail($validationNightTicketCat);
         }
         
-        if (!TicketCategorie::existTechId($ticketCatId)) {
+        // Validation de l'existance de la catégorie de ticket
+        if (!TicketCategorie::existTechId($ticketCat_id)) {
             return Jsend::error('ticketcategorie not found');
         }
         
-        if (!Night::existTechId($nightId)) {
+        // Validation de l'existance de l'événement
+        if (!Night::existTechId($night_id)) {
             return Jsend::error('night not found');
         }
         
-        if (NightTicketcategorie::existTechId($ticketCatId, $nightId)) {
+        // // Validation de l'inexistance du ticket
+        if (NightTicketcategorie::existTechId($ticketCat_id, $night_id)) {
             return Jsend::error('nightticketcategorie already exists');
         }
 
+        // Tout est ok, sauvegarde du ticket avec les ids de l'événement et de la catégorie de ticket.
         $nightTicketCat = new NightTicketcategorie();
-        $nightTicketCat->night_id = $nightId;
-        $nightTicketCat->ticketcategorie_id = $ticketCatId;
+        $nightTicketCat->night_id = $night_id;
+        $nightTicketCat->ticketcategorie_id = $ticketCat_id;
         $nightTicketCat->amount = $amount;
         $nightTicketCat->quantity_sold = $quantitySold;
-        $nightTicketCat->comment_de = $comment;
+        $nightTicketCat->comment_de = $comment_de;
         $nightTicketCat->save();
      
-        // Et on retourne l'id du message nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('night_id' => $nightTicketCat->night_id, 'ticketcategorie_id' => $nightTicketCat->ticketcategorie_id));
+        // Retour l'id du ticket nouvellement créé (encapsulé en JSEND)
+        return Jsend::success(array(
+            'night_id' => $nightTicketCat->night_id,
+            'ticketcategorie_id' => $nightTicketCat->ticketcategorie_id
+        ));
     }
 
     /**
