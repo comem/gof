@@ -12,7 +12,6 @@ class NightsController extends \BaseController {
      */
     public function index() {
       return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->get());     
-
     }
 
     /**
@@ -86,7 +85,6 @@ class NightsController extends \BaseController {
                 
             }
         }
-        
         
         DB::commit();
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
