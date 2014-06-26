@@ -13,7 +13,7 @@ class Musician extends MyEloquent {
 
 	public function artists()
 	{
-		return $this->belongsToMany('Artist');
+		return $this->belongsToMany('Artist')->withPivot('instrument_id');
 	}
 
 	public static function validate($data = array())

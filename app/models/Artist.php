@@ -16,7 +16,7 @@ class Artist extends MyEloquent {
     }
 
     public function musicians() {
-        return $this->belongsToMany('Musician');
+        return $this->belongsToMany('Musician')->withPivot('instrument_id');
     }
 
     public function links() {
