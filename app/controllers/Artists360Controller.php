@@ -1,6 +1,6 @@
 <?php
 
-class Artists360Controller extends \BaseController {
+class Event360Controller extends \BaseController {
 
     /**
      * 
