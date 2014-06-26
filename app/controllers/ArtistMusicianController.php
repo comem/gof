@@ -14,19 +14,16 @@ class ArtistMusicianController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
-     * Permet d'enregistrer une nouvelle association entre un musician , un instrument et un artist
-     * @var instrument_id(int): id de l'instrument
-     * @var artist_id(int): id de l'artist
-     * @var musician_id(int): id du musician 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas.
-     * @return Jsend::error Un message d'erreur si le musician n'existe pas.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations des données enregistrée.
-     * 
+     * Registers a new association between a musician , an instrument and an artist
+     * @var instrument_id(int): id instrument
+     * @var artist_id(int): id artist
+     * @var musician_id(int): id musician 
+     * @return Jsend::fail An error message if the input data does not match the requested data.
+     * @return Jsend::error An error message if  artist or insrtument or musician does not exist.
+     * @return Jsend::success an association between an artist, a musician, and an instrument has been registred 
      */
     public function store() {
-
+        
         $instrument_id = Input::get('instrument_id');
         $artist_id = Input::get('artist_id');
         $musician_id = Input::get('musician_id');
@@ -61,14 +58,18 @@ class ArtistMusicianController extends \BaseController {
      */
     public function update($id) {
 
-        // mettre les parametre get. il va le trouver dans la requete.
+       
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     /**
+     * Delete an association between an artist, a musician, and an instrument
+     * @var instrument_id(int): id instrument
+     * @var artist_id(int): id artist
+     * @var musician_id(int): id musician 
+     * @return Jsend::fail An error message if the input data does not match the requested data.
+     * @return Jsend::error An error message if  artist or insrtument or musician does not exist.
+     * @return Jsend::success an association between an artist, a musician, and an instrument has been deleted
+     * 
      */
     public function destroy($artist_id) {
         
@@ -134,10 +135,20 @@ class ArtistMusicianController extends \BaseController {
         
          return Jsend::success('Association deleted');
         
-        
-        
+   
         
     }
+    
+    /**
+     * Store a newly created resource in storage.
+     * Registers a new association between a musician , an instrument and an artist
+     * @var instrument_id(int): id instrument
+     * @var artist_id(int): id artist
+     * @var musician_id(int): id musician 
+     * @return Jsend::fail An error message if the input data does not match the requested data.
+     * @return Jsend::error An error message if  artist or insrtument or musician does not exist.
+     * @return an ArtistMusician saved 
+     */
 
     public static function saveArtistMusician($artist_id, $instrument_id, $musician_id) {
 
