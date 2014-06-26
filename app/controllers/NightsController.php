@@ -8,7 +8,7 @@ class NightsController extends \BaseController {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Jsend::success All the events
      */
     public function index() {
         return Jsend::success(Night::all()->toArray());
@@ -332,10 +332,6 @@ class NightsController extends \BaseController {
             return Jsend::error('resource not found');
         }
         
-//        $performers = $night->artistNights;
-//        $sharings = $night->nightPlatform;
-//        $ticketCategories = $night->nightTicketcategorie;
-        //Night::find($night_id)->platforms()->detach($platform_id);
         $night->platforms()->detach();
         $night->ticketcategories()->detach();
         $night->artists()->detach();
