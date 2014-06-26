@@ -1,6 +1,15 @@
 <?php
 
-class ImagesController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Image;
+use \Artist;
+use \BaseController;
+
+
+class ImagesController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -19,6 +28,7 @@ class ImagesController extends \BaseController {
      * @var artist_id corresponds to the id of the artist. (header)
      * @var uploadedImage image to upload (multipart/form-data)
      * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new image was created.
      */
     public function store() {
@@ -41,6 +51,10 @@ class ImagesController extends \BaseController {
         ));
         if ($validationImage !== true) {
             return Jsend::fail($validationImage);
+        }
+        
+        if (!Artist::existTechId($artist_id)) {
+            return Jsend::error('artist not found');
         }
 
 
