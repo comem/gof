@@ -49,7 +49,21 @@ class NightPlatformController extends BaseController {
         $external_infos = Input::get('external_infos');
         $url = Input::get('url');
 
-        //Cast de platform_id et de event_id car l'url les envoit en String
+        
+        $nightPlatform = static::saveNightPlatform($platform_id, $night_id, $external_id, $external_infos, $url);
+         if (!is_a($nightPlatform, 'NightPlatform')) {
+            return $nightPlatform;
+        }
+
+        // Et on retourne l'id de la publication nouvellement créée (encapsulé en JSEND)
+        return Jsend::success(array(
+            'platform_id' => $nightplatform->platform_id,
+            'night_id' => $nightplatform->night_id,
+        ));
+	}
+        
+        public static function saveNightPlatform ($platform_id, $night_id, $external_id, $external_infos, $url){
+            //Cast de platform_id et de event_id car l'url les envoit en String
         if (ctype_digit($platform_id)) {
             $platform_id = (int)$platform_id;
         }
@@ -113,13 +127,8 @@ class NightPlatformController extends BaseController {
         $nightplatform->external_infos = $external_infos;
         $nightplatform->url = $url;
         $nightplatform->save();
-
-        // Et on retourne l'id de la publication nouvellement créée (encapsulé en JSEND)
-        return Jsend::success(array(
-            'platform_id' => $nightplatform->platform_id,
-            'night_id' => $nightplatform->night_id,
-        ));
-	}
+        return $nightplatform;
+        }
 
 
 	/**

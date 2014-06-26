@@ -31,6 +31,7 @@ class NightsController extends \BaseController {
      * @var (int) image_id - The id of the illustration image
      * @var (array) "ticket_categorie": [{"ticket1": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)},
      * "ticket2": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)}}] - The category ticket concerned by the event
+     * @var (array) "artist": 
      * 
      * @return Jsend::fail An error message if the parameters aren't correct
      * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
@@ -52,6 +53,7 @@ class NightsController extends \BaseController {
         $image_id = Input::get('image_id');
         $ticket_categorie = Input::get('ticket_categorie');
         $artist = Input::get('artist');
+        $platforms = Input::get('platforms');
 
         DB::beginTransaction();
          $night = static::saveArtist($start_date_hour,$ending_date_hour,$opening_doors,$title_de,$nb_meal,$nb_vegans_meal,$meal_notes,$nb_places,$followed_by_private,$contract_src,$notes,$nighttype_id,$image_id,$ticket_categorie);
@@ -85,11 +87,22 @@ class NightsController extends \BaseController {
                 
             }
         }
+        if (isset ($platforms))
+        {
+            foreach ($platforms as $p)
+            {
+                $nightPlatform = api\v1\NightPlatformController::saveNightPlatform($p['platform_id'], $night->id, $p['external_id'], $p['external_infos'], $p['url']);
+                if (!is_a($nightPlatform, 'NightPlatform')) {
+                        return $nightPlatform;
+                    }
+            }
+        }
         
         
         DB::commit();
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $night->id));
+                return Jsend::success($night->toArray(), 201);
+
     }
 
      /**
@@ -261,6 +274,8 @@ class NightsController extends \BaseController {
             $nightTicketCat->comment_de = $comment;
             $nightTicketCat->save();
         }
+        
+        return $night;
     }
 
      /**
