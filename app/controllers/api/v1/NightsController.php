@@ -1,6 +1,16 @@
 <?php
 
-class NightsController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \Input;
+use \Request;
+use \Night;
+use \TicketCategorie;
+use \NightTicketcategorie;
+use \BaseController;
+
+class NightsController extends BaseController {
 
     
     //Cette classe correspond à la table "events" du diagrame de class.
