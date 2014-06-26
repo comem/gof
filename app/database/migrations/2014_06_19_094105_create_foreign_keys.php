@@ -35,7 +35,7 @@ class CreateForeignKeys extends Migration {
 		Schema::table('images', function(Blueprint $table) {
 			$table->foreign('artist_id')->references('id')->on('artists')
 						->onDelete('restrict')
-						->onUpdate('restrict');
+						->onUpdate('cascade');
 		});
 		Schema::table('job_night', function(Blueprint $table) {
 			$table->foreign('night_id')->references('id')->on('nights')
