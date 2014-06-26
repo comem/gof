@@ -34,11 +34,12 @@ class Image extends MyEloquent {
                     'id' => 'integer:unsigned|sometimes|required',
                     'alt_de' => 'string|between:1,255|sometimes',
                     'caption_de' => 'string|between:1,255|sometimes',
-                    'source' => 'string|between:1,255|sometimes|required',
+                    'source' => 'string|between:1,255|sometimes',
                     'created_at' => 'date|sometimes|required',
                     'updated_at' => 'date|sometimes|required',
                     'deleted_at' => 'date|sometimes',
                     'artist_id' => 'integer:unsigned|sometimes',
+                    'uploaded_img' => 'mimes:jpeg,bmp,png|sometimes|required',
         ));
     }
 
