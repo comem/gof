@@ -100,24 +100,7 @@ class NightsController extends \BaseController {
      * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
      * @return Jsend::success A validation message with the event searched
      */
-    public function show($night_id) {
-        // Auth
-        if (ctype_digit($night_id)) {
-            $night_id = (int) $night_id;
-        }
 
-        if (Night::existTechId($night_id) !== true) {
-            return Jsend::error("night doesn't exists in the database");
-        }
-
-        $night = Night::find($night_id);
-
-        if (!isset($night)) {
-            return Jsend::error('Night id : ' . $night_id . 'resource not found');
-        }
-        // Retourne le message encapsulé en JSEND si tout est OK
-        return Jsend::success($night->toArray());
-    }
     
     /**
      * Save an Event
@@ -262,8 +245,7 @@ class NightsController extends \BaseController {
             $nightTicketCat->comment_de = $comment;
             $nightTicketCat->save();
         }
-<<<<<<< HEAD
-=======
+
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
         return Jsend::success(array('id' => $night->id));
     }
@@ -296,7 +278,7 @@ class NightsController extends \BaseController {
   
         // Retourne le message encapsulé en JSEND si tout est OK
         return Jsend::success($night360->toArray());
->>>>>>> Event360
+
     }
 
      /**
