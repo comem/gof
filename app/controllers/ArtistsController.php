@@ -124,11 +124,20 @@ class ArtistsController extends \BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  $id The id of the specified resource
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message
      */
     public function destroy($id) {
-        //
+         if (ctype_digit($id)) {
+            $id = (int) $id;
+        }
+        $artist = Artist::find($id);
+        if (!isset($artist)) {
+            return Jsend::error('resource not found');
+        }
+        $artist->delete();
+        return Jsend::success('Artist deleted');
     }
 
 }

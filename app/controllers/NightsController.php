@@ -319,7 +319,6 @@ class NightsController extends \BaseController {
     /**
      * Remove the specified ressrouces
      * @param  $night_id The id of the demanded ressources
-     * @return Jsend::fail An error message if the parameters aren't correct
      * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
      * @return Jsend::success A validation message
      */
