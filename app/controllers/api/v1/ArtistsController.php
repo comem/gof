@@ -13,32 +13,33 @@ use \BaseController;
 use \LinksController;
 use \ArtistNightController;
 
-//use \MusiciansController;
+
 
 class ArtistsController extends BaseController {
 
     /**
-     * Permet d'afficher tous les artists
-     * @return jsend
+     * Allows to display every artists from the database with musicians, nights, links, image and genres
+     * @return Response Jsend::success 
      */
     public function index() {
-        return Jsend::success(Artist::with('genres')->get(), 200);
+        return Jsend::success(Artist::with('musicians','nights','links','images','genres')->get(), 200);
     }
 
     /**
-     * Allows to save a new artist
-     * @var (string) name - the artist name
-     * @var (string) short_description_de - A short description
-     * @var (string) complete_description_de - A complete description
-     * @var (array) "genres": [{"id": "(int)"}] - the artist genres
-     * @var (array) "links": [{"url": "(string)","name_de": "(string)","title_de": "(string)"}] - the existing musicians
-     * @var (array) "musicianInstruments": [{"musician_id": "(int)","instrument_id": "(int)"}] - the existing musicians
-     * @var (array) "musicians": [{"first_name": "(string)","last_name": "(string)","stagename": "(string)","instruments": [{"id": "(int)"},{"id": "(int)"}] - the new musicians
-     * @var (array) "night" :{"id": "(int)","order": "(int)","isSupport": "(tinyint)","artist_hour_arrival": "(datetime)"}
+     * Allows to save a new artist with genres, unexisting links, existing musicians, unexisting musicians, night and existing images
+     * @var name (string) name - the artist name (get)
+     * @var short_description (string) short_description_de - a short description (get)
+     * @var complete_description (string) complete_description_de - a complete description (get)
+     * @var genres (array) [{"id": "(int)"}] - the artist genres (get)
+     * @var links (array) [{"url": "(string)","name_de": "(string)","title_de": "(string)"}] - the existing musicians (get)
+     * @var musicianInstruments (array) [{"musician_id": "(int)","instrument_id": "(int)"}] - the existing musicians (get)
+     * @var musicians (array) [{"first_name": "(string)","last_name": "(string)","stagename": "(string)","instruments": [{"id": "(int)"},{"id": "(int)"}] - the new musicians (get)
+     * @var night (array) {"id": "(int)","order": "(int)","isSupport": "(tinyint)","artist_hour_arrival": "(datetime)"} - the artist will play at this night (get)
+     * @var images (array) [{"id": "(int)"}] - the existing images (get)
      * 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si une ressource n'existe pas.
-     * @return Jsend::success Un message de validation avec l'artist créé s'il a été enregistré.
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function store() {
         $artistName = Input::get('name');
@@ -98,7 +99,6 @@ class ArtistsController extends BaseController {
         }
 
         if (isset($night)) {
-
             $performerToSave = ArtistNightController::saveArtistNight($artist->id, $night['id'], $night['order'], $night['isSupport'], $night['artist_hour_arrival']);
             if (!is_a($performerToSave, 'ArtistNight')) {
                 return $performerToSave;
@@ -119,11 +119,11 @@ class ArtistsController extends BaseController {
     }
 
     /**
-     * Permet d'afficher un artist
-     *
-     * @param  int  $id - l'id de l'artist à afficher
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::success Sinon, un artist avec genre correspondant l'enregistrement demandé.
+     * Allows to display a specific artist from the database with musicians, nights, links, image and genres
+     * @param  int -  the id form the artist
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required artist was found.
      */
     public function show($id) {
 
@@ -141,19 +141,19 @@ class ArtistsController extends BaseController {
             return Jsend::error('resource not found', 404);
         }
 
-        return Jsend::success($artist->with('genres')->find($id), 200);
+        return Jsend::success(Artist::with('musicians','nights','links','images','genres')->find($id), 200);
     }
 
     /**
-     * Permet de modifier un artist
-     * @param int $id - l'id de l'artist a modifier
-     * @var (string) name - Le nom de l'artist
-     * @var (string) short_description_de - Une courte description de l'artist
-     * @var (string) complete_description_de - Une description complete de l'artist
+     * Allows to modify an artist
+     * @param int the id form the artist
+     * @var name (string) the name from the artist
+     * @var short_description_de (string) a short description from the artist
+     * @var complete_description_de (string) a complete description from the artist
      * 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artist à modifier n'existe pas.
-     * @return Jsend::success Sinon, un message de validation de modification de l'artist concerné.
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the resource to modify was not found.
+     * @return Response Jsend::success if the artist was modified.
      */
     public function update($id) {
 
@@ -192,7 +192,16 @@ class ArtistsController extends BaseController {
     public function destroy($id) {
         
     }
-
+    
+    
+    /**
+     * Allows to save a new artist with genres in the database
+     * @param string $artistName - the name from the artist
+     * @param string $artistSD - a short description from the artist
+     * @param string $artistCD - a complete description from the artist
+     * @param array $genres - the genres from the artists
+     * @return Artist - a created artist
+     */
     public static function saveArtist($artistName, $artistSD, $artistCD, $genres) {
         $validationArtist = Artist::validate(array(
                     'name' => $artistName,
@@ -238,7 +247,14 @@ class ArtistsController extends BaseController {
 
         return $artist;
     }
+    
 
+    /**
+     * 
+     * @param int $artistId
+     * @param int $imageId
+     * @return Image - the image that illustrate the artist
+     */
     public static function saveIllustration($artistId, $imageId) {
 
 

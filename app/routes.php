@@ -37,6 +37,7 @@ Route::group(array('before' => array('auth')), function()
     Route::resource('platforms', 'PlatformsController');
     Route::resource('ticketcategories', 'TicketcategoriesController');
     Route::resource('index', 'IndexController');
+ 
 });
 
 
@@ -56,6 +57,7 @@ Route::group(
         Route::resource('links', 'LinksController');
         Route::resource('platforms', 'PlatformsController');
          Route::resource('artistmusician', 'ArtistMusicianController');
+          Route::resource('nights', 'NightsController');
 
     }
 );
