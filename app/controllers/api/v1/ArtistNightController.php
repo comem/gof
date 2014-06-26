@@ -41,6 +41,15 @@ class ArtistNightController extends BaseController {
         $is_support = Input::get('is_support');
         $artist_hour_arrival = Input::get('artist_hour_arrival');
 
+        $artistNight = static::saveArtistNight($artist_id,$night_id,$order,$is_support,$artist_hour_arrival);
+
+
+        // Retour de l'id du message nouvellement créé (encapsulé en JSEND)
+        return Jsend::success($artistNight->toArray());
+    }
+    
+    public static function saveArtistNight ($artist_id,$night_id,$order,$is_support,$artist_hour_arrival) 
+    {
         if (ctype_digit($artist_id)) {
             $artist_id = (int) $artist_id;
         }
@@ -80,10 +89,6 @@ class ArtistNightController extends BaseController {
         $artistNight->is_support = $is_support;
         $artistNight->artist_hour_arrival = $artist_hour_arrival;
         $artistNight->save();
-
-
-        // Retour de l'id du message nouvellement créé (encapsulé en JSEND)
-        return Jsend::success($artistNight->toArray());
     }
 
     /**

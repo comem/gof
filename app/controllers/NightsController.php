@@ -51,11 +51,97 @@ class NightsController extends \BaseController {
         $nighttype_id = Input::get('nighttype_id');
         $image_id = Input::get('image_id');
         $ticket_categorie = Input::get('ticket_categorie');
+        $artist = Input::get('artist');
 
+        DB::beginTransaction();
+         $night = static::saveArtist($start_date_hour,$ending_date_hour,$opening_doors,$title_de,$nb_meal,$nb_vegans_meal,$meal_notes,$nb_places,$followed_by_private,$contract_src,$notes,$nighttype_id,$image_id,$ticket_categorie);
+        if (!is_a($night, 'Night')) {
+            return $night;
+        }
+        
+        if (isset ($artist))
+        {
+            $compteur = 1;
+            foreach ($artist as $a)
+            {
+                if ($a['id']=='')
+                {
+                    $artist = api\v1\ArtistsController::saveArtist($a['artistName'], $a['artistSD'], $a['artistCD'], $a['genres']);
+                    if (!is_a($artist, 'Artist')) {
+                        return $artist;
+                    }
+                    $artistNight = api\v1\ArtistNightController::saveArtistNight($artist->id, $night->id, $compteur, $a['is_support'], $a['artist_hour_arrival']);
+                }
+                else
+                {
+                    $artistNight = api\v1\ArtistNightController::saveArtistNight($a['id'], $night->id, $compteur, $a['is_support'], $a['artist_hour_arrival']);
+                }
 
+                if (!is_a($artistNight, 'ArtistNight')) {
+                        return $artistNight;
+                    }
+                    
+                $compteur++;
+                
+            }
+        }
+        
+        
+        DB::commit();
+        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
+        return Jsend::success(array('id' => $night->id));
+    }
 
+     /**
+     * Display the specified resource.
+     * @param  $night_id The id of the demanded ressources
+     * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message with the event searched
+     */
+    public function show($night_id) {
+        // Auth
+        if (ctype_digit($night_id)) {
+            $night_id = (int) $night_id;
+        }
 
+        if (Night::existTechId($night_id) !== true) {
+            return Jsend::error("night doesn't exists in the database");
+        }
 
+        $night = Night::find($night_id);
+
+        if (!isset($night)) {
+            return Jsend::error('Night id : ' . $night_id . 'resource not found');
+        }
+        // Retourne le message encapsulé en JSEND si tout est OK
+        return Jsend::success($night->toArray());
+    }
+    
+    /**
+     * Save an Event
+     * @param (date) start_date_hour - Date of the beginning event
+     * @param (date) ending_date_hour - Date of the ending event
+     * @param (date) opening_doors - OPTIONNAL - Date of the opening doors
+     * @param (string) title_de - The title of the event
+     * @param (int) nb_meal - The number of meal
+     * @param (int) nb_vegans_meal - The number of vegans meal
+     * @param (string) meal_notes - OPTIONNAL - The notes of the meal
+     * @param (int) nb_places - OPTIONNAL - The number of places in the event
+     * @param (boolean) followed_by_private - OPTIONNAL - If the event is organized by a private organisator
+     * @param (string) contract_src - OPTIONNAL - The source of the contract (The directory for example)
+     * @param (string) notes - OPTIONNAL - A note about the evenement
+     * @param (int) nighttype_id - The id of the event type
+     * @param (int) image_id - The id of the illustration image
+     * @param (array) "ticket_categorie": [{"ticket1": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)},
+     * "ticket2": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)}}] - The category ticket concerned by the event
+     * 
+     * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message with the id of the new Event created
+     */
+    public static function saveNight ($start_date_hour,$ending_date_hour,$opening_doors,$title_de,$nb_meal,$nb_vegans_meal,$meal_notes,$nb_places,$followed_by_private,$contract_src,$notes,$nighttype_id,$image_id,$ticket_categorie)
+    {
         if (Night::existBuisnessId($start_date_hour) == true) {
 
             return Jsend::error("event already exist in the database");
@@ -163,6 +249,10 @@ class NightsController extends \BaseController {
         $night->save();
         $nightId = $night->id;
         foreach ($ticket_categorie as $tc) {
+            $ticketCatId = $tc['ticket_categorie_id'];
+            $amount = $tc['amount'];
+            $quantitySold = $tc['quantitySold'];
+            $comment = $tc['comment'];
             $nightTicketCat = new NightTicketcategorie();
             $nightTicketCat->night_id = $nightId;
             $nightTicketCat->ticketcategorie_id = $ticketCatId;
@@ -171,34 +261,6 @@ class NightsController extends \BaseController {
             $nightTicketCat->comment_de = $comment;
             $nightTicketCat->save();
         }
-        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $night->id));
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  $night_id The id of the demanded ressources
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the event searched
-     */
-    public function show($night_id) {
-        // Auth
-        if (ctype_digit($night_id)) {
-            $night_id = (int) $night_id;
-        }
-
-        if (Night::existTechId($night_id) !== true) {
-            return Jsend::error("night doesn't exists in the database");
-        }
-
-        $night = Night::find($night_id);
-
-        if (!isset($night)) {
-            return Jsend::error('Night id : ' . $night_id . 'resource not found');
-        }
-        // Retourne le message encapsulé en JSEND si tout est OK
-        return Jsend::success($night->toArray());
     }
 
      /**
