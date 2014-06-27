@@ -21,7 +21,7 @@ class MusiciansController extends BaseController {
      */
     public function index() {
 
-        return Jsend::success(Musician::all()->toArray());
+        return Jsend::success(Musician::with('artists')->get());
     }
 
     /**
@@ -100,7 +100,7 @@ class MusiciansController extends BaseController {
             return Jsend::error('muscian id : ' . $musician_id . 'resource not found');
         }
         // Retourne le message encapsulé en JSEND si tout est OK
-        return Jsend::success($musician->toArray());
+        return Jsend::success(Musician::with('artists')->find($musician_id));
     }
 
     /**
