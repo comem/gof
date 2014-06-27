@@ -272,5 +272,20 @@ class ArtistsController extends BaseController {
         $image->save();
         return $image;
     }
+      /**
+     * Allow to search a Artist with  name attribute
+     * @var string : data of search. exemple : artist/search?string=test
+     * @return json of object received
+     */
+       public static function search() {
+
+        $string = Input::get('string');
+
+        $results = Artist::Where('name', 'like', "$string%")->get();
+                        
+        return ($results->toArray());
+
+      
+    }
 
 }

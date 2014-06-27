@@ -63,6 +63,7 @@ Route::group(
         Route::resource('artistmusician', 'ArtistMusicianController');
         Route::resource('nights', 'NightsController');
         Route::get('musician/search', 'MusiciansController@search');
+        Route::get('artist/search', 'ArtistsController@search');
 
     }
 );
