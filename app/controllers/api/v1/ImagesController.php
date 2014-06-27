@@ -17,7 +17,7 @@ class ImagesController extends BaseController {
      */
     public function index() {
         // Retourne toutes les images
-        return Jsend::success(Image::all()->toArray());
+        return Jsend::success(Image::with('artist', 'nights')->get());
     }
 
     /**
@@ -103,11 +103,10 @@ class ImagesController extends BaseController {
             return Jsend::fail($id);
         }
 
-        // Récupération du lien 
-        $image = Image::find($id);
+ 
 
         // Retourne le lien encapsulé en JSEND si tout est OK
-        return Jsend::success($image->toArray());
+        return Jsend::success(Image::with('artist', 'nights')->find($id));
     }
 
     /**

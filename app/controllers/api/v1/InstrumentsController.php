@@ -3,8 +3,6 @@ namespace api\v1;
 
 use \Jsend;
 use \Input;
-use \Link;
-use \Artist;
 use \BaseController;
 
 class InstrumentsController extends BaseController {

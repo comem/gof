@@ -6,7 +6,7 @@ use \Jsend;
 use \Input;
 use \Request;
 use \Night;
-use \TicketCategorie;
+use \Ticketcategorie;
 use \NightTicketcategorie;
 use \BaseController;
 
@@ -69,7 +69,7 @@ class NightTicketcategorieController extends BaseController {
         }
         
         // Validation de l'existance de la catégorie de ticket
-        if (!TicketCategorie::existTechId($ticketCat_id)) {
+        if (!Ticketcategorie::existTechId($ticketCat_id)) {
             return Jsend::error('ticket category not found');
         }
         
@@ -196,7 +196,7 @@ class NightTicketcategorieController extends BaseController {
         }
 
         // Validation de l'existance de la catégorie de ticket
-        if (TicketCategorie::existTechId($ticketCat_id) !== true) {
+        if (Ticketcategorie::existTechId($ticketCat_id) !== true) {
             return Jsend::error('ticket category not found');
         }
 
