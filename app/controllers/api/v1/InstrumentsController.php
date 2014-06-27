@@ -114,13 +114,12 @@ class InstrumentsController extends BaseController {
             $id = (int) $id;
         }
         $validationInst = Instrument::validate(array(
-                    'name_de' => $inst,
                     'id' => $id
         ));
 
 
         if ($validationInst !== true) {
-            return Jsend::fail($validationMsg);
+            return Jsend::fail($validationInst);
         }
 
         $instrument = Instrument::find($id);

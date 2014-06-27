@@ -1,6 +1,14 @@
 <?php
 
-class GenresController extends \BaseController {
+namespace api\v1;
+
+use \BaseController;
+use \Jsend;
+use \Genre;
+use \Input;
+
+
+class GenresController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -19,17 +27,19 @@ class GenresController extends \BaseController {
     public function store() {
         $genreName = Input::get('name_de');
         $validationGenre = Genre::validate(array('name_de' => $genreName));
+        if (Genre::existBusinessId($genreName)) {
+            return Jsend::error("genre already exists");
+        }
+
         if ($validationGenre !== true) {
             return Jsend::fail($validationGenre);
         }
 
-        if (Genre::existBusinessId($genreName)) {
-            return Jsend::error("genre already exists");
-        }
+
         $genre = new Genre();
         $genre->name_de = $genreName;
         $genre->save();
-        return Jsend::success(array('id' => $genre->id));
+        return Jsend::success($genre->toArray());
     }
 
     /**
