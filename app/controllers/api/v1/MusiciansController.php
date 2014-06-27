@@ -147,5 +147,33 @@ class MusiciansController extends BaseController {
 
         return $musician;
     }
+/**
+ * Allow to search a musician with attribute
+ * @var string : data of search. exemple : musician/search?string=test
+ * @return json of object received
+ */
+    
+    	public static function search()
+	{
 
+              
+                
+		$string = Input::get('string');
+                
+            
+                        
+		$results = Musician::Where('first_name', 'like', "$string%")
+		    ->orWhere('last_name', 'like', "$string%")
+                    ->orWhere('stagename', 'like', "$string%")->get();
+		    
+                
+		return ($results->toArray());
+
+		// $per_page = 14;
+		// $posts = Post::order_by('id','desc')->paginate($per_page);
+		
+	}
+    
+    
+    
 }

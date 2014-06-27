@@ -58,8 +58,9 @@ Route::group(
         Route::resource('genres', 'GenresController');
         Route::resource('links', 'LinksController');
         Route::resource('platforms', 'PlatformsController');
-         Route::resource('artistmusician', 'ArtistMusicianController');
-          Route::resource('nights', 'NightsController');
+        Route::resource('artistmusician', 'ArtistMusicianController');
+        Route::resource('nights', 'NightsController');
+        Route::get('musician/search', 'MusiciansController@search');
 
     }
 );
