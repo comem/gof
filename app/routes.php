@@ -17,28 +17,28 @@ Route::get('/', function (){
 });
 
 //array('auth', 'acl_rest')
-Route::group(array('before' => array('auth')), function()
-{
-// Permet d'implÃ©menter post avec une architecture REST
-
-    Route::resource('artistnight', 'ArtistNightController');
-    Route::resource('artistgenre', 'ArtistGenreController');
-    Route::resource('artistmusician', 'ArtistMusicianController');
-    Route::resource('artists', 'ArtistsController');
-    Route::resource('nightplatform', 'NightPlatformController');
-    Route::resource('nightticketcategorie', 'NightTicketcategorieController');
-    Route::resource('nights', 'NightsController');
-    Route::resource('nighttypes', 'NighttypesController');
-    Route::resource('genres', 'GenresController');
-    Route::resource('images', 'ImagesController');
-    Route::resource('instruments', 'InstrumentsController');
-    Route::resource('links', 'LinksController');
-    Route::resource('musicians', 'MusiciansController');
-    Route::resource('platforms', 'PlatformsController');
-    Route::resource('ticketcategories', 'TicketcategoriesController');
-    Route::resource('index', 'IndexController');
- 
-});
+//Route::group(array('before' => array('auth')), function()
+//{
+//// Permet d'implÃ©menter post avec une architecture REST
+//
+//    Route::resource('artistnight', 'ArtistNightController');
+//    Route::resource('artistgenre', 'ArtistGenreController');
+//    Route::resource('artistmusician', 'ArtistMusicianController');
+//    Route::resource('artists', 'ArtistsController');
+//    Route::resource('nightplatform', 'NightPlatformController');
+//    Route::resource('nightticketcategorie', 'NightTicketcategorieController');
+//    Route::resource('nights', 'NightsController');
+//    Route::resource('nighttypes', 'NighttypesController');
+//    Route::resource('genres', 'GenresController');
+//    Route::resource('images', 'ImagesController');
+//    Route::resource('instruments', 'InstrumentsController');
+//    Route::resource('links', 'LinksController');
+//    Route::resource('musicians', 'MusiciansController');
+//    Route::resource('platforms', 'PlatformsController');
+//    Route::resource('ticketcategories', 'TicketcategoriesController');
+//    Route::resource('index', 'IndexController');
+// 
+//});
 
 
 Route::group(
@@ -50,7 +50,6 @@ Route::group(
         Route::resource('artists', 'ArtistsController');
         Route::resource('nightplatform', 'NightPlatformController');
         Route::resource('musicians', 'MusiciansController');
-        Route::resource('musicians', 'MusiciansController');
         Route::resource('artistnight', 'ArtistNight');
         Route::resource('nightticketcategorie', 'NightTicketcategorieController');
         Route::resource('images', 'ImagesController');
@@ -58,8 +57,7 @@ Route::group(
         Route::resource('genres', 'GenresController');
         Route::resource('links', 'LinksController');
         Route::resource('platforms', 'PlatformsController');
-         Route::resource('artistmusician', 'ArtistMusicianController');
-          Route::resource('nights', 'NightsController');
+        Route::resource('nights', 'NightsController');
 
     }
 );

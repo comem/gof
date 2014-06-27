@@ -19,7 +19,7 @@ class ArtistsController extends BaseController {
 
     /**
      * Allows to display every artists from the database with musicians, nights, links, image and genres
-     * @return Response Jsend::success 
+     * @return Response Jsend::success with all artists.
      */
     public function index() {
         return Jsend::success(Artist::with('musicians','nights','links','images','genres')->get(), 200);
@@ -120,7 +120,7 @@ class ArtistsController extends BaseController {
 
     /**
      * Allows to display a specific artist from the database with musicians, nights, links, image and genres
-     * @param  int -  the id form the artist
+     * @param  int -  the id from the artist
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the required resource was not found.
      * @return Response Jsend::success if the required artist was found.
@@ -146,7 +146,7 @@ class ArtistsController extends BaseController {
 
     /**
      * Allows to modify an artist
-     * @param int the id form the artist
+     * @param int the id from the artist
      * @var name (string) the name from the artist
      * @var short_description_de (string) a short description from the artist
      * @var complete_description_de (string) a complete description from the artist

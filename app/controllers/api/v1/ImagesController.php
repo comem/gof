@@ -110,10 +110,7 @@ class ImagesController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * Priorité 1B
-     * @param  int  $id
-     * @return Rien (fonction non réalisée pour le moment)
+     * Not implemented yet.
      */
     public function update($id) {
         /**
@@ -123,10 +120,7 @@ class ImagesController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
-     * Ne se fait pas dans l'application (seulement soft delet)
-     * @param  int  $id
-     * @return Rien (fonction non réalisée pour le moment)
+     * Not implemented yet.
      */
     public function destroy($id) {
         /**

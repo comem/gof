@@ -4,12 +4,13 @@ namespace api\v1;
 use \Jsend;
 use \Input;
 use \BaseController;
+use \Instrument;
 
 class InstrumentsController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Response : retourne tout les instruments de la table
+     * Allows to display every instruments from the database.
+     * @return Response Jsend::success with all instruments.
      */
     public function index() {
 
@@ -17,17 +18,18 @@ class InstrumentsController extends BaseController {
     }
 
     /**
-     * @var name_de(string): name de l'instrument , id metier 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'instrument existe déjà dans la base de données.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations des données enregistrée.
+     * Allows to save a new genre.
+     * @var name_de (string) name - the intstrument name (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new instrument was created.
      */
     public function store() {
-        // Auth
 
         $name_de = Input::get('name_de');
         
-        $instrument = InstrumentsController::saveInstrument($name_de);
+        $instrument = static::saveInstrument($name_de);
         
          if (!is_a($instrument, 'Instrument')) {
                     return Jsend::fail($instrument);
@@ -38,12 +40,11 @@ class InstrumentsController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @var $id : identifiant technique de l'instrument 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas dans la base de données.
-     * @return Jsend::success Sinon, un message de validation  contenant les informations des données demandée.
+     * Allows to display a specific instrument from the database.
+     * @param  int -  the id from the instrument
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required instrument was found.
      */
     public function show($instrument_id) {
         // Auth
@@ -66,10 +67,14 @@ class InstrumentsController extends BaseController {
     }
 
     /**
-     * @var $id : identifiant technique de l'instrument 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas dans la base de données.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations à jour.
+     * Allows to display a specific instrument from the database.
+     * @param  int -  the id from the instrument to modify
+     * 
+     * @var string - the new instrument name
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the instrument was modified.
      */
     public function update($id) {
 
@@ -86,7 +91,7 @@ class InstrumentsController extends BaseController {
         ));
 
         if ($validationInst !== true) {
-            return Jsend::fail($validationMsg);
+            return Jsend::fail($validationInst);
         }
 
         $instrument = Instrument::find($id);
@@ -101,10 +106,10 @@ class InstrumentsController extends BaseController {
 
     /**
      * Remove the specified resource from storage.
-     * @var $id : identifiant technique de l'instrument à supprimer
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas dans la base de données.
-     * @return Jsend::success Sinon, un message de validation de suppression.
+     * @param  int -  the id from the instrument to delete 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the instrument was deleted.
      */
     public function destroy($id) {
         //auth
@@ -132,6 +137,11 @@ class InstrumentsController extends BaseController {
     }
 
     
+    /**
+     * Allows to save a new instrument
+     * @param string - the instrument name
+     * @return Instrument - the created instrument
+     */
     public static function saveInstrument($name_de){
        
         if (Instrument::existBuisnessId($name_de) == true) {

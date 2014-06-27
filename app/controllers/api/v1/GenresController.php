@@ -11,18 +11,20 @@ use \Input;
 class GenresController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * Allows to display every genres from the database.
+     * @return Response Jsend::success with all genres.
      */
     public function index() {
         return Jsend::success(Genre::all()->toArray());
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * Allows to save a new genre.
+     * @var name_de (string) name - the genre name (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new genre was created.
      */
     public function store() {
         $genreName = Input::get('name_de');
@@ -43,10 +45,11 @@ class GenresController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * Allows to display a specific genre from the database.
+     * @param  int -  the id from the genre
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required genre was found.
      */
     public function show($id) {
 
@@ -65,20 +68,14 @@ class GenresController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Not implemented yet.
      */
     public function update($id) {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Not implemented yet.
      */
     public function destroy($id) {
         //
