@@ -34,5 +34,13 @@ class Musician extends MyEloquent {
             ->first();
         return $e != null;       // Si null, n’existe pas 
     }
+    
+     public static function instrument(){
+         
+        $instru =$this->hasMany('instruments');
+      
+        return ($instru);  
+       
+    }
 
 }

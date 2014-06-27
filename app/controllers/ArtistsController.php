@@ -7,7 +7,16 @@ class ArtistsController extends \BaseController {
      * @return type
      */
     public function index() {
-        return Jsend::success(Artist::with('genres')->get());
+        
+        $test = Artist::with('musicians', 'musicians.instruments')->get();
+        
+                 
+        //$test['musician']->hasMany('instruments');
+        
+    return($test);
+       
+        
+        
     }
 
     /**
