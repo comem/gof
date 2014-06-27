@@ -4,15 +4,13 @@ namespace api\v1;
 
 use \Jsend;
 use \Input;
-use \Genre;
-use \Artist;
-use \ArtistGenre;
+
 use \BaseController;
 use \ArtistMusicianController;
-use \ArtistMusician;
+
 use \Musician;
 use \DB;
-use \InstrumentsController;
+
 
 class MusiciansController extends BaseController {
 
