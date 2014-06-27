@@ -70,7 +70,7 @@ class ArtistNightController extends BaseController {
             return Jsend::fail($validationArtistNight);
         }
 
-        if (!Artist::existTechId($night_id)) {
+        if (!Artist::existTechId($artist_id)) {
             return Jsend::error('artist not found');
         }
 
@@ -89,6 +89,8 @@ class ArtistNightController extends BaseController {
         $artistNight->is_support = $is_support;
         $artistNight->artist_hour_arrival = $artist_hour_arrival;
         $artistNight->save();
+        
+        return $artistNight;
     }
 
     /**

@@ -118,7 +118,7 @@ class NightPlatformController extends BaseController {
         if (NightPlatform::existTechId($night_id, $platform_id) == true) {
             return Jsend::error('publication already exists in the database');
         }
-
+        
         // Tout est ok, on sauve la publication avec les ids de l'événement et de la plateforme
         $nightplatform = new NightPlatform();
         $nightplatform->platform_id = $platform_id;
