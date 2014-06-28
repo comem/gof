@@ -22,7 +22,14 @@ class ArtistsController extends BaseController {
      * @return Response Jsend::success with all artists.
      */
     public function index() {
-        return Jsend::success(Artist::with('musicians','nights','links','images','genres')->get(), 200);
+        return Jsend::success(Artist::with('musicians', 'instruments', 'genres', 'nights', 'images', 'links')->get(), 200);
+        
+//                return Jsend::success(Artist::leftJoin('artist_musician', 'artists.id', '=', 'artist_musician.artist_id')
+//                ->leftJoin('instruments', 'artist_musician.instrument_id', '=', 'instruments.id')->select('artists.id', 'artists.name', 'instruments.name_de')
+//                ->leftJoin('musicians', 'artist_musician.musician_id', '=', 'musicians.id')
+//                ->select('artists.id', 'artists.name', 'instruments.name_de', 'musicians.stagename')
+//               
+//                ->get(), 200);
     }
 
     /**
@@ -141,7 +148,7 @@ class ArtistsController extends BaseController {
             return Jsend::error('resource not found', 404);
         }
 
-        return Jsend::success(Artist::with('musicians','nights','links','images','genres')->find($id), 200);
+        return Jsend::success(Artist::with('musicians', 'instruments', 'genres', 'nights', 'images', 'links')->find($id), 200);
     }
 
     /**
