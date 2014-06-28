@@ -15,6 +15,11 @@ class Instrument extends MyEloquent {
 	{
 		return $this->hasMany('ArtistMusician');
 	}
+        
+        public function artists() {
+            return $this->belongsToMany('Artist', 'artist_musician');
+        }
+        
 
 	public static function validate($data = array())
     {

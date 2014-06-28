@@ -26,11 +26,15 @@ class Artist extends MyEloquent {
     public function nights() {
         return $this->belongsToMany('Night');
     }
-    
+
     public function images() {
         return $this->hasMany('Image');
     }
-    
+
+    public function instruments() {
+        return $this->belongsToMany('Instrument', 'artist_musician')->withPivot('musician_id');
+    }
+
     public static function validate($data = array()) {
         return parent::validator($data, array(
                     'id' => 'integer:unsigned|sometimes|required',
