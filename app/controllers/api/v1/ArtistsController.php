@@ -10,20 +10,28 @@ use \Artist;
 use \Image;
 use \ArtistMusicianController;
 use \BaseController;
-
 use \ArtistNightController;
 
 
-
+/**
+ * REST controller with index, store, show and update methods implemented
+ *
+ * @category  Services applicatifs
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistsController extends BaseController {
 
     /**
-     * Allows to display every artists from the database with musicians, instruments, genres, nights, images, and links.
+     * Allows to display every artists from the database with musicians and their instruments, genres, nights, images, and links.
      * @return Response Jsend::success with all artists.
      */
     public function index() {
-        return Jsend::success(Artist::with('musicians', 'instruments', 'genres', 'nights', 'images', 'links')->get(), 200);
-        
+        $artists = Artist::with('musicians', 'genres', 'nights', 'images', 'links')->get();
+        foreach ($artists as $artist) {
+            $artist->musicians->load('instruments');
+        }
+        return Jsend::success($artists, 200);
     }
 
     /**
@@ -120,7 +128,7 @@ class ArtistsController extends BaseController {
     }
 
     /**
-     * Allows to display a specific artist from the database with musicians, nights, links, image and genres
+     * Allows to display a specific artist from the database with musicians and their instruments, genres, nights, images, and links.
      * @param  int -  the id from the artist (url)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the required resource was not found.
@@ -142,7 +150,11 @@ class ArtistsController extends BaseController {
             return Jsend::error('resource not found', 404);
         }
 
-        return Jsend::success(Artist::with('musicians', 'instruments', 'genres', 'nights', 'images', 'links')->find($id), 200);
+        $artistToDisplay = Artist::with('musicians', 'genres', 'nights', 'images', 'links')->find($id);
+   
+            $artistToDisplay->musicians->load('instruments');
+
+        return Jsend::success($artistToDisplay, 200);
     }
 
     /**
@@ -188,13 +200,12 @@ class ArtistsController extends BaseController {
     }
 
     /**
-     * Pas implémentée pour l'instant
+     * Not implemented yet.
      */
     public function destroy($id) {
         
     }
-    
-    
+
     /**
      * Allows to save a new artist 
      * @param string $artistName - the name from the artist
@@ -248,7 +259,6 @@ class ArtistsController extends BaseController {
 
         return $artist;
     }
-    
 
     /**
      * Allows to save an Illustration.
@@ -273,20 +283,19 @@ class ArtistsController extends BaseController {
         $image->save();
         return $image;
     }
-      /**
+
+    /**
      * Allow to search a Artist with  name attribute
      * @var string : data of search. exemple : artist/search?string=test
      * @return json of object received
      */
-       public static function search() {
+    public static function search() {
 
         $string = Input::get('string');
 
         $results = Artist::Where('name', 'like', "$string%")->get();
-                        
-        return ($results->toArray());
 
-      
+        return ($results->toArray());
     }
 
 }

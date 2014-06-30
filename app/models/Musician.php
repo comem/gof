@@ -15,7 +15,7 @@ class Musician extends MyEloquent {
 	{
 		return $this->belongsToMany('Artist')->withPivot('instrument_id');
 	}
-
+        
 	public static function validate($data = array())
     {
         return parent::validator($data, array(
@@ -35,9 +35,9 @@ class Musician extends MyEloquent {
         return $e != null;       // Si null, n’existe pas 
     }
     
-     public static function instrument(){
+     public function instruments(){
          
-        $instru =$this->hasMany('instruments');
+        $instru = $this->belongsToMany('Instrument', 'artist_musician');
       
         return ($instru);  
        
