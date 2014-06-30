@@ -20,7 +20,7 @@ class NightsController extends BaseController {
      * @return Jsend::success All the events
      */
     public function index() {
-        return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->get());
+        return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('nighttype')->with('artists')->with('image')->with('printingtypes')->get());
     }
 
     /**

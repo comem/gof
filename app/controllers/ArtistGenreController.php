@@ -2,7 +2,7 @@
 
 class ArtistGenreController extends \BaseController {
 
-     /**
+    /**
      * Display a listing of the resource.
      * @return Jsend::success Toutes les catégories de tickets
      */
@@ -12,8 +12,69 @@ class ArtistGenreController extends \BaseController {
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
+     * Store a musician and an association beetween this musicians, an instrument and an artist
+     * @var (string) first_name : first name of the musician
+     * @var (string) last_name : last name of the musician
+     * @var (string) satgename : pseudo of the musicians
+     * @var (array)  "artistsInstruments": [
+      {
+      "artist_id": "1",
+      "instruments": [
+      {
+      "instrument_id": "4"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      },
+      {
+      "artist_id": "2",
+      "instruments": [
+      {
+      "instrument_id": "3"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      }
+      ]
+    * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message with the id of the news art
+     * 
+     * 
+     * JSEND DE TEST:
+     * {
+      "first_name": "Grey",
+      "last_name": "Jorge",
+      "stagename": "Apple",
+      "artistsInstruments": [
+      {
+      "artist_id": "1",
+      "instruments": [
+      {
+      "instrument_id": "4"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      },
+      {
+      "artist_id": "2",
+      "instruments": [
+      {
+      "instrument_id": "3"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      }
+      ]
+      }
      */
     public function store() {
         $artist_id = Input::get('artist_id');
@@ -75,7 +136,7 @@ class ArtistGenreController extends \BaseController {
      * @return Response
      */
     public function update($artist_id, $genre_id) {
-      
+        
     }
 
     /**

@@ -21,18 +21,71 @@ class MusiciansController extends BaseController {
         return Jsend::success(Musician::with('artists')->get());
     }
 
-    /**
+   /**
      * Store a newly created resource in storage.
-     * Permet d'enregistré un musician et une association entre ce musician , un instrument et un artist
-     * @var first_name : attribut de la table musician
-     * @var last_name : attribut de la table musician
-     * @var satgename : attribut de la table musician
-     * @var artistsInstruments : tableau avec les valeurs des id des artists et instruments correponsant à l'artiste
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'association entre un musician un groupe et un instrument existe déjà.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations des données enregistrée.
+     * Store a musician and an association beetween this musicians, an instrument and an artist
+     * @var (string) first_name : first name of the musician
+     * @var (string) last_name : last name of the musician
+     * @var (string) satgename : pseudo of the musicians
+     * @var (array)  "artistsInstruments": [
+      {
+      "artist_id": "1",
+      "instruments": [
+      {
+      "instrument_id": "4"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      },
+      {
+      "artist_id": "2",
+      "instruments": [
+      {
+      "instrument_id": "3"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      }
+      ]
+    * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Jsend::success A validation message with the id of the news musicians
+     * 
+     * 
+     * JSEND DE TEST:
+     * {
+      "first_name": "Grey",
+      "last_name": "Jorge",
+      "stagename": "Apple",
+      "artistsInstruments": [
+      {
+      "artist_id": "1",
+      "instruments": [
+      {
+      "instrument_id": "4"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      },
+      {
+      "artist_id": "2",
+      "instruments": [
+      {
+      "instrument_id": "3"
+      },
+      {
+      "instrument_id": "7"
+      }
+      ]
+      }
+      ]
+      }
      */
     public function store() {
         $first_name = Input::get('first_name');
