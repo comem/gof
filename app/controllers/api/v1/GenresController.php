@@ -85,7 +85,6 @@ class GenresController extends BaseController {
 
         $string = Input::get('string');
 
-
         $results = Genre::Where('name_de', 'like', "$string%")->get();
         
         return ($results->toArray());
