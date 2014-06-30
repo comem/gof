@@ -10,7 +10,6 @@ use \Night;
 use \ArtistNight;
 use \BaseController;
 
-
 /**
  * REST controller with index, store, show, update and destroy methods implemented
  *
@@ -50,13 +49,15 @@ class ArtistNightController extends BaseController {
         $is_support = Input::get('is_support');
         $artist_hour_arrival = Input::get('artist_hour_arrival');
 
-        $artistNight = static::saveArtistNight($artist_id,$night_id,$order,$is_support,$artist_hour_arrival);
+        $artistNight = static::saveArtistNight($artist_id, $night_id, $order, $is_support, $artist_hour_arrival);
 
 
         // Retour de l'id du message nouvellement créé (encapsulé en JSEND)
         return Jsend::success($artistNight->toArray());
     }
-     /**
+
+    /**
+     * @ingore
      * Allows to save a new Artist Night 
      * @param string artist_id - id from the artist
      * @param string night_id - id from night
@@ -139,9 +140,9 @@ class ArtistNightController extends BaseController {
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight, 400);
@@ -182,25 +183,25 @@ class ArtistNightController extends BaseController {
 
         //Cast de platform_id et de night_id car l'url les envoit en String
         if (ctype_digit($artist_id)) {
-            $artist_id = (int)$artist_id;
+            $artist_id = (int) $artist_id;
         }
         if (ctype_digit($night_id)) {
-            $night_id = (int)$night_id;
+            $night_id = (int) $night_id;
         }
         if (ctype_digit($order)) {
-            $order = (int)$order;
+            $order = (int) $order;
         }
         if (ctype_digit($is_support)) {
-            $is_support = (int)$is_support;
+            $is_support = (int) $is_support;
         }
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
-            'is_support' => $is_support,
-            'artist_hour_arrival' => $artist_hour_arrival,
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
+                    'is_support' => $is_support,
+                    'artist_hour_arrival' => $artist_hour_arrival,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
@@ -224,21 +225,20 @@ class ArtistNightController extends BaseController {
         //Modification de l'interprète (performer)
         //Query Builder pour l'update 
         DB::table('artist_night')
-            ->where('night_id', '=', $night_id)
-            ->where('artist_id', '=', $artist_id)
-            ->where('order', '=', $order)
-            ->update(array(
-                'is_support' => $is_support,
-                'artist_hour_arrival' => $artist_hour_arrival)
-            );
+                ->where('night_id', '=', $night_id)
+                ->where('artist_id', '=', $artist_id)
+                ->where('order', '=', $order)
+                ->update(array(
+                    'is_support' => $is_support,
+                    'artist_hour_arrival' => $artist_hour_arrival)
+        );
 
         // Récupération du performer pour retourner l'objet modifié
         $performer = ArtistNight::where('night_id', '=', $night_id)
-                                ->where('artist_id', '=', $artist_id)
-                                ->where('order', '=', $order)
-                                ->first();
+                ->where('artist_id', '=', $artist_id)
+                ->where('order', '=', $order)
+                ->first();
         return Jsend::success($performer->toArray());
-
     }
 
     /**
@@ -250,28 +250,27 @@ class ArtistNightController extends BaseController {
      * @return Jsend::error Un message d'erreur si l'interprète (performer) n'est pas existant.
      * @return Jsend::success Sinon, un message de validation de supression de l'interprète (performer).
      */
-    public function destroy($order)
-    {
+    public function destroy($order) {
 
         $artist_id = Input::get('artist_id');
         $night_id = Input::get('night_id');
 
         //Cast de order_id, artist_id et de night_id car l'url les envoit en String
         if (ctype_digit($artist_id)) {
-            $artist_id = (int)$artist_id;
+            $artist_id = (int) $artist_id;
         }
         if (ctype_digit($night_id)) {
-            $night_id = (int)$night_id;
+            $night_id = (int) $night_id;
         }
         if (ctype_digit($order)) {
-            $order = (int)$order;
+            $order = (int) $order;
         }
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
@@ -285,10 +284,10 @@ class ArtistNightController extends BaseController {
         //Supression de l'interprète/performer (table pivot avec id hybrid "order").
         // Réalisé grace au niveau en-dessous de Eloquent -> Query Builder
         DB::table('artist_night')
-            ->where('night_id', '=', $night_id)
-            ->where('artist_id', '=', $artist_id)
-            ->where('order', '=', $order)
-            ->delete();
+                ->where('night_id', '=', $night_id)
+                ->where('artist_id', '=', $artist_id)
+                ->where('order', '=', $order)
+                ->delete();
 
         return Jsend::success('Performer deleted');
     }

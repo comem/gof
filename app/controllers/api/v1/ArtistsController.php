@@ -206,6 +206,7 @@ class ArtistsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Allows to save a new artist 
      * @param string $artistName - the name from the artist
      * @param string $artistSD - a short description from the artist
