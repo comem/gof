@@ -7,16 +7,13 @@ class ArtistsController extends \BaseController {
      * @return type
      */
     public function index() {
-        
-        
-        
-                 
+
+
+
+
         //$test['musician']->hasMany('instruments');
-        
-    return(Artist::with('musicians')->load('instruments')->get());
-       
-        
-        
+
+        return(Artist::with('musicians')->load('instruments')->get());
     }
 
     /**
@@ -138,7 +135,7 @@ class ArtistsController extends \BaseController {
      * @return Jsend::success A validation message
      */
     public function destroy($id) {
-         if (ctype_digit($id)) {
+        if (ctype_digit($id)) {
             $id = (int) $id;
         }
         $artist = Artist::find($id);
@@ -147,6 +144,16 @@ class ArtistsController extends \BaseController {
         }
         $artist->delete();
         return Jsend::success('Artist deleted');
+    }
+
+    public static function search() {
+
+        $string = Input::get('string');
+
+   
+       $results = Artist::Where('name', 'like', "$string%")->get();
+
+        return ($results->toArray());
     }
 
 }

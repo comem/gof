@@ -80,5 +80,17 @@ class GenresController extends BaseController {
     public function destroy($id) {
         //
     }
+    
+      public static function search() {
+
+        $string = Input::get('string');
+
+
+        $results = Genre::Where('name_de', 'like', "$string%")->get();
+        
+        return ($results->toArray());
+
+      
+    }
 
 }
