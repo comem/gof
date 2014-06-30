@@ -8,7 +8,13 @@ use \BaseController;
 use \Musician;
 use \DB;
 
-
+/**
+ * REST controller with index, store and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class MusiciansController extends BaseController {
 
     /**
@@ -17,9 +23,6 @@ class MusiciansController extends BaseController {
      * @return Response
      */
     public function index() {
-        
-       
-
         return Jsend::success(Musician::with('instruments','artists')->get());
     }
 
@@ -172,20 +175,16 @@ class MusiciansController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function update($id) {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function destroy($id) {
         //

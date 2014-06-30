@@ -5,6 +5,14 @@ namespace api\v1;
 use \Jsend;
 use \Nighttype;
 
+
+/**
+ * REST controller with index and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class NighttypesController extends \BaseController {
 
     /**
@@ -17,9 +25,8 @@ class NighttypesController extends \BaseController {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function store() {
         //
@@ -46,20 +53,17 @@ class NighttypesController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
+     * 
      */
     public function update($id) {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function destroy($id) {
         //

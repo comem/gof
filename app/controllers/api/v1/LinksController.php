@@ -8,9 +8,18 @@ use \BaseController;
 use \Jsend;
 use \Artist;
 
+
+/**
+ * REST controller with store, show and update methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class LinksController extends BaseController {
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function index() {
@@ -161,7 +170,8 @@ class LinksController extends BaseController {
         return Jsend::success($link->toArray());
     }
 
-    /** 
+    /**
+     * @ignore 
      * Not implemented yet.
      */
     public function destroy($id) {
@@ -171,7 +181,11 @@ class LinksController extends BaseController {
          */
     }
 
-    
+    /**
+     * 
+     *@ignore
+     * 
+     */
     public static function saveLink($url, $name_de, $title_de, $artist_id) {
         //Cast de artist_id car l'url l'envoit en String
         if (ctype_digit($artist_id)) {

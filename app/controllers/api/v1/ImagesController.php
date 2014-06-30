@@ -8,7 +8,13 @@ use \Image;
 use \Artist;
 use \BaseController;
 
-
+/**
+ * REST controller with index, store and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ImagesController extends BaseController {
 
     /**
@@ -110,6 +116,7 @@ class ImagesController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function update($id) {
@@ -120,6 +127,7 @@ class ImagesController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function destroy($id) {

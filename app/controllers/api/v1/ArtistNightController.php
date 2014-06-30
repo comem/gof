@@ -10,6 +10,14 @@ use \Night;
 use \ArtistNight;
 use \BaseController;
 
+
+/**
+ * REST controller with index, store, show, update and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistNightController extends BaseController {
 
     /**
@@ -49,11 +57,12 @@ class ArtistNightController extends BaseController {
 
     /**
      * Allows to save a new Artist Night 
-     * @param string $artist_id - id from the artist
-     * @param string $night_id - id from night
-     * @param string $order - a order from night
-       * @var $is_support (boolen) from perfomers 
-     * @var $artist_hour_arrival (date) hour from arrival 
+
+     * @param string artist_id - id from the artist
+     * @param string night_id - id from night
+     * @param string order - a order from night
+     * @param array is_support - (artistNight perfomers)
+     * @param array artist_hour_of_arrival - from (artistNight perfomers)
      * @return Artist - a created artistNight
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.

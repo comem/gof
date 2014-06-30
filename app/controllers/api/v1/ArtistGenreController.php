@@ -10,6 +10,14 @@ use \Genre;
 use \ArtistGenre;
 use \DB;
 
+
+/**
+ * REST controller with index, store and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistGenreController extends BaseController {
 
     /**
@@ -130,6 +138,7 @@ class ArtistGenreController extends BaseController {
     }
 
     /**
+     * @ignore
      * Display the specified resource.
      *
      * @param  int  $id
@@ -140,6 +149,7 @@ class ArtistGenreController extends BaseController {
     }
 
     /**
+     * @ignore
      * Update the specified resource in storage.
      *
      * @param  int  $id

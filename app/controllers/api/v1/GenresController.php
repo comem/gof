@@ -7,6 +7,13 @@ use \Jsend;
 use \Genre;
 use \Input;
 
+/**
+ * REST controller with index, store, show and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class GenresController extends BaseController {
 
     /**
@@ -67,6 +74,7 @@ class GenresController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function update($id) {
