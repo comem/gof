@@ -28,6 +28,7 @@ Route::group(
     Route::get('musicians/search', 'MusiciansController@search');
     Route::get('genres/search', 'GenresController@search');
     Route::get('instruments/search', 'InstrumentsController@search');
+    Route::get('nights/search', 'NightsController@search');
     Route::resource('artists', 'ArtistsController');
     Route::resource('nightplatform', 'NightPlatformController');
 

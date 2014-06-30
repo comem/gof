@@ -520,5 +520,16 @@ class NightsController extends BaseController {
 
         return Jsend::success('Night deleted');
     }
+    
+    public static function search() {
+
+        $string = Input::get('string');
+
+        $results = Night::Where('title_de', 'like', "%$string%")->get();
+        
+        return ($results->toArray());
+
+      
+    }
 
 }
