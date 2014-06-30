@@ -3,8 +3,8 @@
 class AuthController extends \BaseController {
 
     /**
-     * Permet d'afficher la page de login
-     * @return View::Auth/Login La page de login
+     * Show the login page
+     * @return View::Auth/Login The login page
      */
     public function getIndex()
     {
@@ -15,9 +15,9 @@ class AuthController extends \BaseController {
     }
 
     /**
-     * Permet de vérifier si la tentative de login est correcte
-     * @return View::Auth/Login La page de login avec une erreur si le login est refusé
-     * @return View::Intended La page que l'utilisateur voulait accéder précedemment accéder
+     * Verify if the credentials are corrcet
+     * @return View::Auth/Login The login page if the authentification is refused
+     * @return View::Intended The page that the user want to see before the login
      */
     public function postCheck()
     {
@@ -34,8 +34,8 @@ class AuthController extends \BaseController {
     }
 
     /**
-     * Permet de se deconnecter
-     * @return View::Auth/Login La page de login avec une indication comme quoi le logout c'est bien passé
+     * Logout the user
+     * @return View::Auth/Login The login page with a indication of the logout
      */
     public function getLogout()
     {
