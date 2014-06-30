@@ -8,12 +8,12 @@ class ArtistsController extends \BaseController {
      */
     public function index() {
         
-        $test = Artist::with('musicians', 'musicians.instruments')->get();
+        
         
                  
         //$test['musician']->hasMany('instruments');
         
-    return($test);
+    return(Artist::with('musicians')->load('instruments')->get());
        
         
         
