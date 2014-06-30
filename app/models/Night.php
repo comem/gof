@@ -13,6 +13,10 @@ class Night extends MyEloquent {
         return $this->belongsTo('Image');
     }
 
+    public function representer() {
+        return $this->belongsTo('Representer');
+    }
+
     public function jobs() {
         return $this->belongsToMany('Job');
     }
@@ -43,28 +47,30 @@ class Night extends MyEloquent {
 
     public function artists() {
         return $this->belongsToMany('Artist');
-    }  
+    }
 
     /**
      * Cette méthode permet de lier l'événement à un interprète (performer = table pivot)
      * @return L'interprète lié à cet événement.
      */
-    public function artistNights(){
+    public function artistNights() {
         return $this->hasMany('ArtistNight');
     }
-    
-    public function nightPlatforms (){
+
+    public function nightPlatforms() {
         return $this->hasMany('NightPlatform');
     }
-    
-    public function nightTicketcategorie () {
+
+    public function nightTicketcategorie() {
         return $this->hasMany('NightTicketcategorie');
     }
-    
-    public static function comparison_date ($start_date_hour, $end_date_hour)
-    {
-        if (strtotime($start_date_hour)<strtotime($end_date_hour))
-        {
+
+    public function nights() {
+        return $this->hasMany('Night');
+    }
+
+    public static function comparison_date($start_date_hour, $end_date_hour) {
+        if (strtotime($start_date_hour) < strtotime($end_date_hour)) {
             return true;
         }
         return false;
@@ -76,24 +82,24 @@ class Night extends MyEloquent {
      * @return True si le lien existe.
      *         False si le lien n'existe pas.
      */
-    public static function existBuisnessId($nightStartDateHour){
+    public static function existBuisnessId($nightStartDateHour) {
         $e = Night::where('start_date_hour', '=', $nightStartDateHour)
-            ->first();
+                ->first();
         return $e != null;       // Si null, n’existe pas 
     }
-    
+
     /**
      * Cette méthode vérifie l'existant de l'événement selon son identifiant technique.
      * @param Un identifiant technique correspondant à la clé primaire de cet événement. 
      * @return True si le lien existe.
      *         False si le lien n'existe pas.
      */
-    public static function existTechId($nightId){
+    public static function existTechId($nightId) {
         $e = Night::where('id', '=', $nightId)
-            ->first();
+                ->first();
         return $e != null;       // Si null, n’existe pas 
     }
-    
+
     /**
      * Cette méthode valide les types des attributs selon une liste de critères par attribut.
      * @param array $data Chaîne de caractère possèdant chaque attribut et leurs critères de validation. 
