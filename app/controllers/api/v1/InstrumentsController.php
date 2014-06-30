@@ -163,4 +163,17 @@ class InstrumentsController extends BaseController {
     }
     
     
+      public static function search() {
+
+        $string = Input::get('string');
+
+
+        $results = Instrument::Where('name_de', 'like', "$string%")->get();
+        
+        return ($results->toArray());
+
+      
+    }
+    
+    
 }
