@@ -202,7 +202,7 @@ class ArtistsController extends BaseController {
     
     
     /**
-     * Allows to save a new artist with genres in the database
+     * Allows to save a new artist 
      * @param string $artistName - the name from the artist
      * @param string $artistSD - a short description from the artist
      * @param string $artistCD - a complete description from the artist

@@ -14,15 +14,16 @@ class ArtistNightController extends BaseController {
 
     /**
      * Display a listing of the resource.
-     * @return Jsend::success Tous les performers
+     * @return Jsend::success all performers
      */
     public function index() {
         return Jsend::success(ArtistNight::all()->toArray());
     }
 
     /**
+     * @var name (string) name - the artist name (get)
      * Store a newly created resource in storage.
-     * @var order a récupérer comme contenu en get. Correspond à un attribut d'ordre (formant l'id hybride du performer).
+     * @var order (int). the order from passage (get)(hybride from performer).
      * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
      * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
      * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
@@ -47,7 +48,15 @@ class ArtistNightController extends BaseController {
         // Retour de l'id du message nouvellement créé (encapsulé en JSEND)
         return Jsend::success($artistNight->toArray());
     }
-    
+     /**
+     * Allows to save a new Artist Night 
+     * @param string $artist_id - id from the artist
+     * @param string $night_id - id from night
+     * @param string $order - a order from night
+     * @param array $is_support - (artistNight perfomers)
+     * @param array $artist_hour_of_arrival - from (artistNight perfomers)
+     * @return Artist - a created artistNight
+     */
     public static function saveArtistNight ($artist_id,$night_id,$order,$is_support,$artist_hour_arrival) 
     {
         if (ctype_digit($artist_id)) {
