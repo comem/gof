@@ -55,9 +55,8 @@ class ArtistNightController extends BaseController {
     }
 
     /**
-     * @ingore
+     * @ignore
      * Allows to save a new Artist Night 
-
      * @param string artist_id - id from the artist
      * @param string night_id - id from night
      * @param string order - a order from night
