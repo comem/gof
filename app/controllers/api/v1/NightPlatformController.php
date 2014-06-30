@@ -10,6 +10,13 @@ use \Platform;
 use \NightPlatform;
 use \BaseController;
 
+/**
+ * REST controller with index, store, show, update and destroy methods implemented
+ *
+ * @category  Services applicatifs
+ * @version   1.0
+ * @author    gof
+ */
 class NightPlatformController extends BaseController {
     //Cette classe correspond à la table "publications" du diagrame de class.
 
@@ -34,9 +41,6 @@ class NightPlatformController extends BaseController {
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new artist was created.
-     * 
-     * 
-     * 
      */
     public function store() {
 
@@ -59,6 +63,15 @@ class NightPlatformController extends BaseController {
         ));
     }
 
+    /**
+     * Allows to save a new publication.
+     * @param int $platform_id - the id from the platform
+     * @param int $night_id - the id from the night
+     * @param string $external_id - the external id for the platform
+     * @param text $external_infos - the external infos for the platform
+     * @param string $url - the url from the platform (get)
+     * @return NightPlatform - the created publication
+     */
     public static function saveNightPlatform($platform_id, $night_id, $external_id, $external_infos, $url) {
         //Cast de platform_id et de event_id car l'url les envoit en String
         if (ctype_digit($platform_id)) {
@@ -129,7 +142,7 @@ class NightPlatformController extends BaseController {
 
     /**
      * Allows to display a specific publication.
-     * @param  int -  the id from the link (url)
+     * @param  int the id from the link (url)
      * @var night_id (int) - the id from the night (header)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
@@ -171,7 +184,7 @@ class NightPlatformController extends BaseController {
     /**
      * 
      * Allows to modify a publication.
-     * @var platform_id (int) - the id from the platform (url)
+     * @param int the id from the platform (url)
      * @var night_id (int) - the id from the night (get)
      * @var external_id (string) - the external id for the platform (get)
      * @var external_infos (text) - the external infos for the platform (get)
@@ -241,7 +254,7 @@ class NightPlatformController extends BaseController {
     /**
      * 
      * Allows to delete a publication.
-     * @var platform_id (int) - the id from the platform (url)
+     * @param int the id from the platform (url)
      * @var night_id (int) - the id from the night (get)S
      * 
      * @return Response Jsend::fail if the input data are not correct.
