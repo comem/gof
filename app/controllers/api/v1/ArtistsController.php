@@ -18,25 +18,19 @@ use \ArtistNightController;
 class ArtistsController extends BaseController {
 
     /**
-     * Allows to display every artists from the database with musicians, nights, links, image and genres
+     * Allows to display every artists from the database with musicians, instruments, genres, nights, images, and links.
      * @return Response Jsend::success with all artists.
      */
     public function index() {
         return Jsend::success(Artist::with('musicians', 'instruments', 'genres', 'nights', 'images', 'links')->get(), 200);
         
-//                return Jsend::success(Artist::leftJoin('artist_musician', 'artists.id', '=', 'artist_musician.artist_id')
-//                ->leftJoin('instruments', 'artist_musician.instrument_id', '=', 'instruments.id')->select('artists.id', 'artists.name', 'instruments.name_de')
-//                ->leftJoin('musicians', 'artist_musician.musician_id', '=', 'musicians.id')
-//                ->select('artists.id', 'artists.name', 'instruments.name_de', 'musicians.stagename')
-//               
-//                ->get(), 200);
     }
 
     /**
      * Allows to save a new artist with genres, unexisting links, existing musicians, unexisting musicians, night and existing images
-     * @var name (string) name - the artist name (get)
-     * @var short_description (string) short_description_de - a short description (get)
-     * @var complete_description (string) complete_description_de - a complete description (get)
+     * @var name (string) - the artist name (get)
+     * @var short_description (string) - a short description (get)
+     * @var complete_description (string) - a complete description (get)
      * @var genres (array) [{"id": "(int)"}] - the artist genres (get)
      * @var links (array) [{"url": "(string)","name_de": "(string)","title_de": "(string)"}] - the existing musicians (get)
      * @var musicianInstruments (array) [{"musician_id": "(int)","instrument_id": "(int)"}] - the existing musicians (get)
@@ -127,7 +121,7 @@ class ArtistsController extends BaseController {
 
     /**
      * Allows to display a specific artist from the database with musicians, nights, links, image and genres
-     * @param  int -  the id from the artist
+     * @param  int -  the id from the artist (url)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the required resource was not found.
      * @return Response Jsend::success if the required artist was found.
@@ -153,10 +147,10 @@ class ArtistsController extends BaseController {
 
     /**
      * Allows to modify an artist
-     * @param int the id from the artist
-     * @var name (string) the name from the artist
-     * @var short_description_de (string) a short description from the artist
-     * @var complete_description_de (string) a complete description from the artist
+     * @param int the id from the artist (url)
+     * @var name (string) the name from the artist (get)
+     * @var short_description_de (string) a short description from the artist (get)
+     * @var complete_description_de (string) a complete description from the artist (get)
      * 
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the resource to modify was not found.
@@ -257,7 +251,7 @@ class ArtistsController extends BaseController {
     
 
     /**
-     * 
+     * Allows to save an Illustration.
      * @param int $artistId
      * @param int $imageId
      * @return Image - the image that illustrate the artist

@@ -11,28 +11,25 @@ use \Artist;
 class LinksController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * Priorité 1C
-     * @return Rien (fonction non réalisée pour le moment)
+     * Not implemented yet.
      */
     public function index() {
-        /**
+        /*
          * Priorité 1C
          * Correspond au READ all des fonctions CRUD
          */
-        // Retourne tous les liens
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @var url a récupérer comme contenu en get. Correspond à l'url du lien.
-     * @var name_de a récupérer comme contenu en get. au nom du lien.
-     * @var title_de a récupérer comme contenu en get. Correspond au titre du lien.
-     * @var artist_de a récupérer comme contenu en get. Correspond à l'id de l'artiste.  
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
-     * @return Jsend::error Un message d'erreur si le lien existe déjà.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'id du lien créé.
+     * Allows to save a new link.
+     * @var url (string) - the url (get)
+     * @var name_de (string) - the name of the resource (get)
+     * @var title_de (string) - the title of the resource (get)
+     * @var artist_id (int) - the id from the artist (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function store() {
         $url = Input::get('url');
@@ -79,11 +76,11 @@ class LinksController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * @param  int  $id correspondant à l'id technique du lien à voir.
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le lien correspondant à l'id technique.
+     * Allows to display a specific link.
+     * @param  int -  the id from the link (url)
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function show($id) {
         // Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
@@ -111,15 +108,15 @@ class LinksController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  int  $id correspondant à l'id technique du lien à modifier
-     * @var url a récupérer comme contenu en get. Correspond à l'url du lien.
-     * @var name_de a récupérer comme contenu en get. au nom du lien.
-     * @var title_de a récupérer comme contenu en get. Correspond au titre du lien.
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si le lien n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'artiste existe déjà.
-     * @return Jsend::success Sinon, un message de validation de modification contenant le lien correspondant à l'id technique.
+     * Allows to modify a link.
+     * @param int the id from the link (url)
+     * @var url (string) - the url (get)
+     * @var name_de (string) - the name of the resource (get)
+     * @var title_de (string) - the title of the resource (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the resource to modify was not found.
+     * @return Response Jsend::success if the artist was modified.
      */
     public function update($id) {
         // Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
@@ -164,19 +161,17 @@ class LinksController extends BaseController {
         return Jsend::success($link->toArray());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * Priorité 1C
-     * @param  int  $id
-     * @return Rien (fonction non réalisée pour le moment)
+    /** 
+     * Not implemented yet.
      */
     public function destroy($id) {
-        /**
+        /*
          * Priorité 1C
          * Correspond au DELETE des fonctions CRUD
          */
     }
 
+    
     public static function saveLink($url, $name_de, $title_de, $artist_id) {
         //Cast de artist_id car l'url l'envoit en String
         if (ctype_digit($artist_id)) {
