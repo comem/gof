@@ -159,13 +159,9 @@ class MusiciansController extends BaseController {
                         ->orWhere('last_name', 'like', "$string%")
                         ->orWhere('stagename', 'like', "$string%")->get();
         
-        $validator = Validator::make(
-                        array('string' => $string), array('string' => array('string', 'max:100'))
-        );
+       
 
-        if ($validator->fails()) {
-            return ("Error data : " + $string);
-        }
+      
 
         return ($results->toArray());
 
