@@ -39,16 +39,16 @@ class NightsController extends BaseController {
      * @var (int) nighttype_id - The id of the event type
      * @var (int) image_id - The id of the illustration image
      * @var (array) "platforms": {
-    "platform1": {
+      "platform1": {
       "platform_id":"1",
       "external_id":"external_id",
       "external_infos":"external_infos",
       "url":"url"
-    }
-  }
+      }
+      }
      * @var (array) {
-   "artist": {
-    "artist1": {
+      "artist": {
+      "artist1": {
       "id": "",
       "artistName": "Capitain",
       "artistSD": "ShortDescription",
@@ -56,12 +56,12 @@ class NightsController extends BaseController {
       "is_support":"0",
       "artist_hour_arrival":"2014-01-03 01:01:01",
       "genres": {
-        "genre1": {
-          "id": "1"
-        }
+      "genre1": {
+      "id": "1"
       }
-    },
-    "artist2": {
+      }
+      },
+      "artist2": {
       "id":"1",
       "artistName":"",
       "artistSD":"",
@@ -69,9 +69,9 @@ class NightsController extends BaseController {
       "is_support":"0",
       "artist_hour_arrival":"2014-01-03 01:01:01",
       "genres":""
-    }
-  }
-  
+      }
+      }
+
      * 
      * @return Jsend::fail An error message if the parameters aren't correct
      * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
@@ -79,29 +79,29 @@ class NightsController extends BaseController {
      * 
      * JSON DE TEST:
      * {
-  "start_date_hour": "2019-01-02 01:03:01",
-  "ending_date_hour": "2020-01-03 01:01:01",
-  "opening_doors": "",
-  "title_de": "MODIF OK",
-  "nb_meal": "30",
-  "nb_vegans_meal": "30",
-  "meal_note": "",
-  "nb_places": "130",
-  "followed_by_private": "FALSE",
-  "contract_src": "",
-  "notes": "notes",
-  "nighttype_id": "1",
-  "image_id": "1",
-  "ticket_categorie": {
-    "ticket1": {
+      "start_date_hour": "2019-01-02 01:03:01",
+      "ending_date_hour": "2020-01-03 01:01:01",
+      "opening_doors": "",
+      "title_de": "MODIF OK",
+      "nb_meal": "30",
+      "nb_vegans_meal": "30",
+      "meal_note": "",
+      "nb_places": "130",
+      "followed_by_private": "FALSE",
+      "contract_src": "",
+      "notes": "notes",
+      "nighttype_id": "1",
+      "image_id": "1",
+      "ticket_categorie": {
+      "ticket1": {
       "ticket_categorie_id": "1",
       "amount": "30",
       "quantitySold": "30",
       "comment": "test"
-    }
-  },
-  "artist": {
-    "artist1": {
+      }
+      },
+      "artist": {
+      "artist1": {
       "id": "",
       "artistName": "Capitain",
       "artistSD": "ShortDescription",
@@ -109,12 +109,12 @@ class NightsController extends BaseController {
       "is_support":"0",
       "artist_hour_arrival":"2014-01-03 01:01:01",
       "genres": {
-        "genre1": {
-          "id": "1"
-        }
+      "genre1": {
+      "id": "1"
       }
-    },
-    "artist2": {
+      }
+      },
+      "artist2": {
       "id":"1",
       "artistName":"",
       "artistSD":"",
@@ -122,17 +122,17 @@ class NightsController extends BaseController {
       "is_support":"0",
       "artist_hour_arrival":"2014-01-03 01:01:01",
       "genres":""
-    }
-  },
-  "platforms": {
-    "platform1": {
+      }
+      },
+      "platforms": {
+      "platform1": {
       "platform_id":"1",
       "external_id":"external_id",
       "external_infos":"external_infos",
       "url":"url"
-    }
-  }
-}
+      }
+      }
+      }
      */
     public function store() {
         $start_date_hour = Input::get('start_date_hour');
@@ -157,37 +157,35 @@ class NightsController extends BaseController {
         if (!is_a($night, 'Night')) {
             return $night;
         }
-        
+
         if (isset($artist)) {
             $compteur = 1;
             foreach ($artist as $a) {
                 if ($a['id'] == '') {
-                    
+
                     $artist_saved = ArtistsController::saveArtist($a['artistName'], $a['artistSD'], $a['artistCD'], $a['genres']);
-                    
+
                     if (!is_a($artist_saved, 'Artist')) {
                         return $artist_saved;
                     }
-                    
+
                     $artistNight = ArtistNightController::saveArtistNight($artist_saved->id, $night->id, $compteur, $a['is_support'], $a['artist_hour_arrival']);
-                
-                   
-                    } else {
-                        
+                } else {
+
                     $artistNight = ArtistNightController::saveArtistNight($a['id'], $night->id, $compteur, $a['is_support'], $a['artist_hour_arrival']);
                 }
-                 
+
 
                 if (!is_a($artistNight, 'ArtistNight')) {
                     return $artistNight;
                 }
-                  
+
 
 
                 $compteur++;
             }
         }
-        
+
         if (isset($platforms)) {
             foreach ($platforms as $p) {
                 $nightPlatform = NightPlatformController::saveNightPlatform($p['platform_id'], $night->id, $p['external_id'], $p['external_infos'], $p['url']);
@@ -196,20 +194,14 @@ class NightsController extends BaseController {
                 }
             }
         }
-        
+
 
         DB::commit();
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
         return Jsend::success($night->toArray(), 201);
     }
 
-    /**
-     * Display the specified resource.
-     * @param  $night_id The id of the demanded ressources
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the event searched
-     */
+   
 
     /**
      * Save an Event
@@ -384,7 +376,7 @@ class NightsController extends BaseController {
             return Jsend::error('Night id : ' . $night_id . 'resource not found');
         }
 
-        
+
 
 
         // Retourne le message encapsulé en JSEND si tout est OK
