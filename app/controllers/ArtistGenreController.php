@@ -2,10 +2,9 @@
 
 class ArtistGenreController extends \BaseController {
 
-    /**
+     /**
      * Display a listing of the resource.
-     *
-     * @return Response
+     * @return Jsend::success Toutes les catégories de tickets
      */
     public function index() {
         return Jsend::success(ArtistGenre::all()->toArray());
