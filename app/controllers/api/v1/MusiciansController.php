@@ -5,9 +5,9 @@ namespace api\v1;
 use \Jsend;
 use \Input;
 use \BaseController;
-use \ArtistMusicianController;
 use \Musician;
 use \DB;
+
 
 class MusiciansController extends BaseController {
 

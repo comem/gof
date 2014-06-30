@@ -29,11 +29,14 @@ Route::group(
     Route::get('genres/search', 'GenresController@search');
     Route::get('instruments/search', 'InstrumentsController@search');
     Route::get('nights/search', 'NightsController@search');
+    
     Route::resource('artists', 'ArtistsController');
     Route::resource('nightplatform', 'NightPlatformController');
 
     Route::resource('musicians', 'MusiciansController');
-    Route::resource('artistnight', 'ArtistNight');
+    Route::resource('artistnight', 'ArtistNightController');
+    Route::resource('artistgenre', 'ArtistGenreController');
+    Route::resource('nighttypes', 'NighttypesController');
     Route::resource('nightticketcategorie', 'NightTicketcategorieController');
     Route::resource('images', 'ImagesController');
     Route::resource('instruments', 'InstrumentsController');

@@ -57,48 +57,49 @@ class ArtistNightController extends BaseController {
      * @param array $artist_hour_of_arrival - from (artistNight perfomers)
      * @return Artist - a created artistNight
      */
-    public static function saveArtistNight ($artist_id,$night_id,$order,$is_support,$artist_hour_arrival) 
-    {
-        if (ctype_digit($artist_id)) {
-            $artist_id = (int) $artist_id;
+    public static function saveArtistNight($artistId, $nightId, $order, $isSupport, $artistHourArrival) {
+        if (ctype_digit($artistId)) {
+            $artistId = (int) $artistId;
         }
 
-        if (ctype_digit($night_id)) {
-            $night_id = (int) $night_id;
+        if (ctype_digit($nightId)) {
+            $nightId = (int) $nightId;
         }
 
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
-            'is_support' => $is_support,
-            'artist_hour_arrival' => $artist_hour_arrival,
+                    'artist_id' => $artistId,
+                    'night_id' => $nightId,
+                    'order' => $order,
+                    'is_support' => $isSupport,
+                    'artist_hour_arrival' => $artistHourArrival,
         ));
 
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
         }
 
-        if (!Artist::existTechId($artist_id)) {
+        if (!Artist::existTechId($nightId)) {
             return Jsend::error('artist not found');
         }
 
-        if (!Night::existTechId($night_id)) {
+        if (!Night::existTechId($nightId)) {
             return Jsend::error('night not found');
         }
 
-        if (ArtistNight::existTechId($artist_id, $night_id, $order)) {
+        if (ArtistNight::existTechId($artistId, $nightId, $order)) {
             return Jsend::error('artistnight already exists');
         }
 
         $artistNight = new ArtistNight();
-        $artistNight->artist_id = $artist_id;
-        $artistNight->night_id = $night_id;
+        $artistNight->artist_id = $artistId;
+        $artistNight->night_id = $nightId;
         $artistNight->order = $order;
-        $artistNight->is_support = $is_support;
-        $artistNight->artist_hour_arrival = $artist_hour_arrival;
+        $artistNight->is_support = $isSupport;
+        $artistNight->artist_hour_arrival = $artistHourArrival;
         $artistNight->save();
-        
+
+
+
         return $artistNight;
     }
 
