@@ -145,6 +145,11 @@ class ArtistsController extends \BaseController {
         $artist->delete();
         return Jsend::success('Artist deleted');
     }
+      /**
+     * Allow to search a musician with attribute
+     * @var string : data of search. exemple : instruments/search?string=test
+     * @return json of object received
+     */
 
     public static function search() {
 

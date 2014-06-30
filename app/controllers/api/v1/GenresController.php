@@ -80,7 +80,11 @@ class GenresController extends BaseController {
     public function destroy($id) {
         //
     }
-    
+      /**
+     * Allow to search a genre with attribute
+     * @var string : data of search. exemple : instruments/search?string=test
+     * @return json of object received
+     */
       public static function search() {
 
         $string = Input::get('string');
