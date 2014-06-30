@@ -390,6 +390,7 @@ class NightsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Save an Event
      * @param (date) start_date_hour - Date of the beginning event
      * @param (date) ending_date_hour - Date of the ending event

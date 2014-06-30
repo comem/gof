@@ -23,7 +23,7 @@ class MusiciansController extends BaseController {
      * @return Response
      */
     public function index() {
-        return Jsend::success(Musician::with('instruments','artists')->get());
+        return Jsend::success(Musician::with('instruments', 'artists')->get());
     }
 
    /**
@@ -171,7 +171,7 @@ class MusiciansController extends BaseController {
             return Jsend::error('muscian id : ' . $musician_id . 'resource not found');
         }
         // Retourne le message encapsulé en JSEND si tout est OK
-        return Jsend::success(Musician::with('instruments','artists')->find($musician_id));
+        return Jsend::success(Musician::with('instruments', 'artists')->find($musician_id));
     }
 
     /**
@@ -190,6 +190,13 @@ class MusiciansController extends BaseController {
         //
     }
 
+    /**
+     * @ignore
+     * @param type $first_name
+     * @param type $last_name
+     * @param type $stagename
+     * @return \Musician
+     */
     public static function saveMusician($first_name, $last_name, $stagename) {
 
         $validationMusician = Musician::validate(array('first_name' => $first_name,
@@ -223,10 +230,8 @@ class MusiciansController extends BaseController {
         $results = Musician::Where('first_name', 'like', "$string%")
                         ->orWhere('last_name', 'like', "$string%")
                         ->orWhere('stagename', 'like', "$string%")->get();
-        
-        return ($results->toArray());
 
-      
+        return ($results->toArray());
     }
 
 }

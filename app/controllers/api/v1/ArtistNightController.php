@@ -55,6 +55,7 @@ class ArtistNightController extends BaseController {
     }
 
     /**
+     * @ingore
      * Allows to save a new Artist Night 
 
      * @param string artist_id - id from the artist

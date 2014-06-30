@@ -64,6 +64,7 @@ class NightPlatformController extends BaseController {
     }
 
     /**
+     * @ignore
      * Allows to save a new publication.
      * @param int $platform_id - the id from the platform
      * @param int $night_id - the id from the night
