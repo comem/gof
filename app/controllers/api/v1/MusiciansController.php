@@ -23,16 +23,14 @@ class MusiciansController extends BaseController {
 
     /**
      * Store a newly created resource in storage.
-     * Permet d'enregistré un musician et une association entre ce musician , un instrument et un artist
-     * @var first_name : attribut de la table musician
-     * @var last_name : attribut de la table musician
-     * @var satgename : attribut de la table musician
-     * @var artistsInstruments : tableau avec les valeurs des id des artists et instruments correponsant à l'artiste
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'instrument n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'association entre un musician un groupe et un instrument existe déjà.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant les informations des données enregistrée.
+     * Allow to record a Musician with assoication betweem an instrument and a artist
+     * @var first_name (string) first name from artist (get)
+     * @var last_name (string) last name from artist (get)
+     * @var stagename (string) stagename from artist (get)
+     * @var artistsInstruments : array of id from musician and instrument ( association ) 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new musician was created.
      */
     public function store() {
         $first_name = Input::get('first_name');
