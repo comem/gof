@@ -1,7 +1,16 @@
 <?php
 
+namespace api\v1;
+use \BaseController;
+use \Input;
+use \Jsend;
+use \Artist;
+use \Musician;
+use \ArtistMusician;
+use \DB;
+use \Instrument;
 
-class ArtistMusicianController extends \BaseController {
+class ArtistMusicianController extends BaseController {
 
     /**
      * Display a listing of the resource.

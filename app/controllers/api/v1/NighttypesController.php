@@ -1,5 +1,10 @@
 <?php
 
+namespace api\v1;
+
+use \Jsend;
+use \Nighttype;
+
 class NighttypesController extends \BaseController {
 
     /**

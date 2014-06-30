@@ -1,6 +1,17 @@
 <?php
 
-class ArtistGenreController extends \BaseController {
+namespace api\v1;
+
+use \Jsend;
+use \BaseController;
+use \Input;
+use \Artist;
+use \Genre;
+use \ArtistGenre;
+
+
+
+class ArtistGenreController extends BaseController {
 
     /**
      * Display a listing of the resource.

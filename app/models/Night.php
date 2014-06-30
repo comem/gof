@@ -34,7 +34,7 @@ class Night extends MyEloquent {
     }
 
     public function ticketcategories() {
-        return $this->belongsToMany('Ticketcategorie');
+        return $this->belongsToMany('Ticketcategorie')->withPivot('amount', 'quantity_sold', 'comment_de');
     }
 
     public function printingtypes() {

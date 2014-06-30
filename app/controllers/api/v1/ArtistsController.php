@@ -8,9 +8,7 @@ use \DB;
 use \Genre;
 use \Artist;
 use \Image;
-use \ArtistMusicianController;
 use \BaseController;
-use \ArtistNightController;
 
 
 /**
