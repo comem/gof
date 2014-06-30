@@ -20,7 +20,9 @@ class NightsController extends BaseController {
      * @return Jsend::success All the events
      */
     public function index() {
-        return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('nighttype')->with('artists')->with('image')->with('printingtypes')->get());
+
+        return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->get());
+
     }
 
     /**
@@ -380,7 +382,7 @@ class NightsController extends BaseController {
 
 
         // Retourne le message encapsulé en JSEND si tout est OK
-        return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->find($night_id));
+        return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($night_id));
     }
 
     /**
@@ -519,6 +521,17 @@ class NightsController extends BaseController {
 
 
         return Jsend::success('Night deleted');
+    }
+    
+    public static function search() {
+
+        $string = Input::get('string');
+
+        $results = Night::Where('title_de', 'like', "%$string%")->get();
+        
+        return ($results->toArray());
+
+      
     }
 
 }
