@@ -159,10 +159,6 @@ class MusiciansController extends BaseController {
                         ->orWhere('last_name', 'like', "$string%")
                         ->orWhere('stagename', 'like', "$string%")->get();
         
-       
-
-      
-
         return ($results->toArray());
 
       
