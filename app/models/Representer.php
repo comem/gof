@@ -19,5 +19,5 @@ class Image extends MyEloquent {
         return $this->hasMany('Night');
     }
 
-   
+
 }

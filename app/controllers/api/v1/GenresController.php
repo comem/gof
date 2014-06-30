@@ -7,7 +7,6 @@ use \Jsend;
 use \Genre;
 use \Input;
 
-
 class GenresController extends BaseController {
 
     /**
@@ -75,25 +74,48 @@ class GenresController extends BaseController {
     }
 
     /**
-     * Not implemented yet.
+     * Remove the specified resource from storage.
+     * @param  int -  the id from the genre to delete 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the instrument was deleted.
      */
     public function destroy($id) {
-        //
+        if (ctype_digit($id)) {
+            $id = (int) $id;
+        }
+        $validationGenre = Genre::validate(array(
+                    'id' => $id
+        ));
+
+
+        if ($validationGenre !== true) {
+            return Jsend::fail($validationGenre);
+        }
+
+        $genre = Genre::find($id);
+        if (!isset($genre)) {
+            return Jsend::error('resource not found');
+        }
+
+
+        $genre->delete();
+
+        return Jsend::success();
     }
-      /**
+
+    /**
      * Allow to search a genre with attribute
      * @var string : data of search. exemple : instruments/search?string=test
      * @return json of object received
      */
-      public static function search() {
+    public static function search() {
 
         $string = Input::get('string');
 
         $results = Genre::Where('name_de', 'like', "$string%")->get();
-        
-        return ($results->toArray());
 
-      
+        return ($results->toArray());
     }
 
 }

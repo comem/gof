@@ -8,8 +8,7 @@ use \Input;
 use \Artist;
 use \Genre;
 use \ArtistGenre;
-
-
+use \DB;
 
 class ArtistGenreController extends BaseController {
 
@@ -146,7 +145,9 @@ class ArtistGenreController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($artist_id, $genre_id) {
+
+    public function update($id) {
+
         
     }
 
@@ -156,8 +157,55 @@ class ArtistGenreController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($artist_id) {
+
+
+        $genre_id = Input::get('genre_id');
+
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int) $artist_id;
+        }
+        if (ctype_digit($genre_id)) {
+            $genre_id = (int) $genre_id;
+        }
+
+
+        // Validation Artist
+        $validationArt = Artist::validate(array('id' => $artist_id));
+        if ($validationArt !== true) {
+            return Jsend::fail($validationArt);
+        }
+
+
+        if (!Artist::existTechId($artist_id)) {
+            return Jsend::error('artist_id :', $artist_id . ' not found');
+        }
+
+        // Validation Genre
+        $validationGenre = Genre::validate(array('id' => $genre_id));
+        if ($validationGenre !== true) {
+            return Jsend::fail($validationGenre, 400);
+        }
+
+
+        if (!Genre::existTechId($genre_id)) {
+            return Jsend::error('genre id :' . $genre_id . ' not found', 404);
+        }
+       
+
+        if (!ArtistGenre::existTechId($artist_id, $genre_id)) {
+            return Jsend::error("association doesn't exist");
+        }
+
+
+        DB::table('artist_genre')
+                ->where('artist_id', '=', $artist_id)
+                ->where('genre_id', '=', $genre_id)
+                ->delete();
+
+
+
+        return Jsend::success('Association deleted');
     }
 
 }
