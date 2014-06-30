@@ -25,6 +25,7 @@ class MusiciansController extends BaseController {
 
    /**
      * Store a newly created resource in storage.
+<<<<<<< HEAD
      * Store a musician and an association beetween this musicians, an instrument and an artist
      * @var (string) first_name : first name of the musician
      * @var (string) last_name : last name of the musician
@@ -88,6 +89,16 @@ class MusiciansController extends BaseController {
       }
       ]
       }
+=======
+     * Allow to record a Musician with assoication betweem an instrument and a artist
+     * @var first_name (string) first name from artist (get)
+     * @var last_name (string) last name from artist (get)
+     * @var stagename (string) stagename from artist (get)
+     * @var artistsInstruments : array of id from musician and instrument ( association ) 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new musician was created.
+>>>>>>> Comments
      */
     public function store() {
         $first_name = Input::get('first_name');

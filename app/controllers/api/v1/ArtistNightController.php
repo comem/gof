@@ -24,15 +24,13 @@ class ArtistNightController extends BaseController {
      * @var name (string) name - the artist name (get)
      * Store a newly created resource in storage.
      * @var order (int). the order from passage (get)(hybride from performer).
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
-     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
-     * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
-     * @var $artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
-     * @return Jsend::error Un message d'erreur si le performer existe déjà.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le performer créé.
+     * @var night_id (int) id from night (get) (hybride from performer).
+     * @var artist_id (int) id from artist (get) (hybride from performer).
+     * @var $is_support (boolen) from perfomers (get)
+     * @var $artist_hour_arrival (date) hour from arrival (get)
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artistnight was created.
      */
     public function store() {
 
@@ -42,24 +40,31 @@ class ArtistNightController extends BaseController {
         $is_support = Input::get('is_support');
         $artist_hour_arrival = Input::get('artist_hour_arrival');
 
-        $artistNight = static::saveArtistNight($artist_id,$night_id,$order,$is_support,$artist_hour_arrival);
+        $artistNight = static::saveArtistNight($artist_id, $night_id, $order, $is_support, $artist_hour_arrival);
 
 
         // Retour de l'id du message nouvellement créé (encapsulé en JSEND)
         return Jsend::success($artistNight->toArray());
     }
-     /**
+
+    /**
      * Allows to save a new Artist Night 
      * @param string $artist_id - id from the artist
      * @param string $night_id - id from night
      * @param string $order - a order from night
-     * @param array $is_support - (artistNight perfomers)
-     * @param array $artist_hour_of_arrival - from (artistNight perfomers)
+       * @var $is_support (boolen) from perfomers 
+     * @var $artist_hour_arrival (date) hour from arrival 
      * @return Artist - a created artistNight
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success a new ArtistNight.
      */
-    public static function saveArtistNight($artistId, $nightId, $order, $isSupport, $artistHourArrival) {
-        if (ctype_digit($artistId)) {
-            $artistId = (int) $artistId;
+
+
+    public static function saveArtistNight($artist_id, $night_id, $order, $is_support, $artist_hour_arrival) {
+        if (ctype_digit($artist_id)) {
+            $artist_id = (int) $artist_id;
+
         }
 
         if (ctype_digit($nightId)) {
@@ -67,11 +72,19 @@ class ArtistNightController extends BaseController {
         }
 
         $validationArtistNight = ArtistNight::validate(array(
+
                     'artist_id' => $artistId,
                     'night_id' => $nightId,
                     'order' => $order,
                     'is_support' => $isSupport,
                     'artist_hour_arrival' => $artistHourArrival,
+
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
+                    'is_support' => $is_support,
+                    'artist_hour_arrival' => $artist_hour_arrival,
+
         ));
 
         if ($validationArtistNight !== true) {
@@ -100,17 +113,19 @@ class ArtistNightController extends BaseController {
 
 
 
+
+
         return $artistNight;
     }
 
     /**
      * Display the specified resource.
-     * @param  int $order correspondant à un attribut d'ordre de performer (formant l'id hybride du performer).
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
-     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le performer correspondant à l'id hybride.
+     * @param string $artist_id - id from the artist
+     * @param string $night_id - id from night
+     * @param string $order - a order from night
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function show($order) {
 
@@ -131,9 +146,9 @@ class ArtistNightController extends BaseController {
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight, 400);
@@ -154,16 +169,15 @@ class ArtistNightController extends BaseController {
 
     /**
      * Update the specified resource in storage.
-     * @param  int $order correspondant à un attribut d'ordre de performer (formant l'id hybride du performer).
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
-     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
-     * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
-     * @var $artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'artiste lié à la modification n'existe pas.
-     * @return Jsend::error Un message d'erreur si le performer n'existe pas.
-     * @return Jsend::success Sinon, un message de validation de modification contenant le performer correspondant à l'id hybride.
+     * 
+     * @param string $artist_id (int) - id from the artist
+     * @param string $night_id (int) - id from night
+     * @param string $order(int) - a order from night
+     * @var $is_support (boolen) from perfomers 
+     * @var $artist_hour_arrival (date) hour from arrival 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function update($order) {
 
@@ -174,25 +188,25 @@ class ArtistNightController extends BaseController {
 
         //Cast de platform_id et de night_id car l'url les envoit en String
         if (ctype_digit($artist_id)) {
-            $artist_id = (int)$artist_id;
+            $artist_id = (int) $artist_id;
         }
         if (ctype_digit($night_id)) {
-            $night_id = (int)$night_id;
+            $night_id = (int) $night_id;
         }
         if (ctype_digit($order)) {
-            $order = (int)$order;
+            $order = (int) $order;
         }
         if (ctype_digit($is_support)) {
-            $is_support = (int)$is_support;
+            $is_support = (int) $is_support;
         }
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
-            'is_support' => $is_support,
-            'artist_hour_arrival' => $artist_hour_arrival,
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
+                    'is_support' => $is_support,
+                    'artist_hour_arrival' => $artist_hour_arrival,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
@@ -216,54 +230,52 @@ class ArtistNightController extends BaseController {
         //Modification de l'interprète (performer)
         //Query Builder pour l'update 
         DB::table('artist_night')
-            ->where('night_id', '=', $night_id)
-            ->where('artist_id', '=', $artist_id)
-            ->where('order', '=', $order)
-            ->update(array(
-                'is_support' => $is_support,
-                'artist_hour_arrival' => $artist_hour_arrival)
-            );
+                ->where('night_id', '=', $night_id)
+                ->where('artist_id', '=', $artist_id)
+                ->where('order', '=', $order)
+                ->update(array(
+                    'is_support' => $is_support,
+                    'artist_hour_arrival' => $artist_hour_arrival)
+        );
 
         // Récupération du performer pour retourner l'objet modifié
         $performer = ArtistNight::where('night_id', '=', $night_id)
-                                ->where('artist_id', '=', $artist_id)
-                                ->where('order', '=', $order)
-                                ->first();
+                ->where('artist_id', '=', $artist_id)
+                ->where('order', '=', $order)
+                ->first();
         return Jsend::success($performer->toArray());
-
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $order correspondant à une partie de l'id hybrdide de l'interprète (performer).
-     * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artist.
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'interprète (performer) n'est pas existant.
-     * @return Jsend::success Sinon, un message de validation de supression de l'interprète (performer).
+     * @param string $artist_id (int) - id from the artist
+     * @param string $night_id (int) - id from night
+     * @param string $order(int) - a order from night
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
-    public function destroy($order)
-    {
+    public function destroy($order) {
 
         $artist_id = Input::get('artist_id');
         $night_id = Input::get('night_id');
 
         //Cast de order_id, artist_id et de night_id car l'url les envoit en String
         if (ctype_digit($artist_id)) {
-            $artist_id = (int)$artist_id;
+            $artist_id = (int) $artist_id;
         }
         if (ctype_digit($night_id)) {
-            $night_id = (int)$night_id;
+            $night_id = (int) $night_id;
         }
         if (ctype_digit($order)) {
-            $order = (int)$order;
+            $order = (int) $order;
         }
 
         // Validation des types
         $validationArtistNight = ArtistNight::validate(array(
-            'artist_id' => $artist_id,
-            'night_id' => $night_id,
-            'order' => $order,
+                    'artist_id' => $artist_id,
+                    'night_id' => $night_id,
+                    'order' => $order,
         ));
         if ($validationArtistNight !== true) {
             return Jsend::fail($validationArtistNight);
@@ -277,10 +289,10 @@ class ArtistNightController extends BaseController {
         //Supression de l'interprète/performer (table pivot avec id hybrid "order").
         // Réalisé grace au niveau en-dessous de Eloquent -> Query Builder
         DB::table('artist_night')
-            ->where('night_id', '=', $night_id)
-            ->where('artist_id', '=', $artist_id)
-            ->where('order', '=', $order)
-            ->delete();
+                ->where('night_id', '=', $night_id)
+                ->where('artist_id', '=', $artist_id)
+                ->where('order', '=', $order)
+                ->delete();
 
         return Jsend::success('Performer deleted');
     }
