@@ -192,6 +192,7 @@ class MusiciansController extends BaseController {
 
     /**
      * @ignore
+     * Allors to save a new musician
      * @param type $first_name
      * @param type $last_name
      * @param type $stagename

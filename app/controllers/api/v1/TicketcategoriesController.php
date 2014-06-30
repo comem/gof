@@ -16,13 +16,11 @@ use \BaseController;
 class TicketcategoriesController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Jsend::success Toutes les catégories de tickets
+
+     * Allows to display every ticketcategories from the database.
+     * @return Response Jsend::success with all nighttypes.
      */
     public function index() {
-
-// Retourne toutes les catégories de ticket
-
         return Jsend::success(Ticketcategorie::all()->toArray());
     }
 
@@ -40,17 +38,17 @@ class TicketcategoriesController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * @param  int  $id correspondant à l'id technique de la cathégorie de ticket à voir
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la catégorie de ticket correspondant à l'id technique.
+     * Allows to display a specific ticketcategory from the database.
+     * @param  int -  the id from the ticketcategory
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required genre was found.
      */
     public function show($id) {
-// Vérification des droits d'accès (ACL)
-//A réaliser
-// Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
-// Par contre la conversion se fait que pour des chaines Ok.
+        // Vérification des droits d'accès (ACL)
+        //A réaliser
+        // Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
+        // Par contre la conversion se fait que pour des chaines Ok.
         if (ctype_digit($id)) {
             $id = (int) $id;
         }

@@ -208,10 +208,10 @@ class ArtistsController extends BaseController {
     /**
      * @ignore
      * Allows to save a new artist 
-     * @param string $artistName - the name from the artist
-     * @param string $artistSD - a short description from the artist
-     * @param string $artistCD - a complete description from the artist
-     * @param array $genres - the genres from the artists
+     * @param string artistName - the name from the artist
+     * @param string artistSD - a short description from the artist
+     * @param string artistCD - a complete description from the artist
+     * @param array genres - the genres from the artists
      * @return Artist - a created artist
      */
     public static function saveArtist($artistName, $artistSD, $artistCD, $genres) {
