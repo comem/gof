@@ -6,6 +6,13 @@ use \Jsend;
 use \Ticketcategorie;
 use \BaseController;
 
+/**
+ * REST controller with index and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class TicketcategoriesController extends BaseController {
 
 	/**
@@ -21,6 +28,7 @@ class TicketcategoriesController extends BaseController {
 
 
 	/**
+         * @ignore
 	 * Store a newly created resource in storage.
 	 * En dur dans la base de donnée (1D)
 	 * @return Rien (fonction non réalisée pour le moment)
@@ -72,6 +80,7 @@ class TicketcategoriesController extends BaseController {
 
 
 	/**
+         * @ignore
 	 * Update the specified resource in storage.
 	 * Priorité 1C
 	 * @param  int  $id
@@ -87,6 +96,7 @@ class TicketcategoriesController extends BaseController {
 
 
 	/**
+         * @ignore
 	 * Remove the specified resource from storage.
 	 * Priorité 1C
 	 * @param  int  $id

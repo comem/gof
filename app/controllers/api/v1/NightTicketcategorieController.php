@@ -10,6 +10,13 @@ use \Ticketcategorie;
 use \NightTicketcategorie;
 use \BaseController;
 
+/**
+ * REST controller with index, store, show, update and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class NightTicketcategorieController extends BaseController {
 
     /**

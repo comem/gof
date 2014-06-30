@@ -10,6 +10,14 @@ use \Night;
 use \ArtistNight;
 use \BaseController;
 
+
+/**
+ * REST controller with index, store, show, update and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistNightController extends BaseController {
 
     /**
@@ -25,9 +33,9 @@ class ArtistNightController extends BaseController {
      * Store a newly created resource in storage.
      * @var order (int). the order from passage (get)(hybride from performer).
      * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
-     * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
-     * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
-     * @var $artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
+     * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
+     * @var is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
+     * @var artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
      * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
      * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
      * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
@@ -50,11 +58,11 @@ class ArtistNightController extends BaseController {
     }
      /**
      * Allows to save a new Artist Night 
-     * @param string $artist_id - id from the artist
-     * @param string $night_id - id from night
-     * @param string $order - a order from night
-     * @param array $is_support - (artistNight perfomers)
-     * @param array $artist_hour_of_arrival - from (artistNight perfomers)
+     * @param string artist_id - id from the artist
+     * @param string night_id - id from night
+     * @param string order - a order from night
+     * @param array is_support - (artistNight perfomers)
+     * @param array artist_hour_of_arrival - from (artistNight perfomers)
      * @return Artist - a created artistNight
      */
     public static function saveArtistNight($artistId, $nightId, $order, $isSupport, $artistHourArrival) {

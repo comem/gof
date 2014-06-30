@@ -10,9 +10,19 @@ use \ArtistMusician;
 use \DB;
 use \Instrument;
 
+
+
+/**
+ * REST controller with store and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistMusicianController extends BaseController {
 
     /**
+     * @ignore
      * Display a listing of the resource.
      *
      * @return Response
@@ -49,6 +59,7 @@ class ArtistMusicianController extends BaseController {
     }
 
     /**
+     * @ignore
      * Display the specified resource.
      *
      * @param  int  $id
@@ -60,6 +71,7 @@ class ArtistMusicianController extends BaseController {
     }
 
     /**
+     * @ignore
      * Update the specified resource in storage.
      *
      * @param  int  $id
@@ -149,6 +161,7 @@ class ArtistMusicianController extends BaseController {
     }
     
     /**
+     * @ignore
      * Store a newly created resource in storage.
      * Registers a new association between a musician , an instrument and an artist
      * @var instrument_id(int): id instrument
