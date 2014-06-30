@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 Route::group(
-        array(
+       array(
     'prefix' => 'api/v1',
     'namespace' => 'api\v1',
     'before' => array(/* 'auth', 'acl_rest' */),
