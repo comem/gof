@@ -109,7 +109,7 @@ class NightTicketcategorieController extends BaseController {
     /**
      * Allows to display a specific nightticketcategory from the database.
      * @param  int -  the id from the ticketcategorie (url)
-     * @var  night_id (int) - the id from the night (get)
+     * @var  Night-id (int) - the id from the night (header)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the required resource was not found.
      * @return Response Jsend::success if the required platform was found.
@@ -117,7 +117,7 @@ class NightTicketcategorieController extends BaseController {
     public function show($ticketCat_id) {
 
         // Récupération par le header
-        $night_id = Request::header('night_id');
+        $night_id = Request::header('Night-id');
 
         //Cast de ticketCat_id et de event_id car l'url les envoit en String
         if (ctype_digit($ticketCat_id)) {

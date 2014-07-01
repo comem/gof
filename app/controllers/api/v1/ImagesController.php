@@ -41,9 +41,9 @@ class ImagesController extends BaseController {
      */
     public function store() {
 
-        $alt_de = Input::header('alt_de');
-        $caption_de = Input::header('caption_de');
-        $artist_id = Input::header('artist_id');
+        $alt_de = Input::header('Alt-de');
+        $caption_de = Input::header('Caption-de');
+        $artist_id = Input::header('Artist-id');
         $uploadedImage = Input::file('uploadedImage');
         //Cast de artist_id car l'url l'envoit en String
         if (ctype_digit($artist_id)) {
@@ -70,7 +70,7 @@ class ImagesController extends BaseController {
         $imageName = date('Y-m-d-H-i-s'). '-' . $alt_de . $extension;
         $source = $uploadFolder . $imageName;
 
-        $uploadedImage->move($uploadFolder, date('Y-m-d-H-i-s'). '-' . $alt_de . $extension);
+        $uploadedImage->move($uploadFolder, $imageName);
 
         // Sauvegarde de l'image avec l'artiste (Aucune validation car l'id d'artist n'est pas obligatoire.)
         $image = new Image();

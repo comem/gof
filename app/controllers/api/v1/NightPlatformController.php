@@ -146,14 +146,14 @@ class NightPlatformController extends BaseController {
     /**
      * Allows to display a specific publication.
      * @param  int the id from the link (url)
-     * @var night_id (int) - the id from the night (header)
+     * @var Night-id (int) - the id from the night (header)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new artist was created.
      */
     public function show($platform_id) {
         // Récupération par le header
-        $night_id = Request::header('night_id');
+        $night_id = Request::header('Night-id');
 
         //Cast de platform_id et de event_id car l'url les envoit en String
         if (ctype_digit($platform_id)) {

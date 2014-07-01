@@ -118,9 +118,9 @@ class ArtistNightController extends BaseController {
 
     /**
      * Display the specified resource.
-     * @param string $artist_id - id from the artist
-     * @param string $night_id - id from night
-     * @param string $order - a order from night
+     * @var string Night-id - id from the night (header)
+     * @var string Artist-id - id from the artist (header)
+     * @param string $order - a order from night (get)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new artist was created.
@@ -128,8 +128,8 @@ class ArtistNightController extends BaseController {
     public function show($order) {
 
         // Récupération par le header
-        $night_id = Request::header('night_id');
-        $artist_id = Request::header('artist_id');
+        $night_id = Request::header('Night-id');
+        $artist_id = Request::header('Artist-id');
 
         //Cast de platform_id et de event_id car l'url les envoit en String
         if (ctype_digit($artist_id)) {
