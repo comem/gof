@@ -3,13 +3,13 @@
 class MyEloquent extends Eloquent
 {
     /**
-     * Valide les données et retourne un tableau associatif des messages
-     * d'erreurs indicés par les attributs erronés
+     * 
+     * Allows to validate data and returns an associative array with error messages for each attributes that fails the validation.
      *
-     * Retourne true si aucune erreur.
+     * Returns true if no errors.
      *
-     * @param array $data tableau associatif des valeurs à valider
-     * @param array $rules tableau associatif des règles de validation
+     * @param array data associative array with data to validate
+     * @param array $rules associative array with validation rules
      * @return boolean|array
      */
     protected static function validator($data, $rules = array()) {

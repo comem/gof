@@ -114,7 +114,7 @@ class ArtistsController extends BaseController {
             }
         }
  
-        if (isset($night)) {
+        if (isset($night) && $night['id'] !== '') {
             $performerToSave = ArtistNightController::saveArtistNight($artist->id, $night['id'], $night['order'], $night['isSupport'], $night['artist_hour_arrival']);
             if (!is_a($performerToSave, 'ArtistNight')) {
                 return $performerToSave;

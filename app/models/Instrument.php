@@ -2,6 +2,15 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Instrument model
+ * 
+ * Corresponds to the "instruments" class of the class diagram.
+ *
+ * @category  Model
+ * @version   1.0
+ * @author    gof
+ */
 class Instrument extends MyEloquent {
 
     protected $table = 'instruments';
@@ -30,7 +39,7 @@ class Instrument extends MyEloquent {
     /**
      * Allows to validate attributes for an Instrument.
      * @param array data array with every attributes that has to be validate. 
-     * @return boolean true if the input data are valid, false otherwise.
+     * @return boolean|array true if the input data are valid, array with errors otherwise.
      */
     public static function validate($data = array()) {
         return parent::validator($data, array(

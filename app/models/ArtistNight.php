@@ -17,7 +17,7 @@ class ArtistNight extends MyEloquent {
     /**
      * Allows to validate attributes for an ArtistNight.
      * @param array data array with every attributes that has to be validate. 
-     * @return boolean true if the input data are valid, false otherwise.
+     * @return boolean|array true if the input data are valid, array with errors otherwise.
      */
     public static function validate($data = array()) {
         return parent::validator($data, array(
@@ -31,8 +31,9 @@ class ArtistNight extends MyEloquent {
 
     /**
      * Allows to verify if an ArtistNight exists in the database with his technical id.
-     * @param int the technical id corresponding to the composite primary key of the ArtistNight.
-     * @param int the technical id corresponding to the composite primary key of the ArtistNight.
+     * @param int the technical id of artist corresponding to the composite primary key of the ArtistNight.
+     * @param int the technical id of night corresponding to the composite primary key of the ArtistNight.
+     * @param int the technical id of order corresponding to the composite primary key of the ArtistNight.
      * @return boolean true if the Artist exists in the database, false otherwise.
      */
     public static function existTechId($artistId, $nightId, $order) {

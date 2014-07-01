@@ -1,72 +1,129 @@
 <?php
 
+/**
+ * Night model
+ * 
+ * Corresponds to the "events" class of the class diagram.
+ *
+ * @category  Model
+ * @version   1.0
+ * @author    gof
+ */
 class Night extends MyEloquent {
 
     protected $table = 'nights';
     public $timestamps = true;
 
+    /**
+     * Allows to define the relationship between Night and Nighttype.
+     * @return Nighttype the nighttype of the night.
+     */
     public function nighttype() {
         return $this->belongsTo('Nighttype');
     }
 
+    /**
+     * Allows to define the relationship between Night and Image.
+     * @return Image the image of the night.
+     */
     public function image() {
         return $this->belongsTo('Image');
     }
 
+    /**
+     * Allows to define the relationship between Night and Representer.
+     * @return Representer the representer of the night.
+     */
     public function representer() {
         return $this->belongsTo('Representer');
     }
 
+    /**
+     * Allows to define the relationship between Night and Job.
+     * @return Job the jobs of the night.
+     */
     public function jobs() {
         return $this->belongsToMany('Job');
     }
 
+    /**
+     * Allows to define the relationship between Night and Platform.
+     * @return Platform the platforms of the night.
+     */
     public function platforms() {
         return $this->belongsToMany('Platform');
     }
 
+    /**
+     * Allows to define the relationship between Night and Member.
+     * @return Artist the members of the night.
+     */
     public function members() {
         return $this->belongsToMany('Member');
     }
 
+    /**
+     * Allows to define the relationship between Night and Equipment.
+     * @return Equipment the equipments of the night.
+     */
     public function equipments() {
         return $this->belongsToMany('Equipment');
     }
 
+    /**
+     * Allows to define the relationship between Night and Ticketcategorie.
+     * @return Ticketcategorie the ticketcategories of the night.
+     */
     public function ticketcategories() {
         return $this->belongsToMany('Ticketcategorie')->withPivot('amount', 'quantity_sold', 'comment_de');
     }
 
+    /**
+     * Allows to define the relationship between Night and Printingtype.
+     * @return Printingtype the printingtypes of the night.
+     */
     public function printingtypes() {
         return $this->belongsToMany('Printingtype');
     }
 
+    /**
+     * Allows to define the relationship between Night and Gift.
+     * @return Gift the gifts of the night.
+     */
     public function gifts() {
         return $this->belongsToMany('Gift');
     }
 
+    /**
+     * Allows to define the relationship between Night and Artist.
+     * @return Artist the artists of the night.
+     */
     public function artists() {
         return $this->belongsToMany('Artist')->withPivot('order', 'artist_hour_arrival');
     }
 
     /**
-     * Cette méthode permet de lier l'événement à un interprète (performer = table pivot)
-     * @return L'interprète lié à cet événement.
+     * Allows to define the relationship between Night and ArtistNight.
+     * @return ArtistNight the artistnights of the night.
      */
     public function artistNights() {
         return $this->hasMany('ArtistNight');
     }
 
+    /**
+     * Allows to define the relationship between Night and NightPlatform.
+     * @return NightPlatform the nightplatforms of the night.
+     */
     public function nightPlatforms() {
         return $this->hasMany('NightPlatform');
     }
 
+    /**
+     * Allows to define the relationship between Night and NightTicketcategorie.
+     * @return Ticketcategorie the ticketcategories of the night.
+     */
     public function nightTicketcategorie() {
         return $this->hasMany('NightTicketcategorie');
-    }
-
-    public function nights() {
-        return $this->hasMany('Night');
     }
 
     public static function comparison_date($start_date_hour, $end_date_hour) {
@@ -77,10 +134,9 @@ class Night extends MyEloquent {
     }
 
     /**
-     * Cette méthode vérifie l'existant due l'événement selon son identifiant métier.
-     * @param Un identifiant méditer correspondant à un attribut unique.
-     * @return True si le lien existe.
-     *         False si le lien n'existe pas.
+     * Allows to verify if a Night exists in the database with his business id.
+     * @param string the business id corresponding to the url of the Night.
+     * @return boolean true if the Night exists in the database, false otherwise.
      */
     public static function existBuisnessId($nightStartDateHour) {
         $e = Night::where('start_date_hour', '=', $nightStartDateHour)
@@ -89,10 +145,9 @@ class Night extends MyEloquent {
     }
 
     /**
-     * Cette méthode vérifie l'existant de l'événement selon son identifiant technique.
-     * @param Un identifiant technique correspondant à la clé primaire de cet événement. 
-     * @return True si le lien existe.
-     *         False si le lien n'existe pas.
+     * Allows to verify if a Night exists in the database with his technical id.
+     * @param int the technical id corresponding to the primary key of the Night.
+     * @return boolean true if the Night exists in the database, false otherwise.
      */
     public static function existTechId($nightId) {
         $e = Night::where('id', '=', $nightId)
@@ -101,10 +156,9 @@ class Night extends MyEloquent {
     }
 
     /**
-     * Cette méthode valide les types des attributs selon une liste de critères par attribut.
-     * @param array $data Chaîne de caractère possèdant chaque attribut et leurs critères de validation. 
-     * @return True si les données sont valides ou pas. 
-     *         False si les données ne sont pas valides.
+     * Allows to validate attributes for a Night.
+     * @param array data array with every attributes that has to be validate. 
+     * @return boolean|array true if the input data are valid, array with errors otherwise.
      */
     public static function validate($data = array()) {
         return parent::validator($data, array(

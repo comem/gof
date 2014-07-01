@@ -39,7 +39,7 @@ class Image extends MyEloquent {
     /**
      * Allows to validate attributes for an Image.
      * @param array data array with every attributes that has to be validate. 
-     * @return boolean true if the input data are valid, false otherwise.
+     * @return boolean|array true if the input data are valid, array with errors otherwise.
      */
     public static function validate($data = array()) {
         return parent::validator($data, array(

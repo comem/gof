@@ -2,44 +2,49 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Ticketcategorie model
+ * 
+ * Corresponds to the "ticket_categories" class of the class diagram.
+ *
+ * @category  Model
+ * @version   1.0
+ * @author    gof
+ */
 class Ticketcategorie extends MyEloquent {
 
-	protected $table = 'ticketcategories';
-	public $timestamps = false;
+    protected $table = 'ticketcategories';
+    public $timestamps = false;
 
-	use SoftDeletingTrait;
+    use SoftDeletingTrait;
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
-	/**
-     * Cette méthode permet de lier la catégorie de ticket à un event'
-     * @return L'event à qui correspond la catégorie de ticket.
+    /**
+     * Allows to define the relationship between Ticketcategorie and Night.
+     * @return Night the nights of the ticketcategorie.
      */
-	public function nights()
-	{
-		return $this->belongsToMany('Night');
-	}
+    public function nights() {
+        return $this->belongsToMany('Night');
+    }
 
-	/**
-     * Cette méthode valide les types des attributs selon une liste de critères par attribut.
-     * @param array $data Chaîne de caractère possèdant chaque attribut et leurs critères de validation. 
-     * @return True si les données sont valides ou pas. 
-     *         False si les données ne sont pas valides.
+    /**
+     * Allows to validate attributes for a Ticketcategorie.
+     * @param array data array with every attributes that has to be validate. 
+     * @return boolean|array true if the input data are valid, array with errors otherwise.
      */
-	public static function validate($data = array())
-    {
+    public static function validate($data = array()) {
         return parent::validator($data, array(
-            'id' => 'integer:unsigned|sometimes|required',
-            'name_de' => 'string|between:1,255|sometimes|requiered|unique:ticketcategories',
-            'deleted_at' => 'date|sometimes',
+                    'id' => 'integer:unsigned|sometimes|required',
+                    'name_de' => 'string|between:1,255|sometimes|requiered|unique:ticketcategories',
+                    'deleted_at' => 'date|sometimes',
         ));
     }
 
     /**
-     * Cette méthode vérifie l'existant de la catégorie de ticket selon son identifiant technique.
-     * @param Un identifiant technique correspondant à la clé primaire de la catégorie. 
-     * @return True si la catégorie existe.
-     *         False si la catégorie n'existe pas.
+     * Allows to verify if a Ticketcategorie exists in the database with his technical id.
+     * @param int the technical id corresponding to the primary key of the Ticketcategorie.
+     * @return boolean true if the Ticketcategorie exists in the database, false otherwise.
      */
     public static function existTechId($ticketcategorieId) {
         $e = TicketCategorie::find($ticketcategorieId);
