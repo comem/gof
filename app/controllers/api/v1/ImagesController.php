@@ -68,7 +68,7 @@ class ImagesController extends BaseController {
         $uploadFolder = '../public/upload/';
         $extension = '.' . $explodedMime[1];
         $imageName = date('Y-m-d-H-i-s'). '-' . $alt_de . $extension;
-        $source = $uploadFolder . $imageName;
+        $source = 'upload/' . $imageName;
 
         $uploadedImage->move($uploadFolder, $imageName);
 
