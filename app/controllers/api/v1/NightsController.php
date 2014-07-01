@@ -382,7 +382,7 @@ class NightsController extends BaseController {
 
         $string = Input::get('string');
 
-        $results = Night::Where('title_de', 'like', "%$string%")->get();
+        $results = Night::Where('title_de', 'like', "$string%")->get();
 
         return ($results->toArray());
     }

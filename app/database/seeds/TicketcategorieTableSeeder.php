@@ -8,7 +8,7 @@ class TicketcategorieTableSeeder extends Seeder {
 
 		// enfant/avs
 		Ticketcategorie::create(array(
-				'name_de' => 'enfant/avs'
+				'name_de' => 'enfant-avs'
 			));
 
 		// adulte

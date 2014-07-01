@@ -79,7 +79,7 @@ class TicketcategoriesController extends BaseController {
 
         $string = Input::get('string');
 
-        $results = Ticketcategorie::Where('name_de', 'like', "%$string%")->get();
+        $results = Ticketcategorie::Where('name_de', 'like', "$string%")->get();
 
         return ($results->toArray());
     }

@@ -58,7 +58,7 @@ class NighttypesController extends \BaseController {
 
         $string = Input::get('string');
 
-        $results = Nighttype::Where('name_de', 'like', "%$string%")->get();
+        $results = Nighttype::Where('name_de', 'like', "$string%")->get();
 
         return ($results->toArray());
     }
