@@ -4,50 +4,63 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Instrument extends MyEloquent {
 
-	protected $table = 'instruments';
-	public $timestamps = false;
+    protected $table = 'instruments';
+    public $timestamps = false;
 
-	use SoftDeletingTrait;
+    use SoftDeletingTrait;
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
-	public function artist_musicians()
-	{
-		return $this->hasMany('ArtistMusician');
-	}
-        
-        public function artists() {
-            return $this->belongsToMany('Artist', 'artist_musician');
-        }
-        
+    /**
+     * Allows to define the relationship between Instrument and ArtistMusician
+     * @return ArtistMusician the artistmusicians of the instrument.
+     */
+    public function artist_musicians() {
+        return $this->hasMany('ArtistMusician');
+    }
 
-	public static function validate($data = array())
-    {
-           
+    /**
+     * Allows to define the relationship between Instrument and Artist.
+     * @return Artist the artists of the instrument.
+     */
+    public function artists() {
+        return $this->belongsToMany('Artist', 'artist_musician');
+    }
+
+    /**
+     * Allows to validate attributes for an Instrument.
+     * @param array data array with every attributes that has to be validate. 
+     * @return boolean true if the input data are valid, false otherwise.
+     */
+    public static function validate($data = array()) {
         return parent::validator($data, array(
-            'id' => 'integer:unsigned|sometimes|required',
-            'name_de' => 'string|between:1,255|sometimes|required',
-            'created_at' => 'date|sometimes|required',
-            'updated_at' => 'date|sometimes|required',
-            'deleted_at' => 'date|sometimes',
+                    'id' => 'integer:unsigned|sometimes|required',
+                    'name_de' => 'string|between:1,255|sometimes|required',
+                    'created_at' => 'date|sometimes|required',
+                    'updated_at' => 'date|sometimes|required',
+                    'deleted_at' => 'date|sometimes',
         ));
     }
-    
+
     /**
-     * 
-     * @param type $buisness_id identifiant metier de la table instrument
-     * @return type retourne true or false si l'artiste existe ou non
+     * Allows to verify if a Genre exists in the database with his business id.
+     * @param string the business id corresponding to the name_de of the Instrument.
+     * @return boolean true if the Instrument exists in the database, false otherwise.
      */
-    
-     public static function existBuisnessId($name_de){
+    public static function existBuisnessId($name_de) {
         $e = Instrument::where('name_de', '=', $name_de)
-            ->first();
+                ->first();
         return $e != null;       // Si null, n’existe pas 
     }
-    
-     public static function existTechId($instrument_id){
+
+    /**
+     * Allows to verify if an Instrument exists in the database with his technical id.
+     * @param int the technical id corresponding to the primary key of the Instrument.
+     * @return boolean true if the Instrument exists in the database, false otherwise.
+     */
+    public static function existTechId($instrument_id) {
         $e = Instrument::where('id', '=', $instrument_id)
-            ->first();
+                ->first();
         return $e != null;       // Si null, n’existe pas 
     }
 }

@@ -2,6 +2,15 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Image model
+ * 
+ * Corresponds to the "images" class of the class diagram.
+ *
+ * @category  Model
+ * @version   1.0
+ * @author    gof
+ */
 class Image extends MyEloquent {
 
     protected $table = 'images';
@@ -12,22 +21,25 @@ class Image extends MyEloquent {
     protected $dates = ['deleted_at'];
 
     /**
-     * Cette méthode permet de lier l'image à un événement (soirée).
-     * @return La soirée à ui est liée à cette image.
+     * Allows to define the relationship between Image and Night.
+     * @return Night the nights of the image.
      */
     public function nights() {
         return $this->hasMany('Night');
     }
 
+    /**
+     * Allows to define the relationship between Image and Artist.
+     * @return Artist the artist of the image.
+     */
     public function artist() {
         return $this->belongsTo('Artist');
     }
 
     /**
-     * Cette méthode valide les types des attributs selon une liste de critères par attribut.
-     * @param array $data Chaîne de caractère possèdant chaque attribut et leurs critères de validation. 
-     * @return True si les données sont valides ou pas. 
-     *         False si les données ne sont pas valides.
+     * Allows to validate attributes for an Image.
+     * @param array data array with every attributes that has to be validate. 
+     * @return boolean true if the input data are valid, false otherwise.
      */
     public static function validate($data = array()) {
         return parent::validator($data, array(
@@ -44,10 +56,9 @@ class Image extends MyEloquent {
     }
 
     /**
-     * Cette méthode vérifie l'existant de l'image selon son identifiant technique.
-     * @param Un identifiant technique correspondant à la clé primaire de l'image.
-     * @return True si l'mage existe.
-     *         False si l'image n'existe pas.
+     * Allows to verify if an Image exists in the database with his technical id.
+     * @param int the technical id corresponding to the primary key of the Image.
+     * @return boolean true if the Image exists in the database, false otherwise.
      */
     public static function existTechId($imageId) {
         $e = Image::find($imageId);
