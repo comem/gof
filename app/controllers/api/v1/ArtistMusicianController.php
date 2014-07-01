@@ -206,7 +206,7 @@ class ArtistMusicianController extends BaseController {
         }
 
         if (!Instrument::existTechId($instrument_id)) {
-            return Jsend::error('instrument id :' . $instrument_id . ' not found', 404);
+            return Jsend::error('instrument not found', 404);
         }
 
         if (ArtistMusician::existTechId($instrument_id, $artist_id, $musician_id)) {

@@ -60,11 +60,13 @@ class ArtistsController extends BaseController {
         $musicians = Input::get('musicians');
         $night = Input::get('night');
         $images = Input::get('images');
-
+        
+        
+      
 
 
         DB::beginTransaction();
-
+      
 
 
         $artist = static::saveArtist($artistName, $artistSD, $artistCD, $genres);
@@ -81,13 +83,15 @@ class ArtistsController extends BaseController {
                 }
             }
         }
-
+        
         if (isset($musicianInstruments)) {
             foreach ($musicianInstruments as $musicianInstrument) {
                 $artistMusician = ArtistMusicianController::saveArtistMusician($artist->id, $musicianInstrument['instrument_id'], $musicianInstrument['musician_id']);
                 if (!is_a($artistMusician, 'ArtistMusician')) {
                     return Jsend::error($artistMusician);
                 }
+                
+                
             }
         }
 
@@ -99,21 +103,24 @@ class ArtistsController extends BaseController {
                 }
 
                 foreach ($musician['instruments'] as $instrument) {
+                   
                     $artistMusician = ArtistMusicianController::saveArtistMusician($artist->id, $instrument['id'], $musicianToSave->id);
                     if (!is_a($artistMusician, 'ArtistMusician')) {
                         return Jsend::error($artistMusician);
+                        
+                        
                     }
                 }
             }
         }
-
+ 
         if (isset($night)) {
             $performerToSave = ArtistNightController::saveArtistNight($artist->id, $night['id'], $night['order'], $night['isSupport'], $night['artist_hour_arrival']);
             if (!is_a($performerToSave, 'ArtistNight')) {
                 return $performerToSave;
             }
         }
-
+     
         if (isset($images)) {
             foreach ($images as $image) {
                 $imageSaved = static::saveIllustration($artist->id, $image['id']);

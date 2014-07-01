@@ -74,7 +74,7 @@ class ArtistNightController extends BaseController {
         }
 
         if (ctype_digit($night_id)) {
-            $nightId = (int) $nightId;
+            $night_id = (int) $night_id;
         }
 
         $validationArtistNight = ArtistNight::validate(array(
