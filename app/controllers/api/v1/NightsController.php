@@ -10,7 +10,8 @@ use \DB;
 use \Image;
 use \NightTicketcategorie;
 use \Ticketcategorie;
-use \Wordpublish;
+use \Artist;
+use WordPublish;
 
 /**
  * REST controller with index, store, show, update and destroy methods implemented.
@@ -543,11 +544,32 @@ class NightsController extends BaseController {
         return Jsend::success(array('id' => $night->id));
     }
     
+     public static function searchdate($date) {
+
+        
+        $event = Night::Where('start_date_hour', '=',"$date")->get();
+        
+        
+        return $event;
+
+      
+    }
     
-    
+        
     public static function exportWord () {
         
-        Wordpublish::export();
+        $datepublish = Input::get('date');
+        
+        $event = NightsController::searchdate($datepublish);
+       
+
+        $id = $event[0]['id'];
+        
+        $event360 = Night::with('ticketcategories','artists','image','nighttype')->find($id);
+
+            $event360->artists->load('genres');
+
+        WordPublish::export($event360);
         
     }
 

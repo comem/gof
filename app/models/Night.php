@@ -46,7 +46,7 @@ class Night extends MyEloquent {
     }
 
     public function artists() {
-        return $this->belongsToMany('Artist');
+        return $this->belongsToMany('Artist')->withPivot('order', 'artist_hour_arrival');
     }
 
     /**
