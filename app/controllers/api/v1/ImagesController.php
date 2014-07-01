@@ -9,7 +9,9 @@ use \Artist;
 use \BaseController;
 
 /**
- * REST controller with index, store and show methods implemented
+ * REST controller with index, store and show methods implemented.
+ * 
+ * Corresponds to the "images" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0

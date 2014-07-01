@@ -12,7 +12,9 @@ use \DB;
 
 
 /**
- * REST controller with index, store and destroy methods implemented
+ * REST controller with index, store and destroy methods implemented.
+ * 
+ * Corresponds to the "description" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -21,78 +23,21 @@ use \DB;
 class ArtistGenreController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Jsend::success Toutes les catégories de tickets
+     * Allows to display every artistgenre from the database.
+     * @return Response Jsend::success with all artistgenre.
      */
     public function index() {
         return Jsend::success(ArtistGenre::all()->toArray());
     }
 
     /**
-     * Store a newly created resource in storage.
-     * Store a musician and an association beetween this musicians, an instrument and an artist
-     * @var (string) first_name : first name of the musician
-     * @var (string) last_name : last name of the musician
-     * @var (string) satgename : pseudo of the musicians
-     * @var (array)  "artistsInstruments": [
-      {
-      "artist_id": "1",
-      "instruments": [
-      {
-      "instrument_id": "4"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      },
-      {
-      "artist_id": "2",
-      "instruments": [
-      {
-      "instrument_id": "3"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      }
-      ]
-    * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the id of the news art
+     * Allows to save a new artistgenre.
+     * @var artist_id (int) - the artist name (get)
+     * @var short_description (int) - a short description (get)
      * 
-     * 
-     * JSEND DE TEST:
-     * {
-      "first_name": "Grey",
-      "last_name": "Jorge",
-      "stagename": "Apple",
-      "artistsInstruments": [
-      {
-      "artist_id": "1",
-      "instruments": [
-      {
-      "instrument_id": "4"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      },
-      {
-      "artist_id": "2",
-      "instruments": [
-      {
-      "instrument_id": "3"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      }
-      ]
-      }
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function store() {
         $artist_id = Input::get('artist_id');
@@ -162,10 +107,12 @@ class ArtistGenreController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Removes the specified resource from storage.
+     * @param  int -  the id from the artist (url)
+     * @var genre_id (int) - the id from the genre (get) 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the artistgenre was deleted.
      */
     public function destroy($artist_id) {
 

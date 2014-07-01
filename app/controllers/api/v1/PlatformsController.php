@@ -7,7 +7,9 @@ use \Platform;
 use \BaseController;
 
 /**
- * REST controller with index and show methods implemented
+ * REST controller with index and show methods implemented.
+ * 
+ * Corresponds to the "platforms" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -16,8 +18,8 @@ use \BaseController;
 class PlatformsController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Jsend::success Toutes les plateformes
+     * Allows to display every platforms from the database.
+     * @return Response Jsend::success with all platforms.
      */
     public function index() {
         // Retourne toutes les plateformes
@@ -37,11 +39,11 @@ class PlatformsController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * @param  int  $id correspondant à l'id technique de la plateforme à voir
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la plateforme correspondant à l'id technique.
+     * Allows to display a specific platform from the database.
+     * @param  int -  the id from the platform (url)
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required platform was found.
      */
     public function show($id) {
 

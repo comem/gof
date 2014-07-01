@@ -7,7 +7,9 @@ use \Ticketcategorie;
 use \BaseController;
 
 /**
- * REST controller with index and show methods implemented
+ * REST controller with index and show methods implemented.
+ * 
+ * Corresponds to the "ticket_categories" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0

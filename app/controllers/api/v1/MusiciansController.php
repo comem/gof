@@ -9,13 +9,14 @@ use \Musician;
 use \DB;
 
 /**
- * REST controller with index, store and show methods implemented
+ * REST controller with index, store and show methods implemented.
+ * 
+ * Corresponds to the "musicians" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
  * @author    gof
  */
-
 class MusiciansController extends BaseController {
 
     /**
@@ -33,75 +34,6 @@ class MusiciansController extends BaseController {
     }
 
     /**
-     * Store a newly created resource in storage.
-<<<<<<< HEAD
-      <<<<<<< HEAD
-     * Store a musician and an association beetween this musicians, an instrument and an artist
-     * @var (string) first_name : first name of the musician
-     * @var (string) last_name : last name of the musician
-     * @var (string) satgename : pseudo of the musicians
-     * @var (array)  "artistsInstruments": [
-      {
-      "artist_id": "1",
-      "instruments": [
-      {
-      "instrument_id": "4"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      },
-      {
-      "artist_id": "2",
-      "instruments": [
-      {
-      "instrument_id": "3"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      }
-      ]
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the id of the news musicians
-     * 
-     * 
-     * JSEND DE TEST:
-     * {
-      "first_name": "Grey",
-      "last_name": "Jorge",
-      "stagename": "Apple",
-      "artistsInstruments": [
-      {
-      "artist_id": "1",
-      "instruments": [
-      {
-      "instrument_id": "4"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      },
-      {
-      "artist_id": "2",
-      "instruments": [
-      {
-      "instrument_id": "3"
-      },
-      {
-      "instrument_id": "7"
-      }
-      ]
-      }
-      ]
-      }
-      =======
-=======
->>>>>>> origin/master
      * Allow to record a Musician with assoication betweem an instrument and a artist
      * @var first_name (string) first name from artist (get)
      * @var last_name (string) last name from artist (get)
@@ -110,10 +42,6 @@ class MusiciansController extends BaseController {
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new musician was created.
-<<<<<<< HEAD
-      >>>>>>> Comments
-=======
->>>>>>> origin/master
      */
     public function store() {
         $first_name = Input::get('first_name');
@@ -163,9 +91,11 @@ class MusiciansController extends BaseController {
     }
 
     /**
-     * Affiche le musician correspondant à l'id passée en paramètre
-     * @param  int  $id correspond à l'identifiant du musician
-     * @return Response retourne le musician correspondant à l'id
+     * Allows to display a specific musician from the database.
+     * @param  int  musician_id the id from the musician
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if the musician was found.
      */
     public function show($musician_id) {
         // Auth

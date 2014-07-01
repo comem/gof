@@ -11,7 +11,9 @@ use \NightPlatform;
 use \BaseController;
 
 /**
- * REST controller with index, store, show, update and destroy methods implemented
+ * REST controller with index, store, show, update and destroy methods implemented.
+ * 
+ * Corresponds to the "publications" class of the class diagram.
  *
  * @category  Services applicatifs
  * @version   1.0

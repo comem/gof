@@ -11,7 +11,9 @@ use \ArtistNight;
 use \BaseController;
 
 /**
- * REST controller with index, store, show, update and destroy methods implemented
+ * REST controller with index, store, show, update and destroy methods implemented.
+ * 
+ * Corresponds to the "performers" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -21,18 +23,17 @@ class ArtistNightController extends BaseController {
 
     /**
      * Display a listing of the resource.
-     * @return Jsend::success all performers
+     * @return Response Jsend::success all performers
      */
     public function index() {
         return Jsend::success(ArtistNight::all()->toArray());
     }
 
     /**
-     * @var name (string) name - the artist name (get)
      * Store a newly created resource in storage.
-     * @var order (int). the order from passage (get)(hybride from performer).
-     * @var night_id (int) id from night (get) (hybride from performer).
      * @var artist_id (int) id from artist (get) (hybride from performer).
+     * @var night_id (int) id from night (get) (hybride from performer).
+     * @var order (int). the order from passage (get)(hybride from performer).
      * @var $is_support (boolen) from perfomers (get)
      * @var $artist_hour_arrival (date) hour from arrival (get)
      * @return Response Jsend::fail if the input data are not correct.

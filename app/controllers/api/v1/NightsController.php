@@ -12,7 +12,9 @@ use \NightTicketcategorie;
 use \Ticketcategorie;
 
 /**
- * REST controller with index, store, show, update and destroy methods implemented
+ * REST controller with index, store, show, update and destroy methods implemented.
+ * 
+ * Corresponds to the "events" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -24,7 +26,7 @@ class NightsController extends BaseController {
     /**
      * Display a listing of the resource.
      *
-     * @return Jsend::success All the events
+     * @return Response Jsend::success All the events
      */
     public function index() {
 
@@ -82,9 +84,9 @@ class NightsController extends BaseController {
       }
 
      * 
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the id of the new Event created
+     * @return Response Jsend::fail An error message if the parameters aren't correct
+     * @return Response Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Response Jsend::success A validation message with the id of the new Event created
      * 
      * JSON DE TEST:
      * {
@@ -215,9 +217,9 @@ class NightsController extends BaseController {
     /**
      * Display the specified resource.
      * @param  $night_id The id of the demanded ressources
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the event searched
+     * @return Response Jsend::fail An error message if the parameters aren't correct
+     * @return Response Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Response Jsend::success A validation message with the event searched
      */
     public function show($night_id) {
         // Auth
@@ -260,9 +262,9 @@ class NightsController extends BaseController {
      * @var (int) image_id - The id of the illustration image
 
      * 
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist
-     * @return Jsend::success A validation message with the new Event
+     * @return Response Jsend::fail An error message if the parameters aren't correct
+     * @return Response Jsend::error An error message if the ressource doesn't exist
+     * @return Response Jsend::success A validation message with the new Event
      */
     public function update($id) {
         if (ctype_digit($id)) {
@@ -359,8 +361,8 @@ class NightsController extends BaseController {
     /**
      * Remove the specified ressrouces
      * @param  $night_id The id of the demanded ressources
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message
+     * @return Response Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Response Jsend::success A validation message
      */
     public function destroy($id) {
         if (ctype_digit($id)) {
@@ -408,9 +410,9 @@ class NightsController extends BaseController {
      * @param (array) "ticket_categorie": [{"ticket1": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)},
      * "ticket2": {"ticket_categorie_id":(int),"amount":(int},"quantitySold":(int},"comment":(string)}}] - The category ticket concerned by the event
      * 
-     * @return Jsend::fail An error message if the parameters aren't correct
-     * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
-     * @return Jsend::success A validation message with the id of the new Event created
+     * @return Response Jsend::fail An error message if the parameters aren't correct
+     * @return Reponse Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
+     * @return Response Jsend::success A validation message with the id of the new Event created
      */
     public static function saveNight($start_date_hour, $ending_date_hour, $opening_doors, $title_de, $nb_meal, $nb_vegans_meal, $meal_notes, $nb_places, $followed_by_private, $contract_src, $notes, $nighttype_id, $image_id, $ticket_categorie) {
         if (Night::existBuisnessId($start_date_hour) == true) {

@@ -8,7 +8,9 @@ use \Genre;
 use \Input;
 
 /**
- * REST controller with index, store, show and destroy methods implemented
+ * REST controller with index, store, show and destroy methods implemented.
+ * 
+ * Corresponds to the "genres" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0

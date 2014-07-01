@@ -12,7 +12,9 @@ use \BaseController;
 
 
 /**
- * REST controller with index, store, show and update methods implemented
+ * REST controller with index, store, show and update methods implemented.
+ * 
+ * Corresponds to the "artists" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
