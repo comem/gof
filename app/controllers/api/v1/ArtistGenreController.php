@@ -12,7 +12,9 @@ use \DB;
 
 
 /**
- * REST controller with index, store and destroy methods implemented
+ * REST controller with index, store and destroy methods implemented.
+ * 
+ * Corresponds to the "description" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -21,18 +23,21 @@ use \DB;
 class ArtistGenreController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * Allows to display every artistgenre from the database.
+     * @return Response Jsend::success with all artistgenre.
      */
     public function index() {
         return Jsend::success(ArtistGenre::all()->toArray());
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * Allows to save a new artistgenre.
+     * @var artist_id (int) - the artist name (get)
+     * @var short_description (int) - a short description (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function store() {
         $artist_id = Input::get('artist_id');
@@ -100,10 +105,12 @@ class ArtistGenreController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * Removes the specified resource from storage.
+     * @param  int -  the id from the artist (url)
+     * @var genre_id (int) - the id from the genre (get) 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the artistgenre was deleted.
      */
     public function destroy($artist_id) {
 

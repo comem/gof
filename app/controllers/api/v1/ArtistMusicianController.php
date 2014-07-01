@@ -12,7 +12,9 @@ use \DB;
 use \Instrument;
 
 /**
- * REST controller with store and destroy methods implemented
+ * REST controller with store and destroy methods implemented.
+ * 
+ * Corresponds to the "lineups" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -36,9 +38,9 @@ class ArtistMusicianController extends BaseController {
      * @var instrument_id(int): id instrument
      * @var artist_id(int): id artist
      * @var musician_id(int): id musician 
-     * @return Jsend::fail An error message if the input data does not match the requested data.
-     * @return Jsend::error An error message if  artist or insrtument or musician does not exist.
-     * @return Jsend::success an association between an artist, a musician, and an instrument has been registred 
+     * @return Response Jsend::fail An error message if the input data does not match the requested data.
+     * @return Response Jsend::error An error message if  artist or insrtument or musician does not exist.
+     * @return Response Jsend::success an association between an artist, a musician, and an instrument has been registred 
      */
     public function store() {
 

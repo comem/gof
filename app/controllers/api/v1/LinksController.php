@@ -10,7 +10,9 @@ use \Artist;
 
 
 /**
- * REST controller with store, show and update methods implemented
+ * REST controller with store, show and update methods implemented.
+ * 
+ * Corresponds to the "links" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0

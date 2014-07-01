@@ -11,7 +11,9 @@ use \NightTicketcategorie;
 use \BaseController;
 
 /**
- * REST controller with index, store, show, update and destroy methods implemented
+ * REST controller with index, store, show, update and destroy methods implemented.
+ * 
+ * Corresponds to the "tickets" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -20,26 +22,24 @@ use \BaseController;
 class NightTicketcategorieController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Jsend::success Toutes les catégories de tickets
+     * Allows to display every nightticketcategory from the database.
+     * @return Response Jsend::success with all nightticketcategory.
      */
     public function index() {
         // Retourne toutes les publication
         return Jsend::success(NightTicketcategorie::all()->toArray());
     }
-
     /**
-     * Store a newly created resource in storage.
-     * @var ticketCat_id a récupérer comme contenu en get. Correspond à l'id de la catégorie de ticket.
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
-     * @var amount a récupérer comme contenu en get. Correspond au prix du ticket.
-     * @var quantitySold a récupérer comme contenu en get. Correspond au nombre de ticket vendu.
-     * @var comment a récupérer comme contenu en get. Correspond à un commentaire sur ce ticket. 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si la catégorie de ticket n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
-     * @return Jsend::error Un message d'erreur si le ticket existe déjà.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant l'id hybride du ticket.
+     * Allows to save a new nightticketcategory.
+     * @var night_id (int) - the id from the night (get)
+     * @var ticketcategorie_id (int) - the id from the ticketcategorie (get)
+     * @var amount (int) - the amount of the nightticketcategorie (get)
+     * @var quantity_sold (int) - the quantitiy sold from the nightticketcategorie (get)
+     * @var comment_de (string) - the comment from the nightticketcategorie (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a new artist was created.
      */
     public function store() {
 
@@ -107,14 +107,13 @@ class NightTicketcategorieController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * @param  int $ticketCat_id correspondant à l'id technique de la catégorie de ticket.
-     * @var night_id a récupérer dans le header. Correspond à l'id de l'événement.
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le ticket correspondant à l'id hybride.
+     * Allows to display a specific nightticketcategory from the database.
+     * @param  int -  the id from the ticketcategorie (url)
+     * @var  night_id (int) - the id from the night (get)
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required platform was found.
      */
-
     public function show($ticketCat_id) {
 
         // Récupération par le header
@@ -151,17 +150,17 @@ class NightTicketcategorieController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  int $ticketCat_id correspondant à l'id technique de la catégorie de ticket (formant l'id hybride de la publication).
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
-     * @var amount a récupérer comme contenu en get. Correspond au prix du ticket.
-     * @var quantitySold a récupérer comme contenu en get. Correspond au nombre de ticket vendu.
-     * @var comment a récupérer comme contenu en get. Correspond à un commentaire sur ce ticket. 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
-     * @return Jsend::error Un message d'erreur si la catégorie de ticket liée à la modification n'existe pas.
-     * @return Jsend::error Un message d'erreur si le ticket à modifier n'existe pas.
-     * @return Jsend::success Sinon, un message de validation de modification contenant le ticket correspondante à l'id hybride.
+     * Allows to modify a nightticketcategorie.
+     * @param int the id from the ticketcategorie (url)
+     * @var night_id (int) - the id from the night (get)
+     * @var ticketcategorie_id (int) - the id from the ticketcategorie (get)
+     * @var amount (int) - the amount of the nightticketcategorie (get)
+     * @var quantity_sold (int) - the quantitiy sold from the nightticketcategorie (get)
+     * @var comment_de (string) - the comment from the nightticketcategorie (get)
+     * 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if a resource was not found.
+     * @return Response Jsend::success if a publication was modified.
      */
     public function update($ticketCat_id) {
         
@@ -225,12 +224,12 @@ class NightTicketcategorieController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param  int $ticketCat_id correspondant à l'id technique de la catégorie de ticket.
-     * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si le ticket n'est pas existant.
-     * @return Jsend::success Sinon, un message de validation de supression du ticket.
+     * Allows to remove a specific nightticketcategory from the database.
+     * @param  int -  the id from the ticketcategorie (url)
+     * @var  night_id (int) - the id from the night (get)
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the nightticketcategorie was deleted.
      */
     public function destroy($ticketCat_id) {
         

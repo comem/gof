@@ -11,7 +11,9 @@ use \ArtistNight;
 use \BaseController;
 
 /**
- * REST controller with index, store, show, update and destroy methods implemented
+ * REST controller with index, store, show, update and destroy methods implemented.
+ * 
+ * Corresponds to the "performers" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
@@ -21,7 +23,7 @@ class ArtistNightController extends BaseController {
 
     /**
      * Display a listing of the resource.
-     * @return Jsend::success all performers
+     * @return Response Jsend::success all performers
      */
     public function index() {
         return Jsend::success(ArtistNight::all()->toArray());
@@ -35,11 +37,11 @@ class ArtistNightController extends BaseController {
      * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
      * @var is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
      * @var artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'artiste n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'événement n'existe pas.
-     * @return Jsend::error Un message d'erreur si le performer existe déjà.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le performer créé.
+     * @return Response Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Response Jsend::error Un message d'erreur si l'artiste n'existe pas.
+     * @return Response Jsend::error Un message d'erreur si l'événement n'existe pas.
+     * @return Response Jsend::error Un message d'erreur si le performer existe déjà.
+     * @return Response Jsend::success Sinon, un message de validation d'enregistrement contenant le performer créé.
      */
     public function store() {
 
@@ -57,7 +59,7 @@ class ArtistNightController extends BaseController {
     }
 
     /**
-     * @ingore
+     * @ignore
      * Allows to save a new Artist Night 
      * @param string artist_id - id from the artist
      * @param string night_id - id from night
@@ -117,9 +119,9 @@ class ArtistNightController extends BaseController {
      * @param  int $order correspondant à un attribut d'ordre de performer (formant l'id hybride du performer).
      * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement (formant l'id hybride du performer).
      * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant le performer correspondant à l'id hybride.
+     * @return Response Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Response Jsend::error Un message d'erreur si l'id hybride est déjà en mémoire.
+     * @return Response Jsend::success Sinon, un message de validation d'enregistrement contenant le performer correspondant à l'id hybride.
      */
     public function show($order) {
 
@@ -168,11 +170,11 @@ class ArtistNightController extends BaseController {
      * @var $artist_id a récupérer comme contenu en get. Correspond à l'id de l'artiste (formant l'id hybride du performer).
      * @var $is_ussport a récupérer comme contenu en get. Correspond à l'importnace de l'artiste sur l'événement.
      * @var $artist_hour_arrival a récupérer comme contenu en get. Correspond à l'heure d'arrivée. 
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
-     * @return Jsend::error Un message d'erreur si l'artiste lié à la modification n'existe pas.
-     * @return Jsend::error Un message d'erreur si le performer n'existe pas.
-     * @return Jsend::success Sinon, un message de validation de modification contenant le performer correspondant à l'id hybride.
+     * @return Response Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Response Jsend::error Un message d'erreur si l'événement lié à la modification n'existe pas.
+     * @return Response Jsend::error Un message d'erreur si l'artiste lié à la modification n'existe pas.
+     * @return Response Jsend::error Un message d'erreur si le performer n'existe pas.
+     * @return Response Jsend::success Sinon, un message de validation de modification contenant le performer correspondant à l'id hybride.
      */
     public function update($order) {
 
@@ -246,9 +248,9 @@ class ArtistNightController extends BaseController {
      * @param int $order correspondant à une partie de l'id hybrdide de l'interprète (performer).
      * @var artist_id a récupérer comme contenu en get. Correspond à l'id de l'artist.
      * @var night_id a récupérer comme contenu en get. Correspond à l'id de l'événement.
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::error Un message d'erreur si l'interprète (performer) n'est pas existant.
-     * @return Jsend::success Sinon, un message de validation de supression de l'interprète (performer).
+     * @return Response Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
+     * @return Response Jsend::error Un message d'erreur si l'interprète (performer) n'est pas existant.
+     * @return Response Jsend::success Sinon, un message de validation de supression de l'interprète (performer).
      */
     public function destroy($order) {
 

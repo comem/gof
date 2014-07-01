@@ -7,7 +7,9 @@ use \BaseController;
 use \Instrument;
 
 /**
- * REST controller with index, store, show, update and destroy methods implemented
+ * REST controller with index, store, show, update and destroy methods implemented.
+ * 
+ * Corresponds to the "instruments" class of the class diagram.
  *
  * @category  Application services
  * @version   1.0
