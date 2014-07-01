@@ -8,7 +8,6 @@ use \BaseController;
 use \Musician;
 use \DB;
 
-
 class MusiciansController extends BaseController {
 
     /**
@@ -17,15 +16,15 @@ class MusiciansController extends BaseController {
      * @return Response
      */
     public function index() {
-        
-       
 
-        return Jsend::success(Musician::with('instruments','artists')->get());
+
+
+        return Jsend::success(Musician::with('instruments', 'artists')->get());
     }
 
-   /**
+    /**
      * Store a newly created resource in storage.
-<<<<<<< HEAD
+      <<<<<<< HEAD
      * Store a musician and an association beetween this musicians, an instrument and an artist
      * @var (string) first_name : first name of the musician
      * @var (string) last_name : last name of the musician
@@ -54,7 +53,7 @@ class MusiciansController extends BaseController {
       ]
       }
       ]
-    * @return Jsend::fail An error message if the parameters aren't correct
+     * @return Jsend::fail An error message if the parameters aren't correct
      * @return Jsend::error An error message if the ressource doesn't exist or exist but you are trying to rewrite it
      * @return Jsend::success A validation message with the id of the news musicians
      * 
@@ -89,7 +88,7 @@ class MusiciansController extends BaseController {
       }
       ]
       }
-=======
+      =======
      * Allow to record a Musician with assoication betweem an instrument and a artist
      * @var first_name (string) first name from artist (get)
      * @var last_name (string) last name from artist (get)
@@ -98,7 +97,7 @@ class MusiciansController extends BaseController {
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new musician was created.
->>>>>>> Comments
+      >>>>>>> Comments
      */
     public function store() {
         $first_name = Input::get('first_name');
@@ -168,7 +167,7 @@ class MusiciansController extends BaseController {
             return Jsend::error('muscian id : ' . $musician_id . 'resource not found');
         }
         // Retourne le message encapsulé en JSEND si tout est OK
-        return Jsend::success(Musician::with('instruments','artists')->find($musician_id));
+        return Jsend::success(Musician::with('instruments', 'artists')->find($musician_id));
     }
 
     /**
@@ -224,10 +223,8 @@ class MusiciansController extends BaseController {
         $results = Musician::Where('first_name', 'like', "$string%")
                         ->orWhere('last_name', 'like', "$string%")
                         ->orWhere('stagename', 'like', "$string%")->get();
-        
-        return ($results->toArray());
 
-      
+        return ($results->toArray());
     }
 
 }
