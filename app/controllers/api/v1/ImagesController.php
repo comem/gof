@@ -61,9 +61,7 @@ class ImagesController extends BaseController {
             return Jsend::fail($validationImage);
         }
         
-        if (!Artist::existTechId($artist_id)) {
-            return Jsend::error('artist not found');
-        }
+ 
 
 
         $explodedMime = explode('/', $uploadedImage->getMimeType());
