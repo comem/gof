@@ -30,6 +30,9 @@ Route::group(
     Route::get('instruments/search', 'InstrumentsController@search');
     Route::get('nights/search', 'NightsController@search');
     Route::resource('nights/publish', 'NightsController@exportWord');
+
+    Route::get('ticketcategories/search', 'TicketcategoriesController@search');
+    Route::get('nighttypes/search', 'NighttypesController@search');
     
     Route::resource('artists', 'ArtistsController');
     Route::resource('nightplatform', 'NightPlatformController');
