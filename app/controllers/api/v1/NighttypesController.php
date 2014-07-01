@@ -54,6 +54,11 @@ class NighttypesController extends \BaseController {
         return Jsend::success(Nighttype::find($id)->toArray());
     }
 
+    /**
+     * Allow to search a nighttype with attribute name_de
+     * @var string : data of search. exemple : musician/search?string=test
+     * @return json of object received
+     */
     public static function search() {
 
         $string = Input::get('string');

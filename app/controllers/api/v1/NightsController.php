@@ -33,7 +33,6 @@ class NightsController extends BaseController {
     public function index() {
 
         return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->get());
-
     }
 
     /**
@@ -214,8 +213,6 @@ class NightsController extends BaseController {
         return Jsend::success($night->toArray(), 201);
     }
 
-
-
     /**
      * Display the specified resource.
      * @param  $night_id The id of the demanded ressources
@@ -384,6 +381,11 @@ class NightsController extends BaseController {
         return Jsend::success('Night deleted');
     }
 
+    /**
+     * Allows to search a night with attribute title_de
+     * @var string : data of search. exemple : musician/search?string=test
+     * @return json of object received
+     */
     public static function search() {
 
         $string = Input::get('string');
@@ -543,34 +545,30 @@ class NightsController extends BaseController {
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
         return Jsend::success(array('id' => $night->id));
     }
-    
-     public static function searchdate($date) {
 
-        
-        $event = Night::Where('start_date_hour', '=',"$date")->get();
-        
-        
+    public static function searchdate($date) {
+
+
+        $event = Night::Where('start_date_hour', '=', "$date")->get();
+
+
         return $event;
-
-      
     }
-    
-        
-    public static function exportWord () {
-        
+
+    public static function exportWord() {
+
         $datepublish = Input::get('date');
-        
+
         $event = NightsController::searchdate($datepublish);
-       
+
 
         $id = $event[0]['id'];
-        
-        $event360 = Night::with('ticketcategories','artists','image','nighttype')->find($id);
 
-            $event360->artists->load('genres');
+        $event360 = Night::with('ticketcategories', 'artists', 'image', 'nighttype')->find($id);
+
+        $event360->artists->load('genres');
 
         WordPublish::export($event360);
-        
     }
 
 }

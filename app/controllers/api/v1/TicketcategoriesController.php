@@ -74,6 +74,11 @@ class TicketcategoriesController extends BaseController {
         return Jsend::success($ticketcategorie->toArray());
     }
 
+        /**
+     * Allows to search a ticketcategorie with attribute name_de
+     * @var string : data of search. exemple : musician/search?string=test
+     * @return json of object received
+     */
     public static function search() {
 
         $string = Input::get('string');

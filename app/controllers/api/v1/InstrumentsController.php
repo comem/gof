@@ -172,7 +172,7 @@ class InstrumentsController extends BaseController {
     }
     
     /**
-     * Allows to search a musician with attribute
+     * Allows to search an instrument with attribute name_de
      * @var string : data of search. exemple : instruments/search?string=test
      * @return json of object received
      */

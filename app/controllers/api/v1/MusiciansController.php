@@ -161,7 +161,7 @@ class MusiciansController extends BaseController {
     }
 
     /**
-     * Allow to search a musician with attribute
+     * Allow to search a musician with attribute first_name, last_name or stagename
      * @var string : data of search. exemple : musician/search?string=test
      * @return json of object received
      */

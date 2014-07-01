@@ -185,7 +185,6 @@ class NightPlatformController extends BaseController {
     }
 
     /**
-     * 
      * Allows to modify a publication.
      * @param int the id from the platform (url)
      * @var night_id (int) - the id from the night (get)
@@ -196,9 +195,6 @@ class NightPlatformController extends BaseController {
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a publication was modified.
-     * 
-     * 
-     * 
      */
     public function update($platform_id) {
 
@@ -255,7 +251,6 @@ class NightPlatformController extends BaseController {
     }
 
     /**
-     * 
      * Allows to delete a publication.
      * @param int the id from the platform (url)
      * @var night_id (int) - the id from the night (get)S
@@ -263,9 +258,6 @@ class NightPlatformController extends BaseController {
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a publication was deleted.
-     * 
-     * 
-     * 
      */
     public function destroy($platform_id) {
         $night_id = Input::get('night_id');

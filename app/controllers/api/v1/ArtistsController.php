@@ -295,7 +295,7 @@ class ArtistsController extends BaseController {
     }
 
     /**
-     * Allow to search a Artist with  name attribute
+     * Allows to search a Artist with attribute name
      * @var string : data of search. exemple : artist/search?string=test
      * @return json of object received
      */
