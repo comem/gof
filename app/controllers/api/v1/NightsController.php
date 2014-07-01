@@ -10,6 +10,7 @@ use \DB;
 use \Image;
 use \NightTicketcategorie;
 use \Ticketcategorie;
+use \Wordpublish;
 
 /**
  * REST controller with index, store, show, update and destroy methods implemented.
@@ -540,6 +541,14 @@ class NightsController extends BaseController {
 
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
         return Jsend::success(array('id' => $night->id));
+    }
+    
+    
+    
+    public static function exportWord () {
+        
+        Wordpublish::export();
+        
     }
 
 }
