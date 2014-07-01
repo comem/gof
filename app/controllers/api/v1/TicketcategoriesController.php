@@ -19,7 +19,7 @@ class TicketcategoriesController extends BaseController {
 
     /**
      * Allows to display every ticketcategories from the database.
-     * @return Response Jsend::success with all nighttypes.
+     * @return Response Jsend::success with all ticketcategories.
      */
     public function index() {
 
