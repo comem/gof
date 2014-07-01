@@ -4,6 +4,7 @@ namespace api\v1;
 
 use \Jsend;
 use \Nighttype;
+use \Input;
 
 /**
  * REST controller with index and show methods implemented.
@@ -51,6 +52,15 @@ class NighttypesController extends \BaseController {
             return Jsend::error('nighttype not found');
         }
         return Jsend::success(Nighttype::find($id)->toArray());
+    }
+
+    public static function search() {
+
+        $string = Input::get('string');
+
+        $results = Nighttype::Where('name_de', 'like', "%$string%")->get();
+
+        return ($results->toArray());
     }
 
     /**
