@@ -44,6 +44,8 @@ Route::group(
     Route::resource('genres', 'GenresController');
     Route::resource('links', 'LinksController');
     Route::resource('platforms', 'PlatformsController');
+    Route::resource('ticketcategories', 'TicketcategoriesController');
+    Route::resource('nighttypes', 'NighttypesController');
 
     Route::resource('nights', 'NightsController');
 
