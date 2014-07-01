@@ -5,31 +5,37 @@ namespace api\v1;
 use \Jsend;
 use \Nighttype;
 
+/**
+ * REST controller with index and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class NighttypesController extends \BaseController {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * Allows to display every nighttypes from the database.
+     * @return Response Jsend::success with all nighttypes.
      */
     public function index() {
         return Jsend::success(Nighttype::all()->toArray());
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function store() {
         //
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * Allows to display a specific nighttype from the database.
+     * @param  int -  the id from the nighttype
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required genre was found.
      */
     public function show($id) {
         if (ctype_digit($id)) {
@@ -46,20 +52,17 @@ class NighttypesController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
+     * 
      */
     public function update($id) {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function destroy($id) {
         //

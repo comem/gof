@@ -14,7 +14,7 @@ use \BaseController;
 /**
  * REST controller with index, store, show and update methods implemented
  *
- * @category  Services applicatifs
+ * @category  Application services
  * @version   1.0
  * @author    gof
  */
@@ -33,7 +33,7 @@ class ArtistsController extends BaseController {
     }
 
     /**
-     * Allows to save a new artist with genres, unexisting links, existing musicians, unexisting musicians, night and existing images
+     * Allows to save a new artist with genres, unexisting links, existing musicians, unexisting musicians, existing night and existing images
      * @var name (string) - the artist name (get)
      * @var short_description (string) - a short description (get)
      * @var complete_description (string) - a complete description (get)
@@ -198,6 +198,7 @@ class ArtistsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function destroy($id) {
@@ -205,11 +206,12 @@ class ArtistsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Allows to save a new artist 
-     * @param string $artistName - the name from the artist
-     * @param string $artistSD - a short description from the artist
-     * @param string $artistCD - a complete description from the artist
-     * @param array $genres - the genres from the artists
+     * @param string artistName - the name from the artist
+     * @param string artistSD - a short description from the artist
+     * @param string artistCD - a complete description from the artist
+     * @param array genres - the genres from the artists
      * @return Artist - a created artist
      */
     public static function saveArtist($artistName, $artistSD, $artistCD, $genres) {
@@ -259,6 +261,7 @@ class ArtistsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Allows to save an Illustration.
      * @param int $artistId
      * @param int $imageId

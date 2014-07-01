@@ -7,6 +7,13 @@ use \Jsend;
 use \Genre;
 use \Input;
 
+/**
+ * REST controller with index, store, show and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class GenresController extends BaseController {
 
     /**
@@ -67,6 +74,7 @@ class GenresController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function update($id) {
@@ -74,7 +82,7 @@ class GenresController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified resource from storage.
      * @param  int -  the id from the genre to delete 
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the required resource was not found.
@@ -105,7 +113,7 @@ class GenresController extends BaseController {
     }
 
     /**
-     * Allow to search a genre with attribute
+     * Allows to search a genre with attribute
      * @var string : data of search. exemple : instruments/search?string=test
      * @return json of object received
      */

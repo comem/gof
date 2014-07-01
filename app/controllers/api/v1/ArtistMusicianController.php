@@ -1,6 +1,7 @@
 <?php
 
 namespace api\v1;
+
 use \BaseController;
 use \Input;
 use \Jsend;
@@ -10,9 +11,17 @@ use \ArtistMusician;
 use \DB;
 use \Instrument;
 
+/**
+ * REST controller with store and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistMusicianController extends BaseController {
 
     /**
+     * @ignore
      * Display a listing of the resource.
      *
      * @return Response
@@ -32,7 +41,7 @@ class ArtistMusicianController extends BaseController {
      * @return Jsend::success an association between an artist, a musician, and an instrument has been registred 
      */
     public function store() {
-        
+
         $instrument_id = Input::get('instrument_id');
         $artist_id = Input::get('artist_id');
         $musician_id = Input::get('musician_id');
@@ -49,6 +58,7 @@ class ArtistMusicianController extends BaseController {
     }
 
     /**
+     * @ignore
      * Display the specified resource.
      *
      * @param  int  $id
@@ -60,34 +70,34 @@ class ArtistMusicianController extends BaseController {
     }
 
     /**
+     * @ignore
      * Update the specified resource in storage.
      *
      * @param  int  $id
      * @return Response
      */
     public function update($id) {
-
-       
+        
     }
 
-     /**
+    /**
      * Delete an association between an artist, a musician, and an instrument
-     * @var instrument_id(int): id instrument
-     * @var artist_id(int): id artist
-     * @var musician_id(int): id musician 
-     * @return Jsend::fail An error message if the input data does not match the requested data.
-     * @return Jsend::error An error message if  artist or insrtument or musician does not exist.
-     * @return Jsend::success an association between an artist, a musician, and an instrument has been deleted
-     * 
+     * @param int artist_id - the id from the artist (url)
+     * @var instrument_id (int): the id from the instrument (get)
+     * @var musician_id (int): the id from the musician (get) 
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the resource to modify was not found.
+     * @return Response Jsend::success if the artist was deleted.
      */
+
     public function destroy($artist_id) {
-        
-        
-   
+
+
+
         $instrument_id = Input::get('instrument_id');
         $musician_id = Input::get('musician_id');
-        
-               if (ctype_digit($musician_id)) {
+
+        if (ctype_digit($musician_id)) {
             $musician_id = (int) $musician_id;
         }
         if (ctype_digit($instrument_id)) {
@@ -102,19 +112,19 @@ class ArtistMusicianController extends BaseController {
         if ($validationArt !== true) {
             return Jsend::fail($validationArt);
         }
-       
+
 
         if (!Artist::existTechId($artist_id)) {
             return Jsend::error($artist_id . ' not found');
         }
-        
+
         // Validation Musician
         $validationMusician = Musician::validate(array('id' => $musician_id));
         if ($validationMusician !== true) {
             return Jsend::fail($validationMusician, 400);
         }
-        
-         
+
+
         if (!Musician::existTechId($musician_id)) {
             return Jsend::error('musician id :' . $musician_id . ' not found', 404);
         }
@@ -128,37 +138,34 @@ class ArtistMusicianController extends BaseController {
         if (!Instrument::existTechId($instrument_id)) {
             return Jsend::error('instrument id :' . $instrument_id . ' not found', 404);
         }
-        
+
         if (!ArtistMusician::existTechId($instrument_id, $artist_id, $musician_id)) {
             return Jsend::error("association doesn't exist");
         }
-        
-        
-            DB::table('artist_musician')
-            ->where('instrument_id', '=', $instrument_id)
-            ->where('artist_id', '=', $artist_id)
-            ->where('musician_id', '=', $musician_id)
-            ->delete();
 
-        
-        
-         return Jsend::success('Association deleted');
-        
-   
-        
+
+        DB::table('artist_musician')
+                ->where('instrument_id', '=', $instrument_id)
+                ->where('artist_id', '=', $artist_id)
+                ->where('musician_id', '=', $musician_id)
+                ->delete();
+
+
+
+        return Jsend::success('Association deleted');
     }
-    
+
     /**
+     * @ignore
      * Store a newly created resource in storage.
      * Registers a new association between a musician , an instrument and an artist
      * @var instrument_id(int): id instrument
      * @var artist_id(int): id artist
      * @var musician_id(int): id musician 
-     * @return Jsend::fail An error message if the input data does not match the requested data.
-     * @return Jsend::error An error message if  artist or insrtument or musician does not exist.
-     * @return an ArtistMusician saved 
+     * @return Response Jsend::fail An error message if the input data does not match the requested data.
+     * @return Response Jsend::error An error message if  artist or insrtument or musician does not exist.
+     * @return ArtistMusician an ArtistMusician saved 
      */
-
     public static function saveArtistMusician($artist_id, $instrument_id, $musician_id) {
 
         if (ctype_digit($musician_id)) {
@@ -199,21 +206,19 @@ class ArtistMusicianController extends BaseController {
         if (!Instrument::existTechId($instrument_id)) {
             return Jsend::error('instrument id :' . $instrument_id . ' not found', 404);
         }
-        
+
         if (ArtistMusician::existTechId($instrument_id, $artist_id, $musician_id)) {
             return Jsend::error('association alredy exist');
         }
-        
+
 
         $artistMusician = new ArtistMusician();
         $artistMusician->musician_id = $musician_id;
         $artistMusician->artist_id = $artist_id;
         $artistMusician->instrument_id = $instrument_id;
         $artistMusician->save();
-        
+
         return $artistMusician;
     }
-    
-  
 
 }

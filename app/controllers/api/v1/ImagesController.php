@@ -8,12 +8,18 @@ use \Image;
 use \Artist;
 use \BaseController;
 
-
+/**
+ * REST controller with index, store and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class ImagesController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Jsend::success every images
+     * Allows to display every images from the database.
+     * @return Response Jsend::success with all images.
      */
     public function index() {
         // Retourne toutes les images
@@ -23,9 +29,9 @@ class ImagesController extends BaseController {
     /**
      * Store a newly created resource in storage.
      * 
-     * @var alt_de corresponds to the title of the image. (header)
-     * @var caption_de corresponds to the description of the image. (header)
-     * @var artist_id corresponds to the id of the artist. (header)
+     * @var alt_de (string) corresponds to the title of the image. (header)
+     * @var caption_de (string) corresponds to the description of the image. (header)
+     * @var artist_id (int) corresponds to the id of the artist. (header)
      * @var uploadedImage image to upload (multipart/form-data)
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
@@ -79,8 +85,8 @@ class ImagesController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * @param  int  $id the id form the image
+     * Displays the specified resource.
+     * @param  int  id the id form the image
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if the required resource was not found.
      * @return Response Jsend::success if the required image was found.
@@ -110,6 +116,7 @@ class ImagesController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function update($id) {
@@ -120,6 +127,7 @@ class ImagesController extends BaseController {
     }
 
     /**
+     * @ignore
      * Not implemented yet.
      */
     public function destroy($id) {

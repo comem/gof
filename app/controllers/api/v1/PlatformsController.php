@@ -6,6 +6,13 @@ use \Jsend;
 use \Platform;
 use \BaseController;
 
+/**
+ * REST controller with index and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class PlatformsController extends BaseController {
 
     /**
@@ -18,12 +25,12 @@ class PlatformsController extends BaseController {
     }
 
     /**
-     * Store a newly created resource in storage.
-     * En dur dans la base de donnée (1D)
-     * @return Rien (fonction non réalisée pour le moment)
+
+     * @ignore
+     * Not implemented yet.
      */
     public function store() {
-        /**
+        /*
          * En dur dans la base de donnée (1D)
          * Correspond au CREATE des fonctions CRUD
          */
@@ -37,8 +44,8 @@ class PlatformsController extends BaseController {
      * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la plateforme correspondant à l'id technique.
      */
     public function show($id) {
-        // Vérification des droits d'accès (ACL)
-        //A réaliser
+
+
         // Les ids venant de l'url sont des "String", alors que celui-ci est un "int"
         // Par contre la conversion se fait que pour des chaines Ok.
         if (ctype_digit($id)) {
@@ -64,6 +71,7 @@ class PlatformsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Update the specified resource in storage.
      * Priorité 1C
      * @param  int  $id
@@ -77,13 +85,14 @@ class PlatformsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Remove the specified resource from storage.
      * Priorité 1C
      * @param  int  $id
      * @return Rien (fonction non réalisée pour le moment)
      */
     public function destroy($id) {
-        /**
+        /*
          * Priorité 1C
          * Correspond au DELETE des fonctions CRUD
          */

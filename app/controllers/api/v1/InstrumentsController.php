@@ -6,6 +6,13 @@ use \Input;
 use \BaseController;
 use \Instrument;
 
+/**
+ * REST controller with index, store, show, update and destroy methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class InstrumentsController extends BaseController {
 
     /**
@@ -13,7 +20,6 @@ class InstrumentsController extends BaseController {
      * @return Response Jsend::success with all instruments.
      */
     public function index() {
-
         return Jsend::success(Instrument::all()->toArray());
     }
 
@@ -112,7 +118,7 @@ class InstrumentsController extends BaseController {
      * @return Response Jsend::success if the instrument was deleted.
      */
     public function destroy($id) {
-        //auth
+
         if (ctype_digit($id)) {
             $id = (int) $id;
         }
@@ -138,6 +144,7 @@ class InstrumentsController extends BaseController {
 
     
     /**
+     * @ignore
      * Allows to save a new instrument
      * @param string - the instrument name
      * @return Instrument - the created instrument
@@ -163,7 +170,7 @@ class InstrumentsController extends BaseController {
     }
     
     /**
-     * Allow to search a musician with attribute
+     * Allows to search a musician with attribute
      * @var string : data of search. exemple : instruments/search?string=test
      * @return json of object received
      */

@@ -8,6 +8,14 @@ use \BaseController;
 use \Musician;
 use \DB;
 
+/**
+ * REST controller with index, store and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
+
 class MusiciansController extends BaseController {
 
     /**
@@ -19,11 +27,14 @@ class MusiciansController extends BaseController {
 
 
 
+
+
         return Jsend::success(Musician::with('instruments', 'artists')->get());
     }
 
     /**
      * Store a newly created resource in storage.
+<<<<<<< HEAD
       <<<<<<< HEAD
      * Store a musician and an association beetween this musicians, an instrument and an artist
      * @var (string) first_name : first name of the musician
@@ -89,6 +100,8 @@ class MusiciansController extends BaseController {
       ]
       }
       =======
+=======
+>>>>>>> origin/master
      * Allow to record a Musician with assoication betweem an instrument and a artist
      * @var first_name (string) first name from artist (get)
      * @var last_name (string) last name from artist (get)
@@ -97,7 +110,10 @@ class MusiciansController extends BaseController {
      * @return Response Jsend::fail if the input data are not correct.
      * @return Response Jsend::error if a resource was not found.
      * @return Response Jsend::success if a new musician was created.
+<<<<<<< HEAD
       >>>>>>> Comments
+=======
+>>>>>>> origin/master
      */
     public function store() {
         $first_name = Input::get('first_name');
@@ -171,25 +187,29 @@ class MusiciansController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function update($id) {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @ignore
+     * Not implemented yet.
      */
     public function destroy($id) {
         //
     }
 
+    /**
+     * @ignore
+     * Allors to save a new musician
+     * @param type $first_name
+     * @param type $last_name
+     * @param type $stagename
+     * @return \Musician
+     */
     public static function saveMusician($first_name, $last_name, $stagename) {
 
         $validationMusician = Musician::validate(array('first_name' => $first_name,

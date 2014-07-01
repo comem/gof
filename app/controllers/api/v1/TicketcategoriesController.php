@@ -6,19 +6,26 @@ use \Jsend;
 use \Ticketcategorie;
 use \BaseController;
 
+/**
+ * REST controller with index and show methods implemented
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class TicketcategoriesController extends BaseController {
 
     /**
-     * Display a listing of the resource.
-     * @return Jsend::success Toutes les catégories de tickets
+
+     * Allows to display every ticketcategories from the database.
+     * @return Response Jsend::success with all nighttypes.
      */
     public function index() {
-
-        // Retourne toutes les catégories de ticket
         return Jsend::success(Ticketcategorie::all()->toArray());
     }
 
     /**
+     * @ignore
      * Store a newly created resource in storage.
      * En dur dans la base de donnée (1D)
      * @return Rien (fonction non réalisée pour le moment)
@@ -31,11 +38,11 @@ class TicketcategoriesController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * @param  int  $id correspondant à l'id technique de la cathégorie de ticket à voir
-     * @return Jsend::fail Un message d'erreur si les données entrées ne correspondent pas aux données demandées.
-     * @return Jsend::fail Un message d'erreur si l'id technique est déjà en mémoire.
-     * @return Jsend::success Sinon, un message de validation d'enregistrement contenant la catégorie de ticket correspondant à l'id technique.
+     * Allows to display a specific ticketcategory from the database.
+     * @param  int -  the id from the ticketcategory
+     * @return Response Jsend::fail if the input data are not correct.
+     * @return Response Jsend::error if the required resource was not found.
+     * @return Response Jsend::success if the required genre was found.
      */
     public function show($id) {
         // Vérification des droits d'accès (ACL)
@@ -46,25 +53,26 @@ class TicketcategoriesController extends BaseController {
             $id = (int) $id;
         }
 
-        //Validation des types
+//Validation des types
         $validationTicketCategorie = Ticketcategorie::validate(array('id' => $id));
         if ($validationTicketCategorie !== true) {
             return Jsend::fail($validationTicketCategorie);
         }
 
-        // Validation de l'existance de la plateforme
+// Validation de l'existance de la plateforme
         if (Ticketcategorie::existTechId($id) !== true) {
             return Jsend::fail($id);
         }
 
-        // Récupération de la plateforme
+// Récupération de la plateforme
         $ticketcategorie = Ticketategorie::find($id);
 
-        // Retourne la plateforme encapsulée en JSEND si tout est OK
+// Retourne la plateforme encapsulée en JSEND si tout est OK
         return Jsend::success($ticketcategorie->toArray());
     }
 
     /**
+     * @ignore
      * Update the specified resource in storage.
      * Priorité 1C
      * @param  int  $id
@@ -78,6 +86,7 @@ class TicketcategoriesController extends BaseController {
     }
 
     /**
+     * @ignore
      * Remove the specified resource from storage.
      * Priorité 1C
      * @param  int  $id
