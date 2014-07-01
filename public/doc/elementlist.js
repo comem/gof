@@ -1,3 +1,0 @@
-
-var ApiGen = ApiGen || {};
-ApiGen.elements = [["c","api\\v1\\ArtistGenreController"],["c","api\\v1\\ArtistMusicianController"],["c","api\\v1\\ArtistNightController"],["c","api\\v1\\ArtistsController"],["c","api\\v1\\GenresController"],["c","api\\v1\\ImagesController"],["c","api\\v1\\InstrumentsController"],["c","api\\v1\\LinksController"],["c","api\\v1\\MusiciansController"],["c","api\\v1\\NightPlatformController"],["c","api\\v1\\NightsController"],["c","api\\v1\\NightTicketcategorieController"],["c","api\\v1\\NighttypesController"],["c","api\\v1\\PlatformsController"],["c","api\\v1\\TicketcategoriesController"]];

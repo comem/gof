@@ -1,10 +1,24 @@
 <?php
 
+/**
+ * ArtistNight model
+ * 
+ * Corresponds to the "performers" class of the class diagram.
+ *
+ * @category  Model
+ * @version   1.0
+ * @author    gof
+ */
 class ArtistNight extends MyEloquent {
 
     protected $table = 'artist_night';
     public $timestamps = false;
 
+    /**
+     * Allows to validate attributes for an ArtistNight.
+     * @param array data array with every attributes that has to be validate. 
+     * @return boolean true if the input data are valid, false otherwise.
+     */
     public static function validate($data = array()) {
         return parent::validator($data, array(
                     'artist_id' => 'integer:unsigned|sometimes|required',
@@ -15,6 +29,12 @@ class ArtistNight extends MyEloquent {
         ));
     }
 
+    /**
+     * Allows to verify if an ArtistNight exists in the database with his technical id.
+     * @param int the technical id corresponding to the composite primary key of the ArtistNight.
+     * @param int the technical id corresponding to the composite primary key of the ArtistNight.
+     * @return boolean true if the Artist exists in the database, false otherwise.
+     */
     public static function existTechId($artistId, $nightId, $order) {
         $e = ArtistNight::where('artist_id', '=', $artistId)
                 ->where('night_id', '=', $nightId)

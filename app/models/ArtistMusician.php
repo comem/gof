@@ -3,7 +3,13 @@
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 /**
- * this class combines the instrument, the artist and musician
+ * ArtistMusician model
+ * 
+ * Corresponds to the "lineups" class of the class diagram.
+ *
+ * @category  Model
+ * @version   1.0
+ * @author    gof
  */
 class ArtistMusician extends MyEloquent {
 
@@ -15,15 +21,18 @@ class ArtistMusician extends MyEloquent {
     protected $dates = ['deleted_at'];
 
     /**
-     * instruments linked
-     * @return type
+     * Allows to define the relationship between ArtistMusician and Instrument.
+     * @return Instrument the instrument of the artistmusician.
      */
     public function instrument() {
         return $this->belongsTo('Instrument');
     }
- /**
-  * This methode validate the type of attribute content in the table
-  */
+
+    /**
+     * Allows to validate attributes for an ArtistMusician.
+     * @param array data array with every attributes that has to be validate. 
+     * @return boolean true if the input data are valid, false otherwise.
+     */
     public static function validate($data = array()) {
         return parent::validator($data, array(
                     'musician_id' => 'integer:unsigned|sometimes|required',
@@ -32,6 +41,13 @@ class ArtistMusician extends MyEloquent {
         ));
     }
 
+    /**
+     * Allows to verify if an ArtistGenre exists in the database with his technical id.
+     * @param int the technical id corresponding to the composite primary key of the ArtistMusician.
+     * @param int the technical id corresponding to the composite primary key of the ArtistMusician.
+     * @param int the technical id corresponding to the composite primary key of the ArtistMusician.
+     * @return boolean true if the Artist exists in the database, false otherwise.
+     */
     public static function existTechId($instrument_id, $artist_id, $musician_id) {
 
         $e = ArtistMusician::where('instrument_id', '=', $instrument_id)
