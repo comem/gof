@@ -11,7 +11,8 @@ use \Image;
 use \NightTicketcategorie;
 use \Ticketcategorie;
 use \Artist;
-use WordPublish;
+use \WordPublish;
+use \Response;
 
 /**
  * REST controller with index, store, show, update and destroy methods implemented.
@@ -599,7 +600,9 @@ class NightsController extends BaseController {
 
         $event360->artists->load('genres');
 
-        WordPublish::export($event360);
+        $fileCreated = WordPublish::export($event360);
+        
+        return Response::download($fileCreated);
     }
     
     public static function exportFacebook () {

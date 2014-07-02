@@ -98,6 +98,7 @@ class WordPublish {
 // Finally, write the document:
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         $objWriter->save('public/export/'. $date .'-'.$title.'.docx');
+        return 'public/export/'. $date .'-'.$title.'.docx';
 
     }
 
