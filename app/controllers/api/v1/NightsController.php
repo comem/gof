@@ -160,15 +160,28 @@ class NightsController extends BaseController {
         $notes = Input::get('notes');
         $nighttype_id = Input::get('nighttype_id');
         $image_id = Input::get('image_id');
-        $ticket_categorie = Input::get('ticket_categorie');
-        $artist = Input::get('artist');
+        $ticket_categorie = Input::get('ticket_categories');
+        $artist = Input::get('artists');
         $platforms = Input::get('platforms');
+        
+       
+        
 
         DB::beginTransaction();
-        $night = static::saveNight($start_date_hour, $ending_date_hour, $opening_doors, $title_de, $nb_meal, $nb_vegans_meal, $meal_notes, $nb_places, $followed_by_private, $contract_src, $notes, $nighttype_id, $image_id, $ticket_categorie);
+        $night = static::saveNight($start_date_hour, $ending_date_hour, $opening_doors, 
+                $title_de, $nb_meal, $nb_vegans_meal, $meal_notes, $nb_places, $followed_by_private, 
+                $contract_src, $notes, $nighttype_id, $image_id, $ticket_categorie);
+       
+        
+          
+        
         if (!is_a($night, 'Night')) {
-            return $night;
+            
+            return Jsend::error($night);
+           
         }
+           
+       
 
         if (isset($artist)) {
             $compteur = 1;
@@ -419,6 +432,9 @@ class NightsController extends BaseController {
      * @return Response Jsend::success A validation message with the id of the new Event created
      */
     public static function saveNight($start_date_hour, $ending_date_hour, $opening_doors, $title_de, $nb_meal, $nb_vegans_meal, $meal_notes, $nb_places, $followed_by_private, $contract_src, $notes, $nighttype_id, $image_id, $ticket_categorie) {
+       
+        
+         
         if (Night::existBuisnessId($start_date_hour) == true) {
 
             return Jsend::error("event already exist in the database");
@@ -430,20 +446,22 @@ class NightsController extends BaseController {
             }
         }
 
+       
+        
         foreach ($ticket_categorie as $tc) {
             $ticketCatId = $tc['ticket_categorie_id'];
             $amount = $tc['amount'];
             $quantitySold = $tc['quantitySold'];
             $comment = $tc['comment'];
 
-            $validationNightTicketCat = \Ticketcategorie::validate(array(
+            $validationNightTicketCat = Ticketcategorie::validate(array(
                         'night_id' => '1',
                         'ticketcategorie_id' => $ticketCatId,
                         'amount' => $amount,
                         'quantity_sold' => $quantitySold,
                         'comment' => $comment,
             ));
-
+               
             if ($validationNightTicketCat !== true) {
                 return Jsend::fail($validationNightTicketCat);
             }
@@ -452,6 +470,8 @@ class NightsController extends BaseController {
                 return Jsend::error('ticketcategorie not found');
             }
         }
+          
+       
 
         // Validation des types
         $validationNight = Night::validate(array(
@@ -469,11 +489,13 @@ class NightsController extends BaseController {
                     'nighttype_id' => $nighttype_id,
                     'image_id' => $image_id
         ));
+           
         if ($validationNight !== true) {
             return Jsend::fail($validationNight);
         }
+      
 
-
+          
 
         if (!Night::comparison_date($start_date_hour, $ending_date_hour)) {
             return Jsend::fail(array('id' => "The start date is after the ending date"
@@ -503,6 +525,7 @@ class NightsController extends BaseController {
                 return Jsend::fail("The actual event overlaps an existing one");
             }
         }
+  
 
         $night = new Night();
         $night->start_date_hour = $start_date_hour;
@@ -522,9 +545,10 @@ class NightsController extends BaseController {
         if ($image_id != '') {
             $night->image_id = $image_id;
         }
-
+        // l'erreur vient d'iiiiiiiiiiiiiiiiiiiiiiiiiiiccccccccccccci
         $night->save();
         $nightId = $night->id;
+     
         foreach ($ticket_categorie as $tc) {
             $ticketCatId = $tc['ticket_categorie_id'];
             $amount = $tc['amount'];
@@ -540,7 +564,7 @@ class NightsController extends BaseController {
         }
 
         return $night;
-
+    
 
         // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
         return Jsend::success(array('id' => $night->id));
