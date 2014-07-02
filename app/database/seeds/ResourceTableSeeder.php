@@ -12,6 +12,11 @@ class ResourceTableSeeder extends Seeder {
 				'function' => 'VIEW'
 			));
                 
+                Resource::create(array(
+				'model' => 'FacebookController',
+				'function' => 'VIEW'
+			));
+                
                  Resource::create(array(
 				'model' => 'ArtistMusicianController',
 				'function' => 'VIEW'
