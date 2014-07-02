@@ -24,6 +24,7 @@ class AuthController extends \BaseController {
         // VÃ©rifie les "input" et les accréditations
         if (User::validate(Input::only('email', 'password')) !== true
                || !Auth::attempt(Input::only('email', 'password'),false)) {
+
             return Redirect::action('AuthController@getIndex')
                     ->with('error', true);
         }
