@@ -22,7 +22,7 @@ class CreateNightsTable extends Migration {
 			$table->text('notes')->nullable();
 			$table->datetime('published_at')->nullable();
 			$table->integer('nighttype_id')->unsigned();
-			$table->integer('image_id')->unsigned();
+			$table->integer('image_id')->nullable()->unsigned();
 			$table->timestamps();
 		});
 	}
