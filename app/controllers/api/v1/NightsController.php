@@ -546,6 +546,11 @@ class NightsController extends BaseController {
         return Jsend::success(array('id' => $night->id));
     }
 
+    /**
+     * Allows to search an event by date.
+     * @param datetime date the date of the night.
+     * @return Night the night conerned.
+     */
     public static function searchdate($date) {
 
 
@@ -555,12 +560,14 @@ class NightsController extends BaseController {
         return $event;
     }
 
+    /**
+     * Allows to export an event with filetype .docx.
+     */
     public static function exportWord() {
 
         $datepublish = Input::get('date');
 
         $event = NightsController::searchdate($datepublish);
-
 
         $id = $event[0]['id'];
 
