@@ -103,6 +103,7 @@ Route::filter('acl_rest', function()
        'index'  => 'VIEW',
        'store'  => 'SAVE',
        'show'   => 'VIEW',
+       'search' => 'VIEW',
        'update' => 'MODIFY',
        'destroy'=> 'ERASE'
     );
