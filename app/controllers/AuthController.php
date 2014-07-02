@@ -29,7 +29,8 @@ class AuthController extends \BaseController {
         }
         else
         {
-            return Redirect::intended('/index.html');
+
+            return Redirect::intended('/');
         }
     }
 

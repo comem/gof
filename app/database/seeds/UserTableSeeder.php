@@ -36,10 +36,10 @@ class UserTableSeeder extends Seeder {
 			));
                  // staff
 		User::create(array(
-				'email' => 'staff',
-				'first_name' => 'staff',
-				'last_name' => 'staff',
-				'password' => '$2y$10$wNSfYSxvd6RqYAqWaSkEIeFgA/C1yR4vAWfG.qSlVyQLpmXDhCJt2',
+				'email' => 'test',
+				'first_name' => 'test',
+				'last_name' => 'test',
+				'password' => '$2y$10$po2ksSlYteZsTiNtk6yAEeenJ82AsVcmCqq6rEf8qQNpcqHTE2UDS',
 				'group_id' => 2,
 				'language_id' => 1
 			));
@@ -48,7 +48,7 @@ class UserTableSeeder extends Seeder {
 				'email' => 'admin',
 				'first_name' => 'admin',
 				'last_name' => 'admin',
-				'password' => '$2y$10$wNSfYSxvd6RqYAqWaSkEIeFgA/C1yR4vAWfG.qSlVyQLpmXDhCJt2',
+				'password' => '$2y$10$fkJY4boZcSaAcz8Kvu3D2.xKB/lLiaPFOEgBDkc66sKPizx.JYrgW',
 				'group_id' => 1,
 				'language_id' => 1
 			));

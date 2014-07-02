@@ -22,7 +22,7 @@ Route::group(
         array(
     'prefix' => 'api/v1',
     'namespace' => 'api\v1',
-    'before' => array(/* 'auth', 'acl_rest' */),
+    'before' => array('auth', 'acl_rest'),
         ), function() {
     Route::get('artists/search', 'ArtistsController@search');
     Route::get('musicians/search', 'MusiciansController@search');
