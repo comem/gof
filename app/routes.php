@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 Route::group(
-       array(
+        array(
     'prefix' => 'api/v1',
     'namespace' => 'api\v1',
     'before' => array(/* 'auth', 'acl_rest' */),
@@ -33,7 +33,7 @@ Route::group(
 
     Route::get('ticketcategories/search', 'TicketcategoriesController@search');
     Route::get('nighttypes/search', 'NighttypesController@search');
-    
+
     Route::resource('artists', 'ArtistsController');
     Route::resource('nightplatform', 'NightPlatformController');
 

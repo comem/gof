@@ -32,7 +32,6 @@ class NightPlatformController extends BaseController {
     }
 
     /**
-     * 
      * Allows to save a new publication.
      * @var platform_id (int) - the id from the platform (get)
      * @var night_id (int) - the id from the night (get)

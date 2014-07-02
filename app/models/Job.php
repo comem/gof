@@ -2,6 +2,13 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Not implemented yet.
+ *
+ * @category  Model
+ * @version   0.0
+ * @author    gof
+ */
 class Job extends MyEloquent {
 
 	protected $table = 'jobs';

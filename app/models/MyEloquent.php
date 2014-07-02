@@ -1,9 +1,15 @@
 <?php
 
+/**
+ * MyEloquent model
+ *
+ * @category  Model
+ * @version   0.0
+ * @author    gof
+ */
 class MyEloquent extends Eloquent
 {
-    /**
-     * 
+    /*
      * Allows to validate data and returns an associative array with error messages for each attributes that fails the validation.
      *
      * Returns true if no errors.

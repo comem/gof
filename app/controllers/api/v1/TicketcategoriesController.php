@@ -19,7 +19,6 @@ use \Input;
 class TicketcategoriesController extends BaseController {
 
     /**
-
      * Allows to display every ticketcategories from the database.
      * @return Response Jsend::success with all ticketcategories.
      */
@@ -74,7 +73,7 @@ class TicketcategoriesController extends BaseController {
         return Jsend::success($ticketcategorie->toArray());
     }
 
-        /**
+    /**
      * Allows to search a ticketcategorie with attribute name_de
      * @var string : data of search. exemple : musician/search?string=test
      * @return json of object received
