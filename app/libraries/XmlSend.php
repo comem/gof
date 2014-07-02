@@ -1,5 +1,5 @@
 <?php
-class Jsend  {
+class XmlSend  {
     const HTTP_SUCCESS = 200;
     const HTTP_SUCCESS_CREATED = 201;
     const HTTP_FAIL_VALIDATION = 400;
@@ -22,10 +22,10 @@ class Jsend  {
         if (!isset($status)) {
             $status = self::HTTP_SUCCESS;
         }
-        $rep = new stdClass();
-        $rep->status = 'success';
-        $rep->data = $data;
-        return Response::json($rep, $status);
+        $rep = array();
+        $rep['status'] = 'success';
+        $rep['data'] = $data;
+        return ArrayToXml::buildXMLData($rep);
         
     }
 
