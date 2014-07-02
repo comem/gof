@@ -8,41 +8,61 @@
 
 class ArrayToXml {
 
-    public static function buildXMLData($data, $startElement = 'fx_request', $xml_version = '1.0', $xml_encoding = 'UTF-8') {
-        if (!is_array($data)) {
-            $err = 'Invalid variable type supplied, expected array not found on line ' . __LINE__ . " in Class: " . __CLASS__ . " Method: " . __METHOD__;
-            trigger_error($err);
-            if ($this->_debug)
-                echo $err;
-            return false; //return false error occurred
-        }
-        $xml = new XmlWriter();
-        $xml->openMemory();
-        $xml->startDocument($xml_version, $xml_encoding);
-        $xml->startElement($startElement);
-
-        /**
-         * Write XML as per Associative Array
-         * @param object $xml XMLWriter Object
-         * @param array $data Associative Data Array
-         */
-        function write(XMLWriter $xml, $data) {
-            foreach ($data as $key => $value) {
-                if (is_array($value)) {                
-                    $xml->startElement($key);
-                    write($xml, $value);
-                    $xml->endElement();
-                    continue;
+ public static function array_to_xml($array, $level=1) {
+        $xml = '';
+   // if ($level==1) {
+   //     $xml .= "<array>\n";
+   // }
+    foreach ($array as $key=>$value) {
+        $key = strtolower($key);
+        if (is_object($value)) {$value=get_object_vars($value);}// convert object to array
+        
+        if (is_array($value)) {
+            $multi_tags = false;
+            foreach($value as $key2=>$value2) {
+             if (is_object($value2)) {$value2=get_object_vars($value2);} // convert object to array
+                if (is_array($value2)) {
+                    $xml .= str_repeat("\t",$level)."<$key>\n";
+                    $xml .= array_to_xml($value2, $level+1);
+                    $xml .= str_repeat("\t",$level)."</$key>\n";
+                    $multi_tags = true;
+                } else {
+                    if (trim($value2)!='') {
+                        if (htmlspecialchars($value2)!=$value2) {
+                            $xml .= str_repeat("\t",$level).
+                                    "<$key2><![CDATA[$value2]]>". // changed $key to $key2... didn't work otherwise.
+                                    "</$key2>\n";
+                        } else {
+                            $xml .= str_repeat("\t",$level).
+                                    "<$key2>$value2</$key2>\n"; // changed $key to $key2
+                        }
+                    }
+                    $multi_tags = true;
                 }
-                $xml->writeElement($key, $value);
+            }
+            if (!$multi_tags and count($value)>0) {
+                $xml .= str_repeat("\t",$level)."<$key>\n";
+                $xml .= array_to_xml($value, $level+1);
+                $xml .= str_repeat("\t",$level)."</$key>\n";
+            }
+      
+         } else {
+            if (trim($value)!='') {
+             echo "value=$value<br>";
+                if (htmlspecialchars($value)!=$value) {
+                    $xml .= str_repeat("\t",$level)."<$key>".
+                            "<![CDATA[$value]]></$key>\n";
+                } else {
+                    $xml .= str_repeat("\t",$level).
+                            "<$key>$value</$key>\n";
+                }
             }
         }
-
-        write($xml, $data);
-
-        $xml->endElement(); //write end element
-        //Return the XML results
-        return $xml->outputMemory(true);
     }
+   //if ($level==1) {
+    //    $xml .= "</array>\n";
+   // }
+    return $xml;
+}
 
 }

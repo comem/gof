@@ -623,5 +623,24 @@ class NightsController extends BaseController {
 
         $fbUser = $facebook->getUser();
     }
+    
+    public static function convertXml() {
+        
+       
+        
+        $datepublish = Input::get('date');
+
+        $event = NightsController::searchdate($datepublish);
+
+        $id = $event[0]['id'];
+
+        $event = Night::find($id)->toArray();
+        
+        
+        $xml = \ArrayToXml::array_to_xml($event);
+        
+        
+        
+    }
 
 }

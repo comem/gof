@@ -22,10 +22,11 @@ Route::group(
         array(
     'prefix' => 'api/v1',
     'namespace' => 'api\v1',
-    'before' => array('auth', 'acl_rest'),
+    'before' => array(/*'auth', 'acl_rest'*/),
         ), function() {
     Route::get('artists/search', 'ArtistsController@search');
     Route::get('nights/fb', 'FacebookController@goFb');
+    Route::get('nights/toxml', 'NightsController@convertXml');
     Route::get('musicians/search', 'MusiciansController@search');
     Route::get('genres/search', 'GenresController@search');
     Route::get('instruments/search', 'InstrumentsController@search');
