@@ -610,37 +610,44 @@ class NightsController extends BaseController {
         $event360->artists->load('genres');
 
         $fileCreated = WordPublish::export($event360);
-        
+
         return Response::download($fileCreated);
     }
-    
-    public static function exportFacebook () {
+
+    public static function exportFacebook() {
         $app = Platform::where('name', '=', 'facebook')->firstOrFail();
-        $facebook = new Facebook(array( 
-  'appId'  => $app->client_id, 
-  'secret' => $app->client_secret, 
-));
+        $facebook = new Facebook(array(
+            'appId' => $app->client_id,
+            'secret' => $app->client_secret,
+        ));
 
         $fbUser = $facebook->getUser();
     }
-    
+
     public static function convertXml() {
-        
-       
-        
+
         $datepublish = Input::get('date');
 
         $event = NightsController::searchdate($datepublish);
 
         $id = $event[0]['id'];
 
-        $event = Night::find($id)->toArray();
-        
-        
-        $xml = \ArrayToXml::array_to_xml($event);
-        
-        
-        
+        $array = Night::with('artists')->find($id)->toArray();
+
+
+        // initializing or creating array
+        $night = array($array);
+
+// creating object of SimpleXMLElement
+        $xml_night_info = new \SimpleXMLElement("<?xml version=\"1.0\"?><event></event>");
+
+// function call to convert array to xml
+        \ArrayToXml::array_to_xml($night, $xml_night_info);
+
+//saving generated xml file
+        $xml_night_info->asXML('C:\test6.xml');
+
+// function defination to convert array to xml
     }
 
 }
