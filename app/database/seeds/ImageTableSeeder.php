@@ -10,7 +10,7 @@ class ImageTableSeeder extends Seeder {
 		Image::create(array(
 				'caption_de' => 'artist_description_image',
 				'alt_de' => 'artist_description_image',
-				'source' => 'image.jpg',
+				'source' => 'img/images/image.jpg',
 				'artist_id' => 1
 			));
 	}
