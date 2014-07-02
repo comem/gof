@@ -9,8 +9,8 @@ class PlatformTableSeeder extends Seeder {
 		// facebook
 		Platform::create(array(
 				'name' => 'facebook',
-				'client_id' => 'client_id',
-				'client_secret' => 'client_secret',
+				'client_id' => '633123843450489',
+				'client_secret' => '91a52c205a79953f5e610e49aa43abcb',
 				'api_infos' => 'api_infos'
 			));
 
