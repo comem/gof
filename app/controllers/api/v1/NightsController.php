@@ -632,7 +632,7 @@ class NightsController extends BaseController {
 
         $id = $event[0]['id'];
 
-        $array = Night::with('artists')->find($id)->toArray();
+        $array = Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($id)->toArray();
 
 
         // initializing or creating array
