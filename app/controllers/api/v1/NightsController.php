@@ -50,6 +50,13 @@ class NightsController extends BaseController {
      * @var (string) notes - OPTIONNAL - A note about the evenement
      * @var (int) nighttype_id - The id of the event type
      * @var (int) image_id - The id of the illustration image
+     * @var (array)  "ticket_categorie": {
+      "ticket1": {
+      "ticket_categorie_id": "1",
+      "amount": "30",
+      "quantitySold": "30",
+      "comment": "test"
+      }
      * @var (array) "platforms": {
       "platform1": {
       "platform_id":"1",
@@ -593,6 +600,16 @@ class NightsController extends BaseController {
         $event360->artists->load('genres');
 
         WordPublish::export($event360);
+    }
+    
+    public static function exportFacebook () {
+        $app = Platform::where('name', '=', 'facebook')->firstOrFail();
+        $facebook = new Facebook(array( 
+  'appId'  => $app->client_id, 
+  'secret' => $app->client_secret, 
+));
+
+        $fbUser = $facebook->getUser();
     }
 
 }
