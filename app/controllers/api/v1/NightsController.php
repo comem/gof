@@ -581,6 +581,7 @@ class NightsController extends BaseController {
     }
 
     /**
+     * @ignore
      * Allows to search an event by date.
      * @param datetime date the date of the night.
      * @return Night the night conerned.
@@ -595,7 +596,9 @@ class NightsController extends BaseController {
     }
 
     /**
-     * Allows to export an event with filetype .docx.
+     * Allows to export a night with filetype .docx.
+     * @var date (datetime) the date of the night to export.
+     * @return Response the .docx file generated.
      */
     public static function exportWord() {
 
