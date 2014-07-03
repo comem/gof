@@ -58,16 +58,7 @@ updateHeaderInput(inputParent, updateInput);
 
 function deleteAccordion(accordionParent){
 	$(accordionParent).on('click', '.deleteMusicianButton', function(){
-		/*$( "<div title='Attention!'>").dialog({
-				      modal: true,
-				      buttons: {
-				        Close: function() {
-				          $(this).dialog( "close" );
-				      		},
-				      	Yes: function(){	
-				      	}
-				      }
-					}).append('Do you really want to delete this musician?');*/
+
 		$(this).prev().closest('.ui-accordion').fadeOut("slow", function() { 
 					$(this).closest('.ui-accordion').remove();
 		});
@@ -155,10 +146,11 @@ var index = 0;
 				success:function(data){
 					response($.map(data, function(item){
 						return{
-							label:item.first_name,
+							label:item.first_name+" - "+item.stagename,
 							value: item.first_name,
 							stagename: item.stagename,
 							id:item.id,
+
 							category :'Musicians'
 						}
 					}))

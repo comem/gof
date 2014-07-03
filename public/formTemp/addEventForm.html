@@ -1,0 +1,99 @@
+<html lang="fr"><head>
+	<title>Add new event</title>
+	<meta charset="utf-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		 <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/modernizr.js" type="text/javascript"></script>   
+		<script src="js/addArtistForm.js"></script>
+       
+	
+    <body>
+
+ <div id="eventInfoDiv">
+    	<h1 class ="addEventHeader">Informations</h1>
+    	Name* <input type="text" name="nameEvent" id="nameEvent" required />
+ </div>
+
+ <div id="startTimeDiv">
+    	<h4 class ="addEventHeader">Start time*</h4>
+    	Date  <input type="date" name="startDate" id="startDate"  required/>
+    	Start hour  <input type="time" name="startTime" id="startTime"  required/>
+    	<abbr title="if not filled, 45min before start hour will be set">Opening doors hour</abbr><input type="time" name="openingDoorsTime" id="openingDoorsTime" />
+ </div>
+
+ <div id="endTimeDiv">
+    	<h4 class ="addEventHeader">Ending time*</h4>
+    	Date  <input type="date" name="startDate" id="startDate"  required/>
+    	Ending hour  <input type="time" name="startTime" id="startTime"  required/>
+ </div>
+
+ <div id="mealsDiv">
+    	<h4 class ="addEventHeader">Meals</h4>
+    	Number of normal meals <input type="number" name="normalMeals" id="normalMeals"  required/><br>
+    	Number of vegan(metally ill person) meals <input type="number" name="veganMeals" id="veganMeals"  required/><br>
+    	Note <textarea  id="mealNotes "placeholder="meal notes" ></textarea>
+ </div>
+
+
+ <div id="compInfoDiv">
+    	<h4 class ="addEventHeader">Complementary informations</h4>
+    	Note <textarea placeholder="informations" id="compInfo" ></textarea><br>
+
+    	Number of places* <input type="number" name="placesNumber" id="placesNumber"  required/><br>
+
+    	Followed* <button>Switch</button><br>
+    	Contract <input type="file" name="contract" id="contract"/><br>
+</div>
+
+ <div id="ticketsDiv">
+    	<h4 class ="addEventHeader">Tickets</h4>
+    		Name
+    		<select>
+    			<option>Frei</option>
+    			<option>AVS</option>
+    			<option>Etudiant</option>
+    		</select><br>
+
+    	Price <input type="number" name="ticketPrice" id="ticketPrice"/>CHF<br>
+    	Quantity <input type="number" name="ticketPrice" id="ticketPrice"/><br>
+    	Note <textarea placeholder="informations" id="ticketInfo" ></textarea><br>
+</div>
+
+
+ <div id="eventTypeDiv">
+    	<h4 class ="addEventHeader">Event type</h4>
+    	Name
+    		<select>
+    			<option>Pussy rockers</option>
+    			<option>bitches on the beach</option>
+    			<option>HEIG is cool</option>
+    		</select><br>
+ </div>
+
+ <div id="plublishingDiv">
+    	<h4 class ="addEventHeader">Publishing</h4>
+    	 <input type="checkbox" name="publishingPlatform" value="facebook">Facebook<br>
+ </div>
+
+ <div id="eventImageDiv">
+    	 <h4 class ="addEventHeader">Event image</h4>
+    	 Choose existing image <input type="file" name="eventImg" id="eventImgBrowse"/><br>
+
+    	 Upload new image <input type="file" name="eventImg" id="eventImgUpload"/><br>
+</div>
+
+ <div id="eventArtistsDiv">
+    	 <h4 class ="addEventHeader">Artists</h4>
+
+	           <input type="text" name="artistName" id="artistName"/>
+	       
+       		 
+       		 	<button id="addMusiciansButton">+ more musicians</button><BR>
+
+</div>
+       		 <button id="submitEvent">CREATE NEW EVENT</button>
+
+
+
+    </body>
+ </html>

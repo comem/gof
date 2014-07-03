@@ -1,0 +1,87 @@
+<html lang="fr"><head>
+	<title>Add new artist</title>
+	<meta charset="utf-8">
+    <script src="js/modernizr.js"></script>
+	<script src="js/jquery.js"></script>
+    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />   
+
+    <script src="js/jquery-ui.js"></script>
+	<script src="js/artistForm.js"></script>
+     <style>
+              .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                /* prevent horizontal scrollbar */
+                overflow-x: hidden;
+              }
+
+              .ui-autocomplete-category {
+                font-weight: bold;
+                font-size: 1em;
+                padding: .2em .2em;
+                margin: .4em 0 .2em;
+                line-height: 1.5;
+                color: #069;
+                border-bottom: 2px solid #069;
+            }                     
+    </style>
+    
+	
+    <body>
+    <h1 class ="addArtistHeader">Create new artist</h1>
+
+    <div id="artistInfoDiv">
+         <h2 class ="addArtistHeader">Informations</h2>
+
+	
+    	Name* <input type="text" name="nameArtist" id="nameArtist" required placeholder="artist name"><br>
+    	Lead <textarea name="lead" id="lead" maxlength="300" placeholder="artist lead"></textarea><br>
+    	Description <textarea  placeholder="artist description" name="desc" id="desc"></textarea><br>
+    </div>
+
+    	<div  id="genreSelect">
+            	Genre<input type="text" name="genre" id="genre"/>
+    	</div>
+
+
+    	<div id= "musicianSelect">
+    	 		Musician		
+	            <input type="text" name="musician" id="musician" placeholder="start typing a name"/>   
+       		<button id="showAll">show all</button>
+            <button id="createNewMusicianButton" class="noResult add">Create new musician</button>
+
+             <fieldset id="musiciansPlaying">
+                <legend>Musicians playing</legend>
+            </fieldset>
+            <div><h3 id = 'noResultsInfo' >pas de resultat, vous pouvez creer un nouvel artiste</h3> </div>
+    	</div>
+
+
+    	<div id= "addToEvent">
+    		<h2 class ="addArtistHeader">Event</h2>
+	    	Add to event 
+	            <input type="text" name="eventName" id="eventName"/>
+       		 Arrival hour <input type="time" name="arrivalHour" id="arrivalHour">
+           
+ 		</div>
+
+
+    	<div id="links">
+    		<h2 class ="addArtistHeader">Links</h2>
+    		Title <input type="text" name="title" id="titleLink" ><br>
+    		Name <input type="text" name="nameLink" id="nameLink" ><br>
+    		URL <input type="url" name="url" id="url" ><br>
+    	</div>
+    		
+ <div id="artistImageDiv">
+    	<h2 class ="addArtistHeader">Image</h2>
+    	Browse existing image <input type="file" name="img" multiple id="artistImgBrowse">
+        Upload new image <input id="artistImgUpload" type="file" name="img" multiple>
+        <br>
+</div>
+        <button id="createNewArtistButton">CREATE NEW ARTIST</button>
+
+
+
+</body>
+</html>

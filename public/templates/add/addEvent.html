@@ -1,0 +1,155 @@
+<div class="form event">
+  <div class= "accordion">
+
+    <h1 class="addEventHeader "><span class="addEventTitle">Add new event</span></h1>
+      <div>
+
+        <form id="eventForm">
+          <div class="firstColumn">
+            <div id="eventInfoDiv">
+              <h2 class ="addEventHeader"><img src="img/icones/icone_information.png"><span class="addEventInfo">Informations</span></h2>
+              <label>Name* </label>
+              <input type="text" name="nameEvent" id="nameEvent" required/>
+            </div>
+
+            <div id="startTimeDiv">
+                <h2 class ="addEventHeader"><img src="img/icones/icone_time.png"><span class="addEventStart">Start time*</span></h2>
+                <label class="addEventStartDate">Date</label>
+                <input type="text" name="startDate" id="startDate" class="timeCntr" required/>
+                <label class="addEventStartHour">Start hour</label> 
+                <input type="text" name="startTime" id="startTime"  required/>
+                <label>
+                <abbr class="addEventOpeningDoors" title="if not filled, 45min before start hour will be set">Opening doors hour</abbr>
+                </label>
+                <input type="text" name="openingDoorsTime" id="openingDoorsTime"/>
+            </div>
+
+            <div id="endTimeDiv">
+                <h2 class ="addEventHeader"><img src="img/icones/icone_time.png"><span class="addEventEnding">Ending time*</span></h2>
+                <label class="addEventEndingDate">Date</label> 
+                <input type="text" name="endDate" id="endDate"  required/>
+                <label class="addEventEndingHour">Ending hour</label><input type="text" name="endTime" id="endTime" required/>
+            </div>
+
+
+            <div id="compInfoDiv">
+                <h2 class ="addEventHeader"><img src="img/icones/icone_moreinfo.png"><span class="addEventComplementaryInfo">Complementary informations</span></h2>
+                <label class="addEventNote">Note</label>
+                <textarea placeholder="informations" id="compInfo" ></textarea><br>
+                <label class="addEventNumberPlace">Number of places*</label>
+                <input type="number" name="placesNumber" id="placesNumber"  required/><br>
+
+                  <label class="addEventPrivateEvent">Private event?</label>
+                                   <select id="followed">
+                                      <option>Yes</option>
+                                      <option>No</option>
+                                   </select>   
+
+                <label class="addEventContract">Contract</label>
+                <input type="file" name="contract" id="contract"/><br>
+            </div>
+
+            <div id="eventTypeDiv">
+                <h2 class ="addEventHeader addEventType">Event type</h2>
+                <label class="addEventName">Name</label>
+              <input type="text" id ="eventTypeInput"> 
+              <button type="button" class="showAll"id="showAllTypes">
+              <img src="img/icones/icone_list2.png"/></button></button>
+
+              <fieldset id="eventTypesField">
+                    <legend>Type selected</legend>
+                </fieldset>
+                
+                <h3 id = 'noTypeEventResultInfo'>pas de resultat, vous pouvez creer un nouveau type</h3> 
+                
+                <button type="button" class ="deleteTypeEvent">Delete type</button>
+
+           </div>
+
+            <div id="eventImageDiv">
+                 <h2 class ="addEventHeader"><img src="img/icones/icone_image.png"> <span class="addEventImage">Event image</span></h2>
+                 <label>Choose existing image</label>
+
+                     <button type="button"><a href="#" class="open">Open modal</a></button> 
+
+  
+                 
+                 <button type="button" name="eventImg" id="eventImgBrowse">Choose</button>
+                 <br>
+                 
+                 <label>Upload new image</label>
+                 <input type="file" name="eventImg" id="eventImgUpload"/><br>
+          </div>
+                
+        </div>  
+        <div class="secondColumn">
+
+            <div id="mealsDiv">
+                <h2 class ="addEventHeader"><img src="img/icones/icone_food.png"><span class="addEventMeals">Meals</span></h2>
+                <label class="addEventMealsNumber">Number of normal meals</label>
+                <input type="number" name="normalMeals" id="normalMeals"  required/><br>
+                <label class="addEventNumberVegiMeals">Number of vegan meals</label>
+                <input type="number" name="veganMeals" id="veganMeals"  required/><br>
+                <label class="addEventNote">Note </label>
+                <textarea  id="mealNotes"placeholder="meal notes" ></textarea>
+            </div>
+
+          <div id="ticketsDiv">
+
+                <h2 class ="addEventHeader"><img src="img/icones/icone_price.png"><span class="addEventTickets">Tickets</span></h2>
+                <label class="addEventCategory">Category</label>
+                <input type="text" name="ticketCategory" id="ticketCategory"/>
+                <button type="button" class ="showAll" id="showAllCategories">
+                <img src="img/icones/icone_list2.png"/></button>
+                <fieldset id="ticketCategoryField">
+                    <legend>Tickets selected</legend>
+                </fieldset>
+                
+                <h3 id = 'noTicketCategoryResultInfo'>pas de resultat, vous pouvez creer un nouveau ticket</h3> 
+                
+               
+
+
+                <label>Price</label>
+                <input type="number" name="ticketPrice" id="ticketPrice"/>CHF<br>
+                <label class="addEventQuantity">Quantity</label>
+                <input type="number" name="ticketQuantity" id="ticketQuantity"/><br>
+                <label>Note</label>
+                <textarea placeholder="informations" id="ticketInfo" ></textarea><br>
+            </div>
+
+           <div id="plublishingDiv">
+
+                <h2 class ="addEventHeader"><img src="img/icones/icone_publish.png"><span class="addEventPublishing">Publishing</span></h2>
+                <input type="checkbox" name="publishingPlatform" value="facebook">Facebook
+                <input type="checkbox" name="publishingPlatform" value="twitter">Twitter<br>
+
+           </div>
+
+           <div id="eventArtistsDiv">
+                 <h2 class ="addEventHeader"><img src="img/icones/icone_artist_small.png"><span class="addEventArtists">Artists</span></h2>
+                 <input type="text" name="artistName" id="artistName"/>
+                 <button type="button"id="addArtistButton" class ="showAll">
+                 <img src="img/icones/icone_list2.png"/>
+                 </button><br>
+
+
+                <fieldset id="artistInEvent">
+                    <legend>Artists selected</legend>
+                </fieldset>
+                
+                <h3 id = 'noArtistEventResultInfo'>pas de resultat, vous pouvez creer un nouvel artiste</h3> 
+                
+              
+          </div>
+
+           
+               
+               <button type="button" id="submitEvent" class="addEventCreate">CREATE NEW EVENT</button>
+                          
+        </div>                  
+        
+      </form>
+    </div>  
+  </div>  
+</div>

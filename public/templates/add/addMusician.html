@@ -1,0 +1,65 @@
+   <div class="form musician ">
+        <div class="accordion">
+                   
+            <h1>Add new musician</h1>
+            
+                        
+            <div  class="musicianForm">
+                <form class="musicianForm">
+                    <h2><img src="img/icones/icone_information.png">Informations</h2>
+                    <div class="firstColumn">
+
+                        
+                    
+                    <div class="musicianInfoForm">            
+                        <label>Name* </label><input type="text" name="nameMusicianMusician"  class ="nameMusician" id="nameMusician"required/><br>
+                        <label>Last name</label><input type="text" name="lastNameMusician" id="lastNameMusician" /><br>
+                        <label>Stagename </label><input type="text" name="stagename" id="stagename" /><br>          
+                    </div>
+
+                    </div>
+                    <div class="secondColumn">
+
+                    <div class="musicianInstruForm">
+                        <label>Instrument</label><input type="text" name="instrument" class="instrument" id= "instrumentMusician" placeholder="start typing"/>
+                        <button type="button" class ="showAll"id="showAllInstruments">
+                        <img src="img/icones/icone_list2.png"/>
+                        </button>
+                        <br>
+                        
+                        <fieldset id="instrumentsPlayedMusician">
+                            <legend>Instruments played</legend>
+                        </fieldset>
+                    
+                              
+            <h3 id = 'noInstrumentResultInfo'>pas de resultat, vous pouvez creer un nouvel instrument</h3>
+<button type="button" class="" id="createNewInstrumentButton">
+add new instrument</button>
+
+                              
+
+                    <label>Add to artist</label>
+                    <input type="text" name="addToArtist" class="addToArtist" id="addToArtist" placeholder="start typing"/>
+                        <button  type="button" class ="showAll"id="showAllArtistInMusician"> 
+                        <img src="img/icones/icone_list2.png"/>
+                        </button>
+
+                        <fieldset id="musicianAddedToArtist">
+                            <legend id="musicianArtistField">Artists selected</legend>
+                        </fieldset>
+                    
+                              
+                        <h3 id = 'noArtistResultInfo'>pas de resultat, vous pouvez creer un nouvel Artiste</h3>
+                        <button type="button"id="chuj" class="noResult addArtist" >Add artist</button>
+                    </div>
+                    
+                    <button type="button" id="createNewMusician">Create new musician</button>
+                    
+                    </div>           
+                    
+                </form>
+ 
+            </div>
+
+        </div>
+    </div>

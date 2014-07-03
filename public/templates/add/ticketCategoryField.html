@@ -1,0 +1,16 @@
+	    <% _.each(tickets, function (ticket, index) { %>
+	<div class="ticketResult" id="ticketName-<%- ticket.name_de %>" data-indice=
+	            "<%- index %>"	>
+	
+	               <%- ticket.name %>
+
+	            <button data-indice=
+	            "<%- index %>" type= "button" class="deleteTicket">Delete ticket
+	        	</button>
+	 </div>
+	         <% }); %>
+
+
+
+	                	
+	           

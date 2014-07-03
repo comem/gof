@@ -1,0 +1,119 @@
+<% _.each(artists, function (artist, artistIndex) { %>
+<div class= "artistTemplate myAccordion">
+
+
+          	<h1>
+          		<img class ="imageListe"src="img/icones/icone_artist.png">
+          		<%- artists[artistIndex].name %>
+          		<ul class = "buttonsListMusician">
+          			<li><button type="button">
+          				<img src="img/icones/icone_delete.png"/>
+          				</button>
+          			</li>
+          			<li><button type="button">
+          				<img src="img/icones/icone_edit.png"/>
+          			</button>
+          			</li>
+          		</ul>
+          	</h1>
+          	<div class="pourQueAccFonctionne">
+
+          		<div class="firstColumn">
+          			<div class="artistListInformation">
+						<h2>
+							<img src="img/icones/icone_information.png">
+							General Informations
+						</h2>
+			          	<p>
+			          		<label>Description : </label>
+			          		<%- artist.complete_description_de %>
+			          	</p>
+
+			          	<p>
+			          		<label>Lead : </label>
+			          		<%- artist.short_description_de %>
+			          	</p>
+		          	</div>
+		          	<div class= "aritisrListGenre">
+			          	<h2>
+			          		<img src="img/icones/icone_genre.png">
+			          		Genres
+			          	</h2>
+				         <% _.each(artists[artistIndex].genres, function (thisGenre, index) { %>
+				         <p>
+				         	<label>Style : </label>
+				         	<%- thisGenre.name_de %> 
+				         </p>	
+				         <% }); %>
+		          	</div>
+
+		          	<% _.each(artists[artistIndex].links, function (link, index) { %>
+		          	<div class="artistListLinks">
+
+		          	<h2>
+		          		<img src="img/icones/icone_links.png">
+		          		Links
+		          	</h2>
+		          	<p>
+		          		<label>URL : </label>
+		          		<%- link.title_de%> 
+		          	</p>
+		          	<p>
+		          		<label>Title : </label>
+		          		<%- link.name_de %>
+		          	</p>
+		          	<p>
+		          		<label>Name : </label>
+		          		<%- link.url %>
+		          	</p>
+		          	</div>
+		          	 <% }); %>
+		        </div>
+
+		      <div class="secondColumn">
+					<h2>
+						<img src="img/icones/icone_musician.png">
+						Musicians 
+					</h2>
+
+		         
+ 					<% _.each(artists[artistIndex].musicians, function (musician, index) { %>
+		           	
+		           	<div class ="artistMusician myAccordion"> 
+		           		
+		           		<h3> <%- musician.stagename  %> </h3>
+		           		<div>	
+		           		
+
+		           		<p> 
+		           			<label>First name : </label>
+		           			<%- musician.first_name %> 
+		           		</p>
+		           		
+		           		<p> 
+		           			<label>Last name : </label>
+		           			<%- musician.last_name %> 
+		           		</p>
+		           		</div>
+		           	
+			           		
+			           		
+			       
+
+		           	  <!-- artistMusician -->
+		           
+		        </div>  
+		 	   	<% }); %>
+		 	   	
+		 	   	
+		 	   	</div>
+          
+
+
+
+
+       </div>
+
+</div>
+
+        	<% }); %>

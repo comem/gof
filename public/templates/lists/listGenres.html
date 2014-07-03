@@ -1,0 +1,12 @@
+  <h1>Genres</h1>
+    <% _.each(genres, function (genre, index) { %>
+<div class="instrumentList" id="intrumentNameList-<%- instrument.name %>" data-indice=
+            "<%- index %>"	>
+
+       
+               <%- index+1 %> :   <b><%- genre.name_de %> </b>
+
+ </div>
+         <% }); %>
+	
+           

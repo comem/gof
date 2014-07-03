@@ -1,0 +1,73 @@
+<html lang="fr"><head>
+	<title>AddArtist</title>
+	<meta charset="utf-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/artistForm.js"></script>
+	
+    <body>
+
+ <div id="artistInfoDiv">
+	<h1>Informations</h1>
+
+	
+    	Name* <input type="text" name="nameArtist" id="nameArtist" required placeholder="artist name"><br>
+    	Lead <textarea name="lead" id="lead" maxlength="300" placeholder="artist lead"></textarea><br>
+    	Description <textarea  placeholder="artist description" name="desc" id="desc"></textarea><br>
+    
+</div>
+
+
+ 
+    	<div  id="genreSelect">
+    		Genre
+    		<form name="form-test" id="form-test">
+            	<input type="text" name="champ-texte" id="champ-texte"/>
+				<button>Add new genre</button>
+			</form>
+    	</div>
+
+
+    	<div id= "musicianSelect">
+    	 		Musician
+    	
+	 		<form name="form-test" id="form-test">
+	            <input type="text" name="champ-texte" id="champ-texte"/>
+	            <button id="createMusicianButton">Create new musician</button>
+	          
+       		 </form>
+       		 <button id="addMusiciansButton">+ more musicians</button>
+			
+    	</div>
+
+
+    	<div id= "addToEvent">
+    		<h2>Event</h2>
+	    	Add to event 
+            <form name="form-test" id="form-test">
+	            <input type="text" name="champ-texte" id="champ-texte"/>
+	            <button>Add to event</button>
+       		 </form>
+       		 Arrival hour <input type="time" name="title" id="title">
+           
+ 		</div>
+
+
+    	<div id="links">
+    		<h1>Links</h1>
+    		Title <input type="text" name="title" id="title"><br>
+    		Name <input type="text" name="nameLink" id="name" ><br>
+    		URL <input type="url" name="url" id="url" ><br>
+    	</div>
+    		
+ <div id="artistImageDiv">
+    	<h1>Image</h1>
+    	Browse existing image <input type="file" name="img" multiple id="artistImgBrowse">
+        Upload new image <input id="artistImgUpload" type="file" name="img" multiple>
+        <br>
+</div>
+        <button id="submitButton">CREATE NEW ARTIST</button>
+
+
+
+</body>
+</html>

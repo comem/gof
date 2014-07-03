@@ -1,0 +1,16 @@
+    <% _.each(genres, function (genre, index) { %>
+<div class="genreResult" id="genreName-<%- genre.name_de %>" data-indice=
+            "<%- index %>"	>
+
+       
+                 <%- genre.name_de %>
+
+            <button data-indice=
+            "<%- index %>" type= "button" class="deleteGenre">Delete genre</button>
+        
+    
+ </div>
+         <% }); %>
+
+                	
+           

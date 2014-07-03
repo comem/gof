@@ -16,8 +16,6 @@ Route::get('/', function () {
     return Redirect::to(URL::action('AuthController@getIndex'));
 });
 
-
-
 Route::group(
         array(
     'prefix' => 'api/v1',
@@ -60,4 +58,4 @@ Route::group(
 );
 
 // Routage pour le controller de la gestion des authentifications
-Route::controller('/auth', 'AuthController');
+Route::controller('/', 'AuthController');

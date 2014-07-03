@@ -18,16 +18,10 @@
         }
         return $files;
     }
-
-    $templates = array();
-    foreach (getAllFiles('.', 'js') as $filename) {
-        $viewName = str_ireplace('.js', '', $filename);
-        $viewName = str_ireplace('/', '_', $viewName);
-        $content = file_get_contents($filename);
-        $templates[$viewName] = preg_replace('/\s\s+/', ' ', $content);
-    }
-    $json = json_encode($templates);
-
     header("Content-type: application/javascript");
-?>
-var templates = <?php echo $json;?>;
+
+    foreach (getAllFiles('.', 'js') as $filename) {
+       echo file_get_contents($filename) . "\n";
+   }
+
+   

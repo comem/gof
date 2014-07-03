@@ -35,18 +35,84 @@ form{
 //         border-radius: 10px;
 //     }
 // }
+///°°°°°°°°EXPORT EVENT°°°°°°°°°////////
+
+.musicianListYeah{
+margin-left: 40px;
+margin-top: 10px; 
+}
+
+.exportEvent{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    .column(2.5);
+    color: #666;
+
+    background-color: #EEE;
+    border:1px solid #DADADA;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    top: 300px;
+    text-align: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+        
+        ul{
+            text-align: center;
+        }
+
+        li{
+            input{
+                width: 90px;
+                    }
+            label{
+                
+                color: #666;
+                    }
+
+            }
+        button{
+        border: none;
+                 width: 100px;
+                 color: #FFF;
+                 height: 30px;
+                 -webkit-transition:  0.2s;
+                 border-radius: 2px;
+
+                 
+                 
+                    
+                    &:hover {
+                     background: #CF7A7A;
+                     -webkit-transition:  0.2s;
+                     }
+
+                     &:active{
+                        -webkit-box-shadow: inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                        -moz-box-shadow:    inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                         box-shadow:         inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                     }
+
+    }    
+
+}
 
 
-
-
-.accordion, #stuffForm{
+#overflow{
+    overflow: hidden;
+}
+.accordion, #stuffForm {
 background-color: #EEE;
     border:1px solid #DADADA;
     .column(16);
             .push(4);
             position: relative;
             display: block;
-            overflow: auto;
+            
+              overflow: hidden;  
+
+            
 
             -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
@@ -178,6 +244,61 @@ button {
                 }
             }
         }
+
+/////°°°°°°°°°USERLOG°°°°°°°°°////
+
+.logOut{
+    .column(7.2);
+    .push(8.9);
+    padding: 5px; 
+    border-bottom-right-radius: 10px; 
+    border-bottom-left-radius: 10px; 
+    // background-color: #EEE;
+    margin-top: 27px;
+
+    // border:1px solid #DADADA;
+   color: white;
+
+
+    p{
+        display: inline; 
+    }
+        button{
+             border: none;
+                 width: 60px;
+                 color: #FFF;
+                 height: 20px;
+                 -webkit-transition:  0.2s;
+                 border-radius: 10px;
+                 margin-left: 10px;
+                 margin-top: -2px;
+                 img{
+                    height: 16px;
+                    width: 16px;
+                    margin-top: 0px;
+                    margin-left: -3px;
+                 }
+
+                 -webkit-box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+-moz-box-shadow:    0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+box-shadow:         0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+                 
+                    
+                    &:hover {
+                     background: red;
+                     -webkit-transition:  0.2s;
+                     }
+
+                     &:active{
+                        -webkit-box-shadow: inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                        -moz-box-shadow:    inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                         box-shadow:         inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                     }
+
+    }
+}
+
+
 ///°°°°°°°°°°ARTIST FORM °°°°°°°////
 
 .artist, .musicianForm, #eventForm{
@@ -301,6 +422,7 @@ span.ui-button-text{
     margin-top: 25px;
     height:35px;
     width: 40px;
+    border-radius: none;
 
     option{
         font-size: 3em;
@@ -486,7 +608,7 @@ span.ui-button-text{
     }
 }
 
-#instrumentsPlayedMusician, #musicianAddedToArtist, #genresSelected, #artistToEvent{
+#instrumentsPlayedMusician, #musicianAddedToArtist, #genresSelected, #artistToEvent, fieldset{
 
     border:2px solid grey;
     -moz-border-radius:8px;
@@ -501,7 +623,7 @@ span.ui-button-text{
         margin-left: 10px;
     }
 
-        .instrumentResult, .artistResult, .genreResult, .musicianResult{
+        .instrumentResult, .artistResult, .genreResult, .musicianResult, .ticketResult{
         margin-top: 6px;
         margin-left: 5px;
         font-size: 12px;
@@ -511,7 +633,7 @@ span.ui-button-text{
 
         }
 
-        .deleteInstrument, .deleteArtist, .deleteGenre, .deleteEvent{
+        .deleteInstrument, .deleteArtist, .deleteGenre, .deleteEvent, .deleteTicket, .deleteNightType{
         background: url('../img/icones/icone_delete.png');
         opacity: 0.6;
         background-repeat: no-repeat;
@@ -608,12 +730,36 @@ span.ui-button-text{
 
 ///°°°°°°°°°°°°°°°° LIST CSS °°°°°°°°°°°°°///
 
-#musicianList, #eventList, #artistList{
+#musicianList, #artistList{
 
     background-color: #EEE;
     border:1px solid #DADADA;
     .column(16);
     .push(4);
+    position: relative;
+    display: block;
+    border-bottom-right-radius: 10px; 
+    .pourQueAccFonctionne{
+        ///background-color: #EEE;
+        background-color: #F2F2F2;
+    }
+    
+
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+
+
+
+
+}
+
+#eventList{
+
+    background-color: #EEE;
+    border:1px solid #DADADA;
+    .column(16);
+    .push(1.5);
     position: relative;
     display: block;
     border-bottom-right-radius: 10px; 

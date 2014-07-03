@@ -30,6 +30,7 @@ var Modal = Backbone.Modal.extend({
         "click  #imageUpload"       : 'uploadImage'
        
     },
+    
     imageSelect:function(event){
         var genreIndex = $(event.target).attr('id');
         var id = $(event.target).attr('id');  
@@ -106,6 +107,26 @@ var EventList = MyView.extend({
     render:function(){
         this.$el.html(this.template());
         return this;
+    },
+    loadColl:function(){
+      eventsNestedColl.get('events').fetch({
+           success: function(){
+
+
+             setTimeout(function(){
+            $('#eventList').empty();
+           listEvent = new EventMultipleView({model:eventsNestedColl})
+            listEvent.render().$el.appendTo("#eventList")
+            $('.myAccordion').accordion({collapsible: true, active: false,heightStyle: "content"})
+
+
+         }, 800)
+          
+            
+            console.log(eventsNestedColl.toJSON());
+    }
+})
+
     }
 });
 
@@ -114,55 +135,64 @@ var ArtistList = MyView.extend({
     render:function(){
         this.$el.html(this.template());
         return this;
+    },
+    loadColl:function(){
+
+
+       
+    artistNestedCollServer.get('artists').fetch({
+
+        success:function(){
+
+   setTimeout(function(){
+              $('#artistList').empty();
+        multipleArtists.render().$el.appendTo('#artistList');
+            $('.myAccordion').accordion({collapsible: true, active: false,heightStyle: "content"})
+            $(".buttonsListMusician").click(function(event){
+            event.stopPropagation();
+            });
+
+         }, 800)
+
+          
+           
+
+
+        }
+    })
+
     }
 });
 
 
-/*
- musicianNestedCollServer.get('musicians').fetch({
-        success:function(){
 
-           musicianList = new MusicianMultipleView({model:musicianNestedCollServer})
-           musicianList.render().$el.appendTo('#musicianList')
-            $('.myAccordion').accordion({collapsible: true, active: false,heightStyle: "content"})
 
-           
-        }
-    })
-*/
 var MusicianList = MyView.extend({
     template: _.template(templates.lists_listMusician),
     render:function(){
         this.$el.html(this.template());
         return this;
     },
-    loadStuff: function(){
-        var self = this;
-        musicianNestedCollServer.get('musicians').fetch({
-            xhr: function() {
+    loadColl: function(){
 
-                var xhr = $.ajaxSettings.xhr();
-                xhr.onprogress = self.handleProgress;
-                return xhr;
-            }
-        });
-    },
-    handleProgress: function(evt){
-        var percentComplete = 0;
-        if (evt.lengthComputable) {  
-            percentComplete = evt.loaded / evt.total;
+        musicianNestedCollServer.get('musicians').fetch({
+        success:function(){
+           musicianList = new MusicianMultipleView({model:musicianNestedCollServer})
+
+           setTimeout(function(){
+            $('#musicianList').empty()
+            musicianList.render().$el.appendTo('#musicianList')
+            $('.myAccordion').accordion({collapsible: true, active: 
+              false,heightStyle: "content"})
+
+         }, 800)
+           
             
         }
-        if(percentComplete ==100){
 
-           musicianList = new MusicianMultipleView({model:musicianNestedCollServer})
-           musicianList.render().$el.appendTo('#musicianList')
-            $('.myAccordion').accordion({collapsible: true, active: false,heightStyle: "content"})
-
-        }
-        console.log(Math.round(percentComplete * 100)+"%");
+    })
     }
-
+    
 });
 
 
@@ -323,6 +353,7 @@ var EventAdd = MyView.extend({
         "keydown #artistName" : 'autocompleteArtist',
         "click .showAll" : 'showAll',
         "click #showAllTypes" : 'showAllTypes',
+        "click #showAllCategories" : 'showAllCategories',
         "keydown #eventTypeInput" : 'autocompleteEventType',
         "keydown #ticketCategory" : 'autocompleteTicketCategory',
     },  
@@ -340,6 +371,13 @@ var EventAdd = MyView.extend({
            .autocomplete("search"); 
         
     },
+  showAllCategories: function(){
+        
+           $('#ticketCategory').val('')
+           $('#ticketCategory').trigger("focus")
+           .autocomplete("search"); 
+        
+    },
     autocompleteEventType: function(){
         var listToBeFilled = $("#eventTypesField");
             $('#eventTypeInput').autocomplete({
@@ -348,8 +386,7 @@ var EventAdd = MyView.extend({
                  url: 'http://pingouin.heig-vd.ch/gof/api/v1/nighttypes/search',
                     dataType : "json",
                     data:{string:request.term},
-                    success:function(data){
-                        console.log(data);    
+                    success:function(data){ 
                         response($.map(data, function(item) {
                             // console.log(item.name_de);
                                return {                    
@@ -380,6 +417,7 @@ var EventAdd = MyView.extend({
                         });
                     }
                 },
+            autoFocus:true,
             minLength: 0, // must be 0 if you want to show all
             dataType : "json",
             select: function(event,ui){
@@ -469,19 +507,36 @@ var EventAdd = MyView.extend({
      var followed = $("#followed").val()// 0 or 1
      var eventType = $('#eventType').val();
      var ticketType = $('#ticketType').val();
-   
+
+
      if (followed == "Yes") {
         followed = true
      }else{
         followed = false;
      };
      //get night type id
-     var nighttypeid = nightTypeNestedColl.get('nighttype').at(0).get('id')
+     var nighttypeid = nightTypeNestedColl.get('nighttype').at(0).get('id')-0
+     console.log(nighttypeid);
   
-     var evento = new EventModel({title_de: eventName, start_date_hour: startDate+" "+startTime, ending_date_hour: 
-      endDate+" "+endHour, opening_doors:startDate +" "+openingDoorsTime, nb_meal : normalMeals, nb_vegans_meal: veganMeals,
+    //convert data to the one used in database, us_format
+    function formatDate(date,time){
+
+      var euro_date = date;
+      euro_date = euro_date.split('.');
+      var us_date = euro_date.reverse().join('-');
+
+      var hour = time+':00'
+      return us_date+" "+hour
+    }
+
+
+     var evento = new EventModel({title_de: eventName, start_date_hour: formatDate(startDate,startTime), ending_date_hour: 
+      formatDate(endDate,endHour), opening_doors:formatDate(startDate, openingDoorsTime), nb_meal : normalMeals, nb_vegans_meal: veganMeals,
       meal_note: mealNotes, nb_places: placesNumber, followed_by_private: followed, 
-      notes: complementaryNotes,nighttype_id: nighttypeid});
+      notes: complementaryNotes ,nighttype_id: nighttypeid, image_id:1});
+
+console.log(JSON.stringify(evento));
+    
 
      //add platforms
      var isCheckedFacebook =  $("input[value='facebook']").is(":checked")
@@ -489,20 +544,23 @@ var EventAdd = MyView.extend({
 
       if (isCheckedFacebook) {
         platformid = 1
-        facebook = new Platform({platform_id: platformid})
+        facebook = new Platform({platform_id: platformid, external_id: 'jqowpe', 
+          external_infos:'infos', url:'www.facebook.com'})
         evento.get('platforms').add(facebook)
       };
       if (isCheckedTwitter) {
         platformid  = 2
-        twitter = new Platform({platform_id: platformid})
+        twitter = new Platform({platform_id: platformid, external_id: 'exte id', 
+          external_infos:'infos' , url:'www.twitter.com'
+          })
         evento.get('platforms').add(twitter)
       };
       //add ticket 
       var ticketId = ticketsNestedColl.get('tickets').at(0).get('id')
-     var ticket = new Ticket({amount: ticketPrice, comment: ticketNote, ticket_categorie_id: ticketId, quantitySold: ticketQuantity})
+      var ticket = new Ticket({amount: ticketPrice, comment: ticketNote, ticket_categorie_id: ticketId, quantitySold: ticketQuantity})
 
 
-     evento.get('ticket_categorie').add(ticket)
+     evento.get('ticket_categories').add(ticket)
     
      //addArtists
       artistEventNestedList.get('artists').each(function( model ) {
@@ -510,10 +568,62 @@ var EventAdd = MyView.extend({
                     artist_hour_arrival: '2014-01-03 10:01:01', is_support:0})
                     evento.get('artists').add(artist)
       });
-       
-   
-          console.log(JSON.stringify(evento));
-        evento.save()
+
+        evento.save(null,{
+                      success: function(model, response) {
+                        
+                           console.log(JSON.stringify(evento));
+
+                            var added = $('#musicianSuccessfullyAdded')
+                            $( "<div title='Neue Veranstaltung'>").dialog({            
+                              buttons: {
+                                Schliessen: function() {
+                                  $(this).dialog( "close" );
+                                    },
+                              }
+                            }).append('Die neue Veranstaltung wurde erfolgreich hinzugefügt')
+
+                              eventName.val("")
+                              startDate.val("")
+                              startTime.val("")
+                              openingDoorsTime.val("")
+                              endDate.val("")
+                              endHour.val("")
+                              mealNotes.val("")
+                              normalMeals.val("")
+                              veganMeals.val("")
+                              ticketPrice.val("")
+                              ticketQuantity.val("")
+                              ticketNote.val("")
+                              veganMeals.val("")
+                              complementaryNotes.val("")
+                              placesNumber.val("")
+                              followed.val("")
+                              eventType.val("")
+                              ticketType.val("")
+                              eventTypeField.remove()
+                              $("#eventTypesField").hide()
+                              artistFieldEvent.remove()
+                              $("#artistInEvent").hide()
+                              ticketField.remove()
+                              $("#ticketCategoryField").hide()
+                              artistEventNestedList.get('artists').reset()
+                              nightTypeNestedColl.get('nighttype').reset()
+                              ticketsNestedColl.get('tickets').reset()
+
+
+                        },
+                        error: function(model, response) {
+                           console.log(JSON.stringify(evento));
+                             $( "<div title='Achtung!'>").dialog({            
+                              buttons: {
+                                Close: function() {
+                                  $(this).dialog( "close" );
+                                    },
+                              }
+                            }).append('Etwas ist schief gelaufen!')
+                        }
+                    });
 
 
                },
@@ -827,16 +937,21 @@ var addSecondNav = new AddNav();
 var listSecondNav = new ListNav();
 
 var eventList = new EventList();
+eventList.loadColl()
 var artistList = new ArtistList();
+artistList.loadColl()
 var musicianList = new MusicianList();
-musicianList.loadStuff()
+musicianList.loadColl()
 var stuffList = new StuffList();
 
 var addEvent = new EventAdd();
 var addArtist = new ArtistAdd();
 
 var addMusician = new MusicianAdd();
-var addStuff = new AddStuff()
+var addStuff = new AddStuff();
+var modalView = new Modal();
+
+
 
 
 $(function(){
@@ -857,6 +972,9 @@ $(function(){
     addArtist.render().$el.appendTo('#formsAdd');
     addMusician.render().$el.appendTo('#formsAdd');
     addStuff.render().$el.appendTo('#stuffForm');
+
+   
+
 
 
    
@@ -897,7 +1015,9 @@ multipleArtists.render().$el.appendTo('#artistList');
 multipleEvents.render().$el.appendTo('#eventList');
 multipleMusicians.render().$el.appendTo('#musicianList')
 */
-
+//export
+$("#exportDate").datepicker({dateFormat: 'dd.mm.yy',changeMonth: true, changeYear: true})
+$("#exportEndDate").datepicker({dateFormat: 'dd.mm.yy',changeMonth: true, changeYear: true})
 //artist
 $("#arrivalHourHour").timepicker({'scrollDefaultNow': true, 'timeFormat': 'H:i'})
 $("#arrivalHour").datepicker({dateFormat: 'dd.mm.yy',changeMonth: true, changeYear: true})
@@ -921,15 +1041,49 @@ $('.myAccordion').accordion({collapsible: true, active: false,heightStyle: "cont
 
  $('.open').on('click', function(){
 
-        // Render an instance of your modal
-        var modalView = new Modal();
+        
+        console.log('AAAAAAAAAAAAAAAAAAAAH');
         $('.app').html(modalView.render().el);
 
+          var ImageView = Backbone.View.extend({
+            template : _.template(templates.lists_listImage),
+              initialize: function(attrs, options){
+                   this.listenTo(this.model, 'all', this.render);
+                   //this.listenTo(this.model, 'remove', this.logDelete);
+                   //this.listenTo(this.model, 'add' ,this.logAdd)
+              },
+             
+              render: function() {
+                  this.$el.html(this.template(this.model.toJSON()));
+                  return this;
+              }
+              
+          }); 
+
+          // Render an instance of your modal
+          
+         
+
+          var imageView = new ImageView({model:imagescollnested});
+
+          imagescollnested.get("images").fetch({
+          success:function () {
+          imageView.render().$el.appendTo("#selectable");
+            console.log(imagescollnested.toJSON());
+
+          }
+      })
+
+  });
+
+     
+
+      
 
 
 
 
-});
+
 $(".deleteArtistEvent").hide()
 $("#artistInEvent").hide()
 $("#noArtistEventResultInfo").hide()
@@ -947,4 +1101,49 @@ $(".buttonsListMusician").click(function(event){
 
 
 
+
+
+///EXPORTWORD///
+
+
+$( "#exportTo" ).click(function() {
+    var exportDate = $( "#exportDate" ).val();
+    exportWord(exportDate);
+    console.log("click");
 });
+
+
+
+
+ function formatDate(date){
+
+       var euro_date = date;
+       euro_date = euro_date.split('.');
+       var us_date = euro_date.reverse().join('-');
+       console.log("format");
+       return us_date
+     }
+
+function exportWord (exportDate) {
+
+     jQuery.ajax({
+         type: "POST",
+         url: "http://pingouin.heig-vd.ch/gof/api/v1/nights/publish?date="+formatDate(exportDate),
+         dataType: "json",
+         success: function () {
+             console.log("sucess");
+         },
+
+         error: function () {
+            console.log("error");
+         }
+});
+   }
+
+
+
+
+
+
+});
+

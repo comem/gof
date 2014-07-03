@@ -1,0 +1,16 @@
+    <% _.each(instruments, function (instrument, index) { %>
+<div class="instrumentResult" id="intrumentName-<%- instrument.name_de %>" data-indice=
+            "<%- index %>"	>
+
+       
+                 <%- instrument.name_de %>
+
+            <button data-indice=
+            "<%- index %>" type= "button" class="deleteInstrument">delete instrument</button>
+        
+    
+ </div>
+         <% }); %>
+
+                	
+           

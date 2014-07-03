@@ -30,6 +30,11 @@
             <h3>Authentification error</h3>
 
     @endif
+     @if (isset($logout) && $logout)
+ 
+            <h3>Logout OK</h3>
+
+    @endif
                 <div class="input">
                     <div class="blockinput">
                     <input type="text" name="email" placeholder="Username"> <br>

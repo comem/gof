@@ -68,10 +68,10 @@ $('#addToArtist').autocomplete({
 								//console.log(artist);
 									artistNestedList.get('artists').add(artist)
 								
-									//console.log(artistNestedList.toJSON());
+									console.log(artistNestedList.toJSON());
 
 					
-									var renderArtist = artistField.render().$el
+									var renderArtist = artistFieldMusician.render().$el
 									$(renderArtist).appendTo(listToBeFilled)
 									listToBeFilled.show()
 												

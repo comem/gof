@@ -17,6 +17,15 @@
                     stagename: stageName, last_name: musicianLastName})
                 
                   //add the artist id
+                  if (artistNestedList.get('artists').length==0) {
+                      $( "<div title='Achtung!'>").dialog({            
+                                      buttons: {
+                                        Schliesse: function() {
+                                          $(this).dialog( "close" );
+                                            },
+                                      }
+                                    }).append('Kein Künstler')
+                  };
                     var artistId = artistNestedList.get('artists').at(0).get('id');
                     var artistInstruments = new ArtistInstruments({artist_id: artistId})
 
@@ -33,38 +42,54 @@
                     console.log(JSON.stringify(musician));
 
 
-                  musician.save();
-                  artistNestedList.get('artists').reset()
-                  instrumentsNestedColl.get('instruments').reset()
+                  musician.save( null,{
+                      success: function(model, response) {
 
-              
-                  $("#instrumentsPlayedMusician").hide()
-                  $("#musicianAddedToArtist").hide()
-
-                  instrumentsAddedToMusician.remove()
-
-
-
-                    // put the inputs to nothing
-                    $("#nameMusician").val('')
-                    $("#lastNameMusician").val('')
-                    $("#addToArtist").val('')
-                    $("#stagename").val('')
-                    $("#instrumentMusician").val('')
-                    //empty the lists
                     
-                    instrumentsColl.reset()
-                    console.log(instrumentsColl.toJSON());
+                            $( "<div title='Add new musician'>").dialog({            
+                                      buttons: {
+                                        Close: function() {
+                                          $(this).dialog( "close" );
+                                            },
+                                      }
+                                    }).append('Der Musiker wurde erfolgreich hinzugefügt')
+
+                          artistNestedList.get('artists').reset()
+                                instrumentsNestedColl.get('instruments').reset()
+
+                      
+                          $("#instrumentsPlayedMusician").hide()
+                          $("#musicianAddedToArtist").hide()
+
+                          instrumentsAddedToMusician.remove()
 
 
-                    var added = $('#musicianSuccessfullyAdded')
-                    $( "<div title='Add new musician'>").dialog({            
-                              buttons: {
-                                Close: function() {
-                                  $(this).dialog( "close" );
-                                    },
-                              }
-                            }).append('Le musicien a été ajouté avec succès')
+
+                            // put the inputs to nothing
+                            $("#nameMusician").val('')
+                            $("#lastNameMusician").val('')
+                            $("#stagename").val('')
+                            $("#addToArtist").val('')
+                            $("#instrumentMusician").val('')
+                            //empty the lists
+                            
+                            instrumentsColl.reset()
+                            console.log(instrumentsColl.toJSON());
+
+
+       
+                            },
+                        error: function(model, response) {
+                             $( "<div title='Achtung!'>").dialog({            
+                                              buttons: {
+                                                Schliessen: function() {
+                                                  $(this).dialog( "close" );
+                                                    },
+                                              }
+                                            }).append('Etwas ist schief gelaufen!'+response)
+                        }
+                    });
+                          
              }else{//Artist not found
                 $( "<div >").dialog({
                   title :'Attention!',

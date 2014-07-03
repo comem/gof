@@ -1,0 +1,18 @@
+<div style ="margin-left:20%; " class="musicianTemplate myAccordion" >
+		
+          	<h1> <%- first_name %> </h1>
+          	<div class="musicianInfoTemplate"> 
+	          	<p>Last name : <%- last_name %> </p>
+	          	<p>Stage name: <%- stagename %> </p>
+	          	
+	          	<div class="musicianInstrumentsTemplate">
+	          		<span>Instruments: </span>
+	          	 <% _.each(instruments, function (instrument, index) { %>
+	          	 	<%- instruments[index].name_de %>
+	          	  <% }); %>
+	          	</div>
+          	</div>
+       
+</div>
+
+        

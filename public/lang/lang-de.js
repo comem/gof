@@ -1,0 +1,97 @@
+//artist
+artistHeader = "Neuen Künstler hinzufügen"
+artistInformation = "Informationen"
+artistNameLabel = "Name"
+artistLead = "Kurtze Berschreibung"
+artistDesc = "Lange Beschreibung"
+theLinksTitle = "Die Links"
+theLinkName = "Name"
+theLinkUrl = "Das URL"
+theLinkTitleLabel = "Titel"
+imageHeader = "Die Bilder"
+browseExistingImage = "Bestehende Bilder ansehen"
+uploadNewImage= "Einen neuen Bild einsenden"
+createNewArtistButton ="Neuen Künstler schaffen"
+
+createNewGenreButton= "Neue Art schaffen"
+showAllGenres = "Alle Arten zeigen"
+showAllMusicians= "Alle Musiker zeigen"
+artistGenresSelected ="Gewählte Arten"
+noGenreResultInfo ="Keine Art wurde gefunden, Sie können eine neue schaffen"
+deleteGenreButtonArtist = "Art löschen"
+genreLabel ="Eine Art wählen"
+genreHeader = "Arten"
+musicianHeader ="Musiker"
+deleteMusician = "Musiker löschen"
+deleteInstrument = "Instrument löschen"
+createNewMusicianButton  = "Neuen Musiker schaffen"
+musicianField = "Gewählte Musiker"
+noMusicianResultsInfo = "Kein Musiker wurde gefunden, Sie können einen neuen schaffen"
+addToEventArtist = "Ereignis"
+addToEventLabel ="Zum Ereignis hinzufügen"
+artistArrivalHourLabel = "Ankunft"
+artistArrivalDateLabel = "Ankunft Datum"
+orderArtist = "ordern*"
+//musician
+addNewMusicianHeader ="Neuen Musiker schaffen"
+newMusicianName ="Vorname"
+newMusicianLastN = "Name"
+newMusicianStageN = "Stage name"
+showAllInstruments ="alle Instrumente zeigen"
+newMusicianInstrument = "Instrument"
+instrumentsPlayed = "Gewählte Instrumente"
+noInstrumentResultInfo = "Kein Instrument wurde gefunden, Sie können ein neues schaffen"
+musicianAddToArtist ="Zu einem Künstler hinzufügen"
+
+
+//Menu
+addEventMenu = "Ereignis hinzufügen"
+addArtistMenu = "Künstler hinzufügen"
+addMusicianMenu = "Musiker hinzufügen"
+addStuffMenu ="Andere hinzufügen"
+addLi = "hinzufügen"
+listLi = "Liste"
+listEventMenu = "Ereignisliste"
+listArtistMenu ="Künstlerliste"
+listMusicianMenu ="Musikerliste"
+listStuffMenu  = "Anderesliste"
+
+//musician add from template
+musicianNameTemplate = "Vorname"
+musicianTitleTemplate ="Musiker"
+
+// addEventMen
+
+addEventTitle = "Event hinzufügen"
+addEventInfo = "Information"
+addEventStart = "Beginn"
+addEventStartDate = "Datum"
+addEventStartHour ="Startzeit"
+addEventOpeningDoors = "Türöffnungszeit"
+addEventEnding = "Ende"
+addEventEndingDate = "Datum"
+addEventEndingHour = "Endzeit"
+
+addEventComplementaryInfo = "Weitere Informationen"
+addEventNote = "Note"
+addEventNumberPlace = "Anzahl der Plätze *"
+addEventPrivateEvent = "Privates Ereignis?"
+addEventContract = "Vertrag"
+
+addEventType = "Art der Veranstaltung"
+addEventName = "Name"
+
+addEventImage = "Bild von der Veranstaltung"
+
+addEventMeals = "Mahlzeit"
+addEventMealsNumber = "Anzahl der Mahlzeiten"
+addEventNumberVegiMeals = "Anzahl der vegetarischen Mahlzeiten"
+
+addEventTickets = "Tickets"
+addEventCategory = "Kategorie"
+addEventQuantity = "Menge"
+
+addEventPublishing ="Veröffentlichungen"
+addEventArtists = "Künstler"
+
+addEventCreate = "Erstelle eine neue Veranstaltung"

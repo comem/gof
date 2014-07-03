@@ -1,0 +1,51 @@
+<% _.each(musicians, function (musician, musicianIndex) { %>
+<div class="musicianTemplate myAccordion">
+
+          	<h1>
+                    <img  class ="imageListe" src="img/icones/icone_musician_big.png">
+                <%- musician.first_name %> 
+          		<span><%- musician.stagename %></span>
+
+          		<ul class = "buttonsListMusician">
+          			<li><button type="button">
+          				 <img class ="deleteMusicianTemplate" data-index = "<%- musicianIndex %> "  src="img/icones/icone_delete.png"/>
+          				</button>
+          			</li>
+          			<li><button type="button">
+          				 <img src="img/icones/icone_edit.png"/>
+          			     </button>
+          			</li>
+          		</ul>
+          	
+
+          	</h1>
+
+          	<div class="musicianInfoTemplate"> 
+
+          			
+       		
+	          	<p><label>Last name : </label><%- musician.last_name %> </p>
+	          	<p><label>Stage name : </label><%- musician.stagename %> </p>
+                    <p><label>Instrument played : </label>
+                    <% _.each(musicians[musicianIndex].instruments, function (instrument, index) { %>
+                          <%- instrument.name_de %> -
+
+                          <% }); %>
+	          	
+	          	<div class="musicianInstrumentsTemplate">
+                         <p><label>Play in artist : </label>
+                         <% _.each(musicians[musicianIndex].artists, function (artist, index) { %>
+	          		
+	          	 
+	          	 	<div class = "musicianListYeah"> 
+                          <%- artist.name %> 
+                          
+                         </div>
+	          	  <% }); %><p> 
+	          	</div>
+          	</div>
+          	
+          		
+</div>
+
+ <% }); %>

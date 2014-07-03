@@ -1,0 +1,132 @@
+<div class="form artist">
+
+                      <div class="accordion nextFormArtist">
+                        <h1 class ="addArtistHeader " ><span class="addArtistHeader1">Add new artist</span></h1>
+
+                        <div>
+                          <form id="artistForm" >
+                            <div class ="firstColumn">
+                                <div id="artistInfoDiv">
+                                    <h2 class ="addArtistHeader"><img src="img/icones/icone_information.png"><span class="artistInformation1">Informations</span></h2>
+                                    <label class="artistName1">Name*</label><input type="text" name="nameArtist" id="nameArtist" required placeholder="artist name"><br>
+                                    <label class="artistLead1">Lead</label><textarea name="lead" id="lead" maxlength="300" placeholder="artist lead"></textarea><br>
+                                    <label class="artistDesc1">Description</label><textarea  placeholder="artist description" name="artistDescription" id="artistDescription"></textarea><br>
+                                    </div>
+                                        <div id="links"> 
+
+                                          <h2 class ="addArtistHeader"><img src="img/icones/icone_links.png"><span class="linksTitle">Links</span></h2>
+                                          <label class="theLinkTitle">Title</label><input type="text" name="title" id="titleLink" ><br>
+                                          <label class="theLinkName">Name</label><input type="text" name="nameLink" id="nameLink" ><br>
+                                          <label class="theLinkUrl">URL</label><input type="url" name="url" id="linkUrl" required><br>
+
+                                        </div> 
+                              
+                                        <div id="artistImageDiv">
+                                              <h2 class ="addArtistHeader imageHeader">Image</h2>
+                                              <label class="browseExistingImage">Browse existing image</label><input type="file" name="img" multiple id="artistImgBrowse">
+                                              <label class="uploadNewImage">Upload new image</label><input id="artistImgUpload" type="file" name="img" multiple>
+                                              <br>
+                                        </div>  
+                                        <button id="createNewArtistButton" class="createNewArtistButton" type = 'button'>CREATE NEW ARTIST</button>
+
+                              </div>
+                          <div class="secondColumn">
+                              <div  id="genreSelect">
+
+                                    <h2 class ="addArtistHeader"><img src="img/icones/icone_genre.png">Genre*</h2>
+                                    <label>Style</label><input type="text" name="genre" id="genre" placeholder= "start typing"/>
+                                    
+
+                                    <button type="button" id="createNewGenreButton" class="createNewGenreButton" class="noResult addGenre">Create</button>    
+                                    <button  type="button" class ="showAll"id="showAllGenres"> 
+                                    <img src="img/icones/icone_list2.png"/>
+                                    </button>
+
+                                    <fieldset id="genresSelected" class="artistGenresSelected">
+                                        <legend>Genres selected</legend>
+                                    </fieldset>
+                                    
+                                    <h3 id = 'noGenreResultInfo'>pas de resultat, vous pouvez creer un nouveau genre</h3> 
+                                    
+                                    <button type="button" class ="deleteGenre deleteGenreButtonArtist">Delete genre</button>
+
+
+                              </div>
+
+
+                              <div id= "musicianSelect">
+<<<<<<< HEAD
+                                    <h2 class ="addArtistHeader"><img src="img/icones/icone_musician.png">Musician*</h2>
+=======
+                                    <h2 class ="addArtistHeader"><img src="img/icones/icone_musician.png"><span class="musicianHeader">Musician</span></h2>
+>>>>>>> image
+                                    <label>Name</label><input class= "titleMusicianForm" type="text" name="musician" id="musician" placeholder="start typing a name"/>  
+                                    <button  type="button" class ="showAll" id="showAllMusicians">
+                                    <img src="img/icones/icone_list2.png"/>
+                                    </button>
+                                    <button type="button" id="createNewMusicianButton" class="noResult add" alt="create a new artist">
+                                    <img src="img/icones/icone_add.png"/>
+                                    </button>  
+                                    <h3 id = 'noMusicianResultsInfo'>Ce musicien n'existe pas, mais vous pouvez le créer</h3> 
+                                    <fieldset id="musiciansPlaying">
+                                        <legend>Musicians playing</legend>
+                                    </fieldset>
+                                    <div>
+                                    
+                                    </div>
+                                    
+                              </div>
+
+
+                              <div id= "addToEvent">
+<<<<<<< HEAD
+                                   <h2 class ="addArtistHeader"><img src="img/icones/icone_event_small.png">Event</h2>
+                                   <label>Add to event*</label><input type="text" name="eventName" id="eventName" placeholder="start typing an event"/>
+=======
+                                   <h2 class ="addArtistHeader"><img src="img/icones/icone_event_small.png"><span class="addToEventArtist">Event</span></h2>
+                                   <label class="addToEventLabel">Add to event</label><input type="text" name="eventName" id="eventName" placeholder="start typing an event"/>
+>>>>>>> image
+                                   <button  type="button" class ="showAll"id="showAllGenres"> 
+                                    <img src="img/icones/icone_list2.png"/>
+                                    </button>
+
+                                   <button type="button" id="createNewEvent" class="noResult addEvent" alt="create a new event">
+                                    <img src="img/icones/icone_add.png"/>
+                                    </button>  
+                                    <h3 id = 'noEventResultInfo'>Cet event n'existe pas, mais vous pouvez le créer</h3> 
+                                    <fieldset id="artistToEvent">
+                                        <legend>Event selected</legend>
+                                    </fieldset>
+
+
+<<<<<<< HEAD
+                                   <label>Arrival date*</label><input class ="text" type="text"  name="arrivalHour"id="arrivalHour">
+                                   <label>Arrival hour*</label><input class ="text" type="text"  name="arrivalHour" id="arrivalHourHour">
+                                   <label>Order*</label><input  type="number" name="order" id="order">
+=======
+                                   <label class="artistArrivalDateLabel">Arrival date</label><input class ="text" type="text"  name="arrivalHour" id="arrivalHour">
+                                   <label class="artistArrivalHourLabel">Arrival hour</label><input class ="text" type="text"  name="arrivalHour" id="arrivalHourHour">
+                                   <label class="orderArtist">Order*</label><input  type="number" name="order" id="order">
+>>>>>>> image
+
+                                   <label>Support?*</label>
+                                   <select id="support">
+                                    <option value ="" selected>please select</option>
+                                      <option value="yes">Yes</option>
+                                      <option value ="no">No</option>
+                                   </select> 
+                 
+                              </div>
+
+
+
+                          </div>
+ 
+                              <!-- <button id="createNewArtistButton">CREATE NEW ARTIST</button> -->
+                     </form>
+                        </div>
+                      </div>
+
+ 
+                    
+                  </div> <!--Fin class=form artist-->
