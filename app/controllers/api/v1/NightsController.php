@@ -13,6 +13,8 @@ use \Ticketcategorie;
 use \Artist;
 use \WordPublish;
 use \Response;
+use \SimpleXMLElement;
+use \ArrayToXml;
 
 /**
  * REST controller with index, store, show, update and destroy methods implemented.
@@ -638,10 +640,9 @@ class NightsController extends BaseController {
     
     /**
      * Allows to export an event with filetype .xml
-     * Choose the path file to save the xml
-     * exemple : api/v1/nights/toxml?date=1998-01-02%2001:01:01&path=c:\night.xml
-     * @var pathsave : the path of xml file
+     * exemple : api/v1/nights/toxml?date=1998-01-02%2001:01:01
      * @var date : date to night showed
+     * @return Response the .xml file generated.
      */
 
     public static function convertXml() {
@@ -666,10 +667,10 @@ class NightsController extends BaseController {
         $night = array($array);
 
 // creating object of SimpleXMLElement
-        $xml_night_info = new \SimpleXMLElement("<?xml version=\"1.0\"?><event></event>");
+        $xml_night_info = new SimpleXMLElement("<?xml version=\"1.0\"?><event></event>");
 
 // function call to convert array to xml
-        \ArrayToXml::array_to_xml($night, $xml_night_info);
+        ArrayToXml::array_to_xml($night, $xml_night_info);
 
         
 //saving generated xml file
