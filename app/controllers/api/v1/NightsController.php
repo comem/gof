@@ -93,6 +93,14 @@ class NightsController extends BaseController {
       "genres":""
       }
       }
+     * # @var (array) "platforms": {
+      "platform1": {
+      "platform_id":"1",
+      "external_id":"external_id",
+      "external_infos":"external_infos",
+      "url":"url"
+      }
+      }
 
      * 
      * @return Response Jsend::fail An error message if the parameters aren't correct
@@ -338,7 +346,7 @@ class NightsController extends BaseController {
 
 
         if ($opening_doors != null) {
-            if (Night::comparison_date($start_date_hour, $opening_doors)) {
+            if (!Night::comparison_date($start_date_hour, $opening_doors)) {
                 return Jsend::fail("The opening door is after the start date");
             }
         }
@@ -517,7 +525,7 @@ class NightsController extends BaseController {
 
 
         if ($opening_doors != null) {
-            if (Night::comparison_date($start_date_hour, $opening_doors)) {
+            if (!Night::comparison_date($start_date_hour, $opening_doors)) {
                 return Jsend::fail("The opening door is after the start date");
             }
         }

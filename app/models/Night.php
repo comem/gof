@@ -127,7 +127,7 @@ class Night extends MyEloquent {
     }
 
     public static function comparison_date($start_date_hour, $end_date_hour) {
-        if (strtotime($start_date_hour) < strtotime($end_date_hour)) {
+        if (strtotime($start_date_hour) <= strtotime($end_date_hour)) {
             return true;
         }
         return false;
