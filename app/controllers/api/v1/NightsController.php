@@ -24,7 +24,7 @@ use \Response;
  * @author    gof
  */
 class NightsController extends BaseController {
-    //Cette classe correspond à la table "events" du diagrame de class.
+    //Cette classe correspond Ã  la table "events" du diagrame de class.
 
     /**
      * Display a listing of the resource.
@@ -228,7 +228,7 @@ class NightsController extends BaseController {
 
 
         DB::commit();
-        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
+        // Et on retourne l'id du lien nouvellement crÃ©Ã© (encapsulÃ© en JSEND)
         return Jsend::success($night->toArray(), 201);
     }
 
@@ -258,7 +258,7 @@ class NightsController extends BaseController {
 
 
 
-        // Retourne le message encapsulé en JSEND si tout est OK
+        // Retourne le message encapsulÃ© en JSEND si tout est OK
         return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($night_id));
     }
 
@@ -576,7 +576,7 @@ class NightsController extends BaseController {
         return $night;
 
 
-        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
+        // Et on retourne l'id du lien nouvellement crÃ©Ã© (encapsulÃ© en JSEND)
         return Jsend::success(array('id' => $night->id));
     }
 
@@ -601,14 +601,23 @@ class NightsController extends BaseController {
      * @return Response the .docx file generated.
      */
     public static function exportWord() {
+        
+        
 
         $datepublish = Input::get('date');
+        
+      
+        
 
         $event = NightsController::searchdate($datepublish);
+        
+         
 
         $id = $event[0]['id'];
 
         $event360 = Night::with('ticketcategories', 'artists', 'image', 'nighttype')->find($id);
+        
+         
 
         $event360->artists->load('genres');
 
@@ -637,7 +646,7 @@ class NightsController extends BaseController {
 
     public static function convertXml() {
         
-          $pathsave = Input::get('path');
+          
         
        // $pathsave = ('C:\night.xml'); // choose your path 
 
@@ -646,10 +655,12 @@ class NightsController extends BaseController {
         $event = NightsController::searchdate($datepublish);
 
         $id = $event[0]['id'];
-
+        
+        $title = $event[0]['title'];
+        
         $array = Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($id)->toArray();
-
-
+        
+       
         // initializing or creating array
         $night = array($array);
 
@@ -659,10 +670,19 @@ class NightsController extends BaseController {
 // function call to convert array to xml
         \ArrayToXml::array_to_xml($night, $xml_night_info);
 
-//saving generated xml file
-        $xml_night_info->asXML($pathsave);
         
-        return Jsend::success("The xml generate to :" . $pathsave);
+//saving generated xml file
+        $xml_night_info->asXML('night.xml');
+        
+        
+                
+       $fileCreated = 'night.xml';
+        
+        
+     return Response::download($fileCreated);
+        
+        
+       
 
 // function defination to convert array to xml
     }
