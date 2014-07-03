@@ -9,9 +9,17 @@ class AuthController extends \BaseController {
     public function getIndex()
     {
 
-        return View::make('auth/login', array(
+        if (Auth::check())
+{
+    // The user is logged in...
+}
+else
+{
+    return View::make('auth/login', array(
             'authFailed' => Session::has('error')
         ));
+}
+        
     }
 
     /**
