@@ -656,10 +656,11 @@ class NightsController extends BaseController {
 
         $id = $event[0]['id'];
         
-        $title = $event[0]['title'];
+        $title = $event[0]['title_de'];
+        
+        $date = substr($event[0]['start_date_hour'], 0, 10);
         
         $array = Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($id)->toArray();
-        
        
         // initializing or creating array
         $night = array($array);
@@ -672,11 +673,11 @@ class NightsController extends BaseController {
 
         
 //saving generated xml file
-        $xml_night_info->asXML('night.xml');
+        $xml_night_info->asXML('public/export/'. $date .'-'.$title.'.xml');
         
         
                 
-       $fileCreated = 'night.xml';
+       $fileCreated = 'public/export/'. $date .'-'.$title.'.xml';
         
         
      return Response::download($fileCreated);
