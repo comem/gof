@@ -184,7 +184,7 @@ class NightsController extends BaseController {
 
         if (!is_a($night, 'Night')) {
 
-            return Jsend::error($night);
+            return $night;
         }
 
 
@@ -443,12 +443,13 @@ class NightsController extends BaseController {
 
         if (Night::existBuisnessId($start_date_hour) == true) {
 
-            return "event already exist in the database";
+            
+            return Jsend::error("event already exist in the database");
         }
 
         if ($image_id != null) {
             if (Image::existTechId($image_id) == false) {
-                return "Image doesn't exist in the database";
+                return Jsend::error("Image doesn't exist in the database");
             }
         }
 
@@ -497,7 +498,7 @@ class NightsController extends BaseController {
         ));
 
         if ($validationNight !== true) {
-            return "Validation night invalid";
+             return Jsend::fail("Validation night invalid");
             //return Jsend::error($validationNight);
         }
 
@@ -515,7 +516,7 @@ class NightsController extends BaseController {
 
         if ($opening_doors != null) {
             if (Night::comparison_date($start_date_hour, $opening_doors)) {
-                return "The opening door is after the start date";
+                return Jsend::fail("The opening door is after the start date");
             }
         }
 
@@ -527,10 +528,12 @@ class NightsController extends BaseController {
 
 
             if (Night::comparison_date($start_night, $start_date_hour) && Night::comparison_date($start_date_hour, $end_night)) {
-                return "The actual event overlaps an existing one";
+                
+                return Jsend::fail("The opening door is after the start date");
             }
             if (Night::comparison_date($start_night, $ending_date_hour) && Night::comparison_date($ending_date_hour, $end_night)) {
-                return "The actual event overlaps an existing one";
+               
+                return Jsend::fail("The actual event overlaps an existing one");
             }
         }
 
@@ -555,7 +558,6 @@ class NightsController extends BaseController {
             $night->image_id = $image_id;
         }
 
-        // l'erreur vient d'iiiiiiiiiiiiiiiiiiiiiiiiiiiccccccccccccci
         $night->save();
         $nightId = $night->id;
 
@@ -576,8 +578,6 @@ class NightsController extends BaseController {
         return $night;
 
 
-        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
-        return Jsend::success(array('id' => $night->id));
     }
 
     /**
