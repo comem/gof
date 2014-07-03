@@ -1,0 +1,767 @@
+@import 'reset.css';
+body {
+  width: 100%;
+  *zoom: 1;
+}
+body:before,
+body:after {
+  content: "";
+  display: table;
+}
+body:after {
+  clear: both;
+}
+form {
+  background-color: #EEE;
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+}
+.firstColumn {
+  display: inline;
+  float: left;
+  width: 50%;
+  margin: 0 0%;
+}
+.secondColumn {
+  display: inline;
+  float: left;
+  width: 50%;
+  margin: 0 0%;
+}
+.accordion,
+#stuffForm {
+  background-color: #EEE;
+  border: 1px solid #DADADA;
+  display: inline;
+  float: left;
+  width: 66.66666666666666%;
+  margin: 0 0%;
+  margin-left: 16.666666666666664%;
+  position: relative;
+  display: block;
+  overflow: auto;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+}
+body {
+  font-family: 'Oxygen', sans-serif;
+  font-weight: 300;
+}
+#artistInfoDiv,
+#genreSelect,
+#musicianSelect,
+#addToEvent,
+#links,
+#artistImageDiv,
+.musicianInfoForm,
+.musicianInstruForm,
+#eventInfoDiv,
+#startTimeDiv,
+#endTimeDiv,
+#mealsDiv,
+#compInfoDiv,
+#ticketsDiv,
+#eventTypeDiv,
+#plublishingDiv,
+#eventImageDiv,
+#eventArtistsDiv,
+#stuffForm {
+  background-color: #EEE;
+  padding: 20px 30px 20px 30px;
+  color: #888;
+  font-size: 14px;
+  text-shadow: 1px 1px 1px #FFF;
+  border: 1px solid #DADADA;
+}
+h1 {
+  font-size: 25px;
+  padding: 0px 0px 5px 30px;
+  display: block;
+  margin-top: 20px;
+  color: #888;
+}
+h1:focus {
+  outline: 0 none;
+}
+h2 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #888;
+  text-decoration: underline;
+  outline: 0 none;
+  font-weight: bold;
+}
+h3 img {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  -webkit-transition: 0.2s;
+}
+h3 img:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transition: 0.2s;
+}
+label {
+  margin-bottom: 5px;
+  display: block;
+}
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="time"],
+textarea,
+select,
+input[type="date"],
+input[type="number"] {
+  border: 1px solid #DADADA;
+  color: #888;
+  height: 24px;
+  margin-bottom: 16px;
+  margin-top: 2px;
+  padding: 3px 3px 3px 5px;
+  width: 70%;
+  font-size: 12px;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  width: 72%;
+  height: 30px;
+}
+textarea {
+  height: 100px;
+}
+button {
+  border: none;
+}
+button .noResult {
+  float: right;
+}
+button img {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  -webkit-transition: 0.2s;
+}
+button img:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transition: 0.2s;
+}
+.artist h2 img,
+.musicianForm h2 img,
+#eventForm h2 img {
+  opacity: 0.6;
+  margin-right: 5px;
+}
+div#ui-datepicker-div.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+  background: white;
+  border: 1px solid #DADADA;
+  border-top: none;
+  width: 230px;
+  color: #888;
+  font-family: 'Oxygen', sans-serif;
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+  -moz-box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+  box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+}
+a.ui-state-default {
+  color: #777;
+  background-color: #EBEBEB;
+  border-radius: 2px;
+}
+a.ui-state-default:hover {
+  background-color: #DBDBDB;
+}
+.date {
+  outline: none;
+}
+#stuffForm input {
+  width: 200px;
+}
+#stuffForm .inputStuff {
+  display: inline;
+  float: left;
+  width: 50%;
+  margin: 0 0%;
+}
+#stuffForm button {
+  border: none;
+  color: #FFF;
+  height: 30px;
+  -webkit-transition: 0.2s;
+  border-radius: 2px;
+}
+#stuffForm button:hover {
+  background: #CF7A7A;
+  -webkit-transition: 0.2s;
+}
+#stuffForm button:active {
+  -webkit-box-shadow: inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+}
+button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only {
+  background: transparent;
+  outline: none;
+  position: relative;
+  top: -115px;
+}
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable.ui-resizable {
+  webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+  color: #888;
+  text-shadow: 1px 1px 1px #FFF;
+}
+span.ui-button-text {
+  background: url('../img/icones/icone_close.png');
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  border: none;
+  text-indent: -4000px;
+  position: relative;
+  left: 15px;
+}
+span.ui-button-text:hover {
+  opacity: 1;
+}
+#changeLocale {
+  position: absolute;
+  right: 10px;
+  margin-top: 25px;
+  height: 35px;
+  width: 40px;
+}
+#changeLocale option {
+  font-size: 3em;
+  font-weight: bold;
+}
+.onoffswitch {
+  position: relative;
+  width: 48px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  display: none;
+}
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #999999;
+  border-radius: 20px;
+}
+.onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -o-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 15px;
+  padding: 0;
+  line-height: 15px;
+  font-size: 10px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+  content: "ON";
+  padding-left: 7px;
+  background-color: #75858A;
+  color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+  content: "OFF";
+  padding-right: 7px;
+  background-color: #EEEEEE;
+  color: #999999;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block;
+  width: 8px;
+  margin: 3.5px;
+  background: #FFFFFF;
+  border: 2px solid #999999;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 29px;
+  -moz-transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -o-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
+#createNewArtistButton {
+  border: none;
+  padding: 10px 25px 10px 25px;
+  color: #FFF;
+  height: 30px;
+  font-size: 8px;
+  font-size: 16px;
+  height: 50px;
+  border-radius: 40px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+#createNewArtistButton:hover {
+  background: #cf7a7a;
+}
+#submitEvent {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  padding: 10px 25px 10px 25px;
+  color: #FFF;
+  height: 30px;
+  font-size: 8px;
+  font-size: 16px;
+  height: 50px;
+  border-radius: 40px;
+  margin-top: 100px;
+  margin-left: 40px;
+}
+#submitEvent:hover {
+  background: #cf7a7a;
+}
+.showAll {
+  background: transparent;
+  position: relative;
+  top: 10px;
+  left: -38px;
+}
+.noResult {
+  background: transparent;
+  display: inline-block;
+  position: relative;
+  float: right;
+  top: 5px;
+  right: 42px;
+  height: 34px;
+}
+#order,
+#support,
+#ticketAddArtist,
+#ticketPrice {
+  width: 40px;
+}
+#musiciansPlaying {
+  border: 2px solid grey;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 3px;
+  width: 235px;
+  padding: 5px;
+}
+#musiciansPlaying legend {
+  font-weight: bold;
+  margin-left: 10px;
+}
+#musiciansPlaying .musicianResult {
+  margin-top: 6px;
+  margin-left: 5px;
+  font-size: 12px;
+  -webkit-transition: opacity 1s ease-out;
+}
+#musiciansPlaying .musicianResult p {
+  display: inline;
+}
+#musiciansPlaying .deleteMusician {
+  background: url('../img/icones/icone_delete.png');
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  height: 16px;
+  width: 13px;
+  float: right;
+  margin-right: 10px;
+}
+#musiciansPlaying .deleteMusician:hover {
+  opacity: 1;
+}
+#instrumentsPlayedMusician,
+#musicianAddedToArtist,
+#genresSelected,
+#artistToEvent {
+  border: 2px solid grey;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 3px;
+  width: 235px;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+#instrumentsPlayedMusician legend,
+#musicianAddedToArtist legend,
+#genresSelected legend,
+#artistToEvent legend {
+  font-weight: bold;
+  margin-left: 10px;
+}
+#instrumentsPlayedMusician .instrumentResult,
+#musicianAddedToArtist .instrumentResult,
+#genresSelected .instrumentResult,
+#artistToEvent .instrumentResult,
+#instrumentsPlayedMusician .artistResult,
+#musicianAddedToArtist .artistResult,
+#genresSelected .artistResult,
+#artistToEvent .artistResult,
+#instrumentsPlayedMusician .genreResult,
+#musicianAddedToArtist .genreResult,
+#genresSelected .genreResult,
+#artistToEvent .genreResult,
+#instrumentsPlayedMusician .musicianResult,
+#musicianAddedToArtist .musicianResult,
+#genresSelected .musicianResult,
+#artistToEvent .musicianResult {
+  margin-top: 6px;
+  margin-left: 5px;
+  font-size: 12px;
+  -webkit-transition: opacity 1s ease-out;
+}
+#instrumentsPlayedMusician .deleteInstrument,
+#musicianAddedToArtist .deleteInstrument,
+#genresSelected .deleteInstrument,
+#artistToEvent .deleteInstrument,
+#instrumentsPlayedMusician .deleteArtist,
+#musicianAddedToArtist .deleteArtist,
+#genresSelected .deleteArtist,
+#artistToEvent .deleteArtist,
+#instrumentsPlayedMusician .deleteGenre,
+#musicianAddedToArtist .deleteGenre,
+#genresSelected .deleteGenre,
+#artistToEvent .deleteGenre,
+#instrumentsPlayedMusician .deleteEvent,
+#musicianAddedToArtist .deleteEvent,
+#genresSelected .deleteEvent,
+#artistToEvent .deleteEvent {
+  background: url('../img/icones/icone_delete.png');
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  height: 16px;
+  width: 13px;
+  float: right;
+  margin-right: 10px;
+}
+#instrumentsPlayedMusician .deleteInstrument:hover,
+#musicianAddedToArtist .deleteInstrument:hover,
+#genresSelected .deleteInstrument:hover,
+#artistToEvent .deleteInstrument:hover,
+#instrumentsPlayedMusician .deleteArtist:hover,
+#musicianAddedToArtist .deleteArtist:hover,
+#genresSelected .deleteArtist:hover,
+#artistToEvent .deleteArtist:hover,
+#instrumentsPlayedMusician .deleteGenre:hover,
+#musicianAddedToArtist .deleteGenre:hover,
+#genresSelected .deleteGenre:hover,
+#artistToEvent .deleteGenre:hover,
+#instrumentsPlayedMusician .deleteEvent:hover,
+#musicianAddedToArtist .deleteEvent:hover,
+#genresSelected .deleteEvent:hover,
+#artistToEvent .deleteEvent:hover {
+  opacity: 1;
+}
+.ui-autocomplete-category {
+  display: none;
+}
+.ui-menu-item {
+  font-size: 13px;
+  font-family: 'Oxygen', sans-serif;
+  opacity: 0.6;
+}
+.ui-menu-item:hover {
+  opacity: 1;
+}
+#noMusicianResultsInfo {
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+.deleteMusicianButton {
+  background: url('../img/icones/icone_delete_big.svg');
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  height: 24px;
+  width: 19px;
+  position: relative;
+  left: -5px;
+}
+.deleteMusicianButton:hover {
+  opacity: 1;
+}
+#createNewMusician {
+  border: none;
+  padding: 10px 25px 10px 25px;
+  color: #FFF;
+  height: 30px;
+  font-size: 8px;
+  font-size: 16px;
+  height: 50px;
+  border-radius: 40px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  margin-top: 50px;
+}
+#createNewMusician:hover {
+  background: #cf7a7a;
+}
+#musicianList,
+#eventList,
+#artistList {
+  background-color: #EEE;
+  border: 1px solid #DADADA;
+  display: inline;
+  float: left;
+  width: 66.66666666666666%;
+  margin: 0 0%;
+  margin-left: 16.666666666666664%;
+  position: relative;
+  display: block;
+  border-bottom-right-radius: 10px;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+}
+#musicianList .pourQueAccFonctionne,
+#eventList .pourQueAccFonctionne,
+#artistList .pourQueAccFonctionne {
+  background-color: #F2F2F2;
+}
+.musicianTemplate {
+  border-bottom: 1px solid #7A7A7A;
+  border-bottom-right-radius: 10px;
+  font-size: 14px;
+  color: #888;
+}
+.musicianTemplate:last-child {
+  border-bottom: none;
+}
+.musicianTemplate p {
+  margin-top: 10px;
+  margin-left: 40px;
+}
+.musicianTemplate label {
+  font-weight: bold;
+  font: 14px;
+  display: inline;
+}
+.musicianTemplate h1 {
+  border-bottom: 1px solid #DADADA;
+  padding: 20px;
+  box-shadow: 0 4px 2px -2px #808080;
+  border-bottom-right-radius: 10px;
+}
+.musicianTemplate h1 span {
+  position: relative;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+  left: 50px;
+}
+.musicianTemplate h1 ul {
+  position: absolute;
+  right: -5px;
+  top: -6px;
+}
+.musicianTemplate h1 img {
+  position: relative;
+  top: 3px;
+}
+.musicianTemplate button {
+  background: transparent;
+  z-index: 4000;
+}
+.musicianInfoTemplate {
+  background-color: #F2F2F2;
+}
+#ui-accordion-11-header-0 {
+  padding-left: 3em;
+}
+.artistMusician {
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+}
+.imageListe {
+  opacity: 0.4;
+  position: relative;
+  top: 2px;
+}
+.imageListe2 {
+  opacity: 0.6;
+}
+.artistTemplate {
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+  border-bottom: 1px solid #7A7A7A;
+  border-bottom-right-radius: 10px;
+  font-size: 14px;
+  color: #888;
+}
+.artistTemplate:last-child {
+  border-bottom: none;
+}
+.artistTemplate h1 {
+  border-bottom: 1px solid #DADADA;
+  padding: 20px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 2px -2px #808080;
+}
+.artistTemplate h1 ul {
+  position: absolute;
+  right: -5px;
+  top: -6px;
+}
+.artistTemplate h1 button {
+  background: transparent;
+  z-index: 4000;
+}
+.artistTemplate label {
+  font: 15px;
+  display: inline;
+  color: #666;
+}
+.artistTemplate h2 {
+  margin-top: 20px;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.54);
+}
+.artistTemplate h2 img {
+  position: relative;
+  top: 2px;
+  opacity: 0.6;
+}
+.artistTemplate p {
+  margin-top: 10px;
+  margin-left: 40px;
+}
+.artistTemplate h3 {
+  font-weight: 600;
+}
+.artistTemplate h3:focus {
+  outline: none;
+}
+.artistTemplate .artistListInformation label {
+  display: block;
+}
+.eventTemplate {
+  border-bottom: 1px solid #7A7A7A;
+  border-bottom-right-radius: 10px;
+  font-size: 14px;
+  color: #888;
+}
+.eventTemplate .pourQueAccFonctionne {
+  background-color: #F2F2F2;
+}
+.eventTemplate h1 {
+  border-bottom: 1px solid #DADADA;
+  padding: 20px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 2px -2px #808080;
+}
+.eventTemplate h1 img {
+  position: relative;
+  top: 2px;
+}
+.eventTemplate h1 ul {
+  position: absolute;
+  right: -5px;
+  top: -6px;
+}
+.eventTemplate h1 button {
+  background: transparent;
+  z-index: 4000;
+}
+.eventTemplate h2 {
+  margin-top: 20px;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.54);
+}
+.eventTemplate h2 img {
+  position: relative;
+  top: 2px;
+  opacity: 0.6;
+}
+.eventTemplate label {
+  font: 15px;
+  display: inline;
+  color: #666;
+}
+.eventTemplate p {
+  margin-top: 10px;
+  margin-left: 40px;
+}
+.eventTemplate .infoEventTemp {
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+}
+.eventTemplate .infoEventTemp .lineOne {
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+}
+.eventTemplate .eventInformations,
+.eventTemplate .eventTicketInfo,
+.eventTemplate .eventMealsInfo,
+.eventTemplate .eventOtherInfo {
+  display: inline;
+  float: left;
+  width: 50%;
+  margin: 0 0%;
+}
+.eventTemplate h3 {
+  font-weight: 600;
+}
+.eventTemplate .eventArtists {
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+}
+.eventTemplate .eventArtists .theArtist {
+  display: inline;
+  float: left;
+  width: 100%;
+  margin: 0 0%;
+  padding: 10px;
+}
+.eventTemplate .eventArtists .theArtist label {
+  display: block;
+}

@@ -1,0 +1,907 @@
+@import 'reset.css';
+@import 'grid.less';
+
+@columns: 24 ;
+@columns-width: 50;
+@gutter-width: 0;
+
+@darkBrown: #7A664C;
+@lightBrown: #B39C7F;
+@backgroundColor: #E3D1BA;
+
+@navHeight: 60px;
+
+@total-width:100%;
+
+form{
+    background-color: #EEE;
+    .column(24);
+}
+
+.firstColumn{
+    .column(12);
+}
+.secondColumn{
+    .column(12);
+}
+
+// .ticketEspacement{
+//     .column(8);
+
+//     #ticketAddArtist{
+//         width: 90px;
+//     }
+//     #ticketPrice{
+//         border-radius: 10px;
+//     }
+// }
+
+
+
+
+.accordion, #stuffForm{
+background-color: #EEE;
+    border:1px solid #DADADA;
+    .column(16);
+            .push(4);
+            position: relative;
+            display: block;
+            overflow: auto;
+
+            -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+
+
+}
+///°°°°FONT°°°///
+
+body{
+
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 300;
+
+}
+
+#artistInfoDiv, #genreSelect,
+#musicianSelect, #addToEvent,
+#links, #artistImageDiv,
+.musicianInfoForm, .musicianInstruForm,
+#eventInfoDiv, #startTimeDiv,
+#endTimeDiv, #mealsDiv,
+#compInfoDiv, #ticketsDiv, 
+#eventTypeDiv, #plublishingDiv,
+#eventImageDiv, #eventArtistsDiv, #stuffForm {  
+    background-color: #EEE;
+    padding: 20px 30px 20px 30px;
+    color: #888;
+    font-size: 14px;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #DADADA;   
+}
+
+h1 {
+
+
+    font-size: 25px;
+    padding: 0px 0px 5px 30px;
+    display: block;
+    margin-top: 20px;
+    //border-bottom: 1px solid #DADADA;
+
+    
+    color: #888;
+
+    &:focus{
+        outline: 0 none;
+    }
+}
+
+h2 {
+
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #888;
+    text-decoration: underline;
+    outline: 0 none;
+    font-weight: bold;
+
+
+
+}
+
+h3 {
+    img{
+        opacity: 0.4;
+                    filter: alpha(opacity=40);
+                    -webkit-transition:  0.2s;
+
+                    &:hover{
+                        opacity:1;
+                 filter: alpha(opacity=100);
+                 -webkit-transition:  0.2s;
+             }
+}
+}
+
+
+label{
+    margin-bottom: 5px;
+    display: block;
+    
+
+}
+
+input[type="text"], input[type="email"],input[type="url"],
+input[type="time"], textarea, select, input[type="date"], 
+input[type="number"]{
+    border: 1px solid #DADADA;
+    color: #888;
+    height: 24px;
+    margin-bottom: 16px;
+    //margin-right: 6px;
+    margin-top: 2px;
+   // outline: 0 none;
+
+    padding: 3px 3px 3px 5px;
+    width: 70%;
+    font-size: 12px;
+}
+select {
+   
+    -webkit-appearance:none; 
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    width: 72%;
+    height: 30px;
+}
+ textarea{
+    height:100px;
+}
+
+
+button {
+            border: none;
+    .noResult{
+                float: right;
+            }
+                img {
+                    opacity: 0.4;
+                    filter: alpha(opacity=40);
+                    -webkit-transition:  0.2s;
+
+                    &:hover{
+                        opacity:1;
+                 filter: alpha(opacity=100);
+                 -webkit-transition:  0.2s;
+                }
+            }
+        }
+///°°°°°°°°°°ARTIST FORM °°°°°°°////
+
+.artist, .musicianForm, #eventForm{
+    h2{
+        img{
+            opacity: 0.6; 
+            margin-right: 5px; 
+        }
+    }
+}
+///°°°°°°°°°°°DATE PICKER°°°°°°°°///
+
+div#ui-datepicker-div.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all{
+    background: white;
+    border: 1px solid #DADADA; 
+    border-top: none;
+    width: 230px;
+    color: #888;
+    font-family: 'Oxygen', sans-serif;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+-moz-box-shadow:    0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+box-shadow:         0px 1px 4px 0px rgba(50, 50, 50, 0.54);
+}
+
+a.ui-state-default{
+
+    color: #777;
+    background-color: #EBEBEB;
+    border-radius: 2px;
+    &:hover{
+        background-color: #DBDBDB;
+
+    }
+}
+
+.date{
+    outline: none; 
+}
+
+
+///°°°°°°°°°°° ADD STUFF °°°°°°°°°°///
+
+#stuffForm{
+    input{
+        width: 200px;
+    }
+
+    .inputStuff{
+        .column(12);
+    }
+    button{
+        border: none;
+                 
+                 color: #FFF;
+                 height: 30px;
+                 -webkit-transition:  0.2s;
+                 border-radius: 2px;
+
+                 
+                 
+                    
+                    &:hover {
+                     background: #CF7A7A;
+                     -webkit-transition:  0.2s;
+                     }
+
+                     &:active{
+                        -webkit-box-shadow: inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+box-shadow:         inset 0px 0px 15px 0px rgba(50, 50, 50, 0.75);
+                     }
+
+    }
+}
+
+///°°°°°°°°°°°DIAOG BOX°°°°°°°°°°°/////
+
+button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only{
+
+    background: transparent;
+    outline: none; 
+    position: relative; 
+    top: -115px;    
+    
+}
+
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable.ui-resizable{
+
+    webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 10px;
+    outline: none; 
+    font-size: 14px;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+}
+span.ui-button-text{
+    
+    background: url('../img/icones/icone_close.png');
+        opacity: 0.6;
+        background-repeat: no-repeat;
+        border: none; 
+        text-indent: -4000px;
+        position: relative;
+        left: 15px;
+
+
+        &:hover{
+            opacity: 1;
+        }
+}
+
+
+///°°°°°°°° CHOICE LANGUAGE °°°°°°°°°//////
+
+#changeLocale{
+
+    position:absolute;
+    right:10px;
+    margin-top: 25px;
+    height:35px;
+    width: 40px;
+
+    option{
+        font-size: 3em;
+        font-weight: bold;
+    }
+
+}
+
+
+////°°°°°°°°°°SWITCH FOLLOWED°°°°°°/////
+
+.onoffswitch {
+    position: relative; width: 48px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 15px; padding: 0; line-height: 15px;
+    font-size: 10px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 7px;
+    background-color: #75858A; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 7px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 8px; margin: 3.5px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 29px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+
+/// BUTTON CREATE ARTIST
+
+#createNewArtistButton{
+                 border: none;
+                 padding: 10px 25px 10px 25px;
+                 color: #FFF;
+                 height: 30px;
+                 //width: 50px;
+                 font-size: 8px;
+                 font-size: 16px;
+                 height: 50px;
+                 border-radius: 40px;
+                 position: absolute;
+                 bottom:20px;
+                 right:20px;
+                 
+                    
+                    &:hover {
+                     background: #CF7A7A
+                     }
+                
+
+            }
+
+#submitEvent{   
+                position:absolute;
+                bottom:20px;
+                right:20px;
+                border: none;
+                 padding: 10px 25px 10px 25px;
+                 color: #FFF;
+                 height: 30px;
+                 //width: 50px;
+                 font-size: 8px;
+                 font-size: 16px;
+                 height: 50px;
+                 border-radius: 40px;
+                 margin-top: 100px;
+                 margin-left: 40px;
+                 
+                    
+                    &:hover {
+                     background: #CF7A7A
+                     }
+                
+
+            }
+
+
+
+
+
+
+.showAll{
+                
+        background: transparent;
+        position: relative;
+        top: 10px;
+        left: -38px;
+
+        
+
+     }
+
+.noResult{
+    background: transparent;
+    display: inline-block;
+    position: relative;
+    float: right;
+    top:5px;
+    right: 42px;
+    height: 34px
+    }
+
+
+#order, #support, #ticketAddArtist, #ticketPrice{
+    width: 40px;
+}
+
+
+
+/// FIELDSET
+
+#musiciansPlaying {
+
+    border:2px solid grey;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;  
+    border-radius:3px;
+    width: 235px;
+    padding: 5px;
+
+
+
+    legend{
+        font-weight: bold;
+        margin-left: 10px;
+
+    }
+
+    .musicianResult{
+        margin-top: 6px;
+        margin-left: 5px;
+        font-size: 12px;
+        -webkit-transition: opacity 1s ease-out;    
+
+        p{
+            display: inline; 
+        } 
+    }
+
+    .deleteMusician{
+        background: url('../img/icones/icone_delete.png');
+        opacity: 0.6;
+        background-repeat: no-repeat;
+        height: 16px;
+        width: 13px;
+        float: right;
+        margin-right: 10px;
+
+        &:hover{
+            opacity: 1;
+        }
+    }
+}
+
+#instrumentsPlayedMusician, #musicianAddedToArtist, #genresSelected, #artistToEvent{
+
+    border:2px solid grey;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;  
+    border-radius:3px;
+    width: 235px;
+    padding: 5px;
+    margin-bottom: 15px;
+
+    legend{
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+        .instrumentResult, .artistResult, .genreResult, .musicianResult{
+        margin-top: 6px;
+        margin-left: 5px;
+        font-size: 12px;
+        -webkit-transition: opacity 1s ease-out;  
+
+
+
+        }
+
+        .deleteInstrument, .deleteArtist, .deleteGenre, .deleteEvent{
+        background: url('../img/icones/icone_delete.png');
+        opacity: 0.6;
+        background-repeat: no-repeat;
+        height: 16px;
+        width: 13px;
+        float: right;
+        margin-right: 10px;
+
+        &:hover{
+            opacity: 1;
+        }
+    }
+
+}
+
+
+
+    
+
+/// LISTDEROULANTES
+
+    .ui-autocomplete-category{
+
+        display: none;
+
+    }
+    .ui-menu-item{
+
+        font-size: 13px;
+        font-family: 'Oxygen', sans-serif;
+        opacity:0.6;
+        
+
+
+        &:hover{
+            //color: red;
+            opacity:1;
+        }
+    }
+
+    #noMusicianResultsInfo{
+        font-size: 12px;
+        margin-top: -5px;
+        margin-bottom: 10px;
+    }
+
+
+/// DELETE MUSICIAN
+
+.deleteMusicianButton{
+
+     background: url('../img/icones/icone_delete_big.svg');
+        opacity: 0.6;
+        background-repeat: no-repeat;
+        height: 24px;
+        width: 19px;
+        position:relative;
+        left: -5px;
+
+
+        &:hover{
+            opacity: 1;
+        }
+
+}
+            
+
+/// BOUTON CREATE MUSICIAN
+
+#createNewMusician{
+                border: none;
+                 padding: 10px 25px 10px 25px;
+                 color: #FFF;
+                 height: 30px;
+                 //width: 50px;
+                 font-size: 8px;
+                 font-size: 16px;
+                 height: 50px;
+                 border-radius: 40px;
+                 position: absolute;
+                bottom: 20px;
+                right:20px;
+                 margin-top: 50px;
+                 
+                    
+                    &:hover {
+                     background: #CF7A7A
+                     }
+
+}
+
+
+
+
+///°°°°°°°°°°°°°°°° LIST CSS °°°°°°°°°°°°°///
+
+#musicianList, #eventList, #artistList{
+
+    background-color: #EEE;
+    border:1px solid #DADADA;
+    .column(16);
+    .push(4);
+    position: relative;
+    display: block;
+    border-bottom-right-radius: 10px; 
+    .pourQueAccFonctionne{
+        ///background-color: #EEE;
+        background-color: #F2F2F2;
+    }
+    
+
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+
+
+
+
+}
+
+/// °°°°°°°°°°° MUSICIAN LIST °°°°°°°°°°°° ///
+
+.musicianTemplate {
+
+    
+    border-bottom:1px solid #7A7A7A;  
+    border-bottom-right-radius: 10px; 
+   font-size: 14px;
+    color: #888;
+
+        &:last-child{
+            border-bottom: none;
+        }
+
+    p{
+            margin-top: 10px;
+            margin-left: 40px;
+
+
+        }
+
+    label{
+            font-weight: bold;
+            font: 14px;
+            display: inline;
+        }
+
+    h1{
+            border-bottom:1px solid #DADADA;   
+            padding: 20px;
+            box-shadow: 0 4px 2px -2px gray;
+            border-bottom-right-radius: 10px; 
+        span{
+                position: relative;
+                font-size: 14px;
+                font-style: italic;
+                font-weight: normal;
+                left: 50px;
+            }
+
+        ul{
+            position: absolute;
+            right: -5px;
+            top: -6px;
+            }
+
+        img{
+            //opacity: 0.5;
+            position: relative;
+            top: 3px
+
+            }
+        }
+
+    button{
+        background: transparent;
+        z-index: 4000;   
+    }
+}
+
+.musicianInfoTemplate{
+    background-color: #F2F2F2;
+}
+
+///°°°°°°°°° ARTIST LIST °°°°°°°°°°°°///
+
+
+#ui-accordion-11-header-0{
+    padding-left: 3em;
+}
+  
+
+.artistMusician{
+    .column(24);
+
+}
+
+  .imageListe{
+                opacity: 0.4;
+                position: relative;
+                top: 2px;
+              }
+.imageListe2{
+    opacity: 0.6;
+}
+
+
+
+.artistTemplate{
+    .column(24);
+    border-bottom:1px solid #7A7A7A;  
+    border-bottom-right-radius: 10px; 
+font-size: 14px;
+    color: #888;
+    
+
+        &:last-child{
+            border-bottom: none;
+        }
+
+        h1{
+            border-bottom:1px solid #DADADA;   
+            padding: 20px;
+
+            border-bottom-right-radius: 10px; 
+            box-shadow: 0 4px 2px -2px gray;
+
+            
+              
+            
+
+
+            ul{
+            position: absolute;
+            right: -5px;
+            top: -6px;
+            }
+
+            button{
+            background: transparent;
+            z-index: 4000;   
+            }
+        }
+
+        
+
+        label{
+            
+            font: 15px;
+            display: inline;
+            color: #666;
+        }
+
+        h2{
+            margin-top: 20px;
+            text-decoration: none;
+            text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.54);
+
+            img{
+                position: relative;
+                top: 2px;
+                opacity: 0.6;
+
+            }
+
+            
+        }
+         p{
+            margin-top: 10px;
+            margin-left: 40px;
+
+
+        }
+
+        h3 {
+            font-weight: 600;
+
+            &:focus{
+                outline: none;
+            }
+
+
+
+            
+        }
+
+        .artistListInformation{
+            label{
+                display: block;
+            }
+        }
+}
+
+
+/// °°°°°°°°°°°°EVENT LIST°°°°°°°°°°°°///////
+
+
+.eventTemplate{
+
+    border-bottom:1px solid #7A7A7A;  
+    border-bottom-right-radius: 10px; 
+font-size: 14px;
+    color: #888;
+
+    .pourQueAccFonctionne{
+        ///background-color: #EEE;
+        background-color: #F2F2F2;
+    }
+
+    h1{
+            border-bottom:1px solid #DADADA;   
+            padding: 20px;
+            border-bottom-right-radius: 10px; 
+            box-shadow: 0 4px 2px -2px gray;
+
+            img{
+                //opacity: 0.4;
+                position: relative;
+                top: 2px;
+            }
+
+            ul{
+            position: absolute;
+            right: -5px;
+            top: -6px;
+            }
+
+            button{
+            background: transparent;
+            z-index: 4000;   
+            }
+        }
+
+    h2{
+            margin-top: 20px;
+            text-decoration: none;
+            text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.54);
+
+            img{
+                position: relative;
+                top: 2px;
+                opacity: 0.6;
+
+            }
+        }
+
+    label{ 
+                font: 15px;
+                display: inline;
+                color: #666;
+            }
+
+        p{
+                margin-top: 10px;
+                margin-left: 40px;
+            }
+    
+    .infoEventTemp{
+
+        .column(24);
+        
+
+        .lineOne{
+            .column(24);
+        }    
+
+    }
+
+    .eventInformations,
+    .eventTicketInfo,
+    .eventMealsInfo,
+    .eventOtherInfo{
+        .column(12);
+    }
+
+    h3 {
+            font-weight: 600;
+        }
+
+    .eventArtists{
+        .column(24);
+
+        .theArtist{
+            .column(24);
+            padding: 10px;
+
+            label{
+                display: block;
+            }
+        }
+    }
+
+}
