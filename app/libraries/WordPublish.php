@@ -101,3 +101,4 @@ class WordPublish {
         return 'public/export/'. $date .'-'.$title.'.docx';
 
     }
+}
