@@ -525,7 +525,8 @@ class NightsController extends BaseController {
 
 
         if ($opening_doors != null) {
-            if (!Night::comparison_date($start_date_hour, $opening_doors)) {
+            
+            if (!Night::comparison_date($opening_doors, $start_date_hour)) {
                 return Jsend::fail("The opening door is after the start date");
             }
         }
