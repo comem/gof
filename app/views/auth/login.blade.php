@@ -16,7 +16,7 @@
     <body id="login">
 
         <div class="header">
-            {{ HTML::image('img/mahogany.jpg', 'logoLogin') }}
+            {{ HTML::image('img/mahogany.png', 'logoLogin') }}
 
         </div>
     
