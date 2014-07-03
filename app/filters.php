@@ -105,7 +105,10 @@ Route::filter('acl_rest', function()
        'show'   => 'VIEW',
        'search' => 'VIEW',
        'update' => 'MODIFY',
-       'destroy'=> 'ERASE'
+       'destroy'=> 'ERASE',
+        'goFb' => 'SAVE',
+        'convertXml' => 'VIEW',
+        'exportWord' => 'VIEW'
     );
     $role = $mapActionToCrudRole[$action];
 

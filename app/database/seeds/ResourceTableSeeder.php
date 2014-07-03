@@ -96,6 +96,10 @@ class ResourceTableSeeder extends Seeder {
 				'model' => 'GenresController',
 				'function' => 'SAVE'
 			));
+                Resource::create(array(
+				'model' => 'FacebookController',
+				'function' => 'SAVE'
+			));
                 
                  Resource::create(array(
 				'model' => 'ImagesController',
