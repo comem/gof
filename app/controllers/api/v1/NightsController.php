@@ -623,8 +623,20 @@ class NightsController extends BaseController {
 
         $fbUser = $facebook->getUser();
     }
+    
+    /**
+     * Allows to export an event with filetype .xml
+     * Choose the path file to save the xml
+     * exemple : api/v1/nights/toxml?date=1998-01-02%2001:01:01&path=c:\night.xml
+     * @var pathsave : the path of xml file
+     * @var date : date to night showed
+     */
 
     public static function convertXml() {
+        
+          $pathsave = Input::get('path');
+        
+       // $pathsave = ('C:\night.xml'); // choose your path 
 
         $datepublish = Input::get('date');
 
@@ -645,7 +657,9 @@ class NightsController extends BaseController {
         \ArrayToXml::array_to_xml($night, $xml_night_info);
 
 //saving generated xml file
-        $xml_night_info->asXML('C:\test6.xml');
+        $xml_night_info->asXML($pathsave);
+        
+        return Jsend::success("The xml generate to :" . $pathsave);
 
 // function defination to convert array to xml
     }
