@@ -4,9 +4,21 @@ namespace api\v1;
 
 use \FacebookConnect;
 
+/**
+ * Facebook controller
+ * 
+ *
+ * @category  Application services
+ * @version   1.0
+ * @author    gof
+ */
 class FacebookController extends \BaseController {
+    
 
-    public static function goFb() {
+    /**
+     * Allows to post a Night on Facebook.
+     */
+    public static function search() {
 
 
         // Use a single object of a class throughout the lifetime of an application.

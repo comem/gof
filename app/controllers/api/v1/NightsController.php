@@ -635,6 +635,9 @@ class NightsController extends BaseController {
         return Response::download($fileCreated);
     }
 
+    /**
+     * Allows to export a Night to publish.
+     */
     public static function exportFacebook() {
         $app = Platform::where('name', '=', 'facebook')->firstOrFail();
         $facebook = new Facebook(array(
