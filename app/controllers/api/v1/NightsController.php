@@ -506,9 +506,9 @@ class NightsController extends BaseController {
                     'nighttype_id' => $nighttype_id,
                     'image_id' => $image_id
         ));
-
+        
         if ($validationNight !== true) {
-             return Jsend::fail("Validation night invalid");
+             return Jsend::fail($validationNight);
             //return Jsend::error($validationNight);
         }
 
