@@ -13,6 +13,8 @@ use \Ticketcategorie;
 use \Artist;
 use \WordPublish;
 use \Response;
+use \SimpleXMLElement;
+use \ArrayToXml;
 
 /**
  * REST controller with index, store, show, update and destroy methods implemented.
@@ -24,7 +26,7 @@ use \Response;
  * @author    gof
  */
 class NightsController extends BaseController {
-    //Cette classe correspond à la table "events" du diagrame de class.
+    //Cette classe correspond Ã  la table "events" du diagrame de class.
 
     /**
      * Display a listing of the resource.
@@ -228,7 +230,7 @@ class NightsController extends BaseController {
 
 
         DB::commit();
-        // Et on retourne l'id du lien nouvellement créé (encapsulé en JSEND)
+        // Et on retourne l'id du lien nouvellement crÃ©Ã© (encapsulÃ© en JSEND)
         return Jsend::success($night->toArray(), 201);
     }
 
@@ -258,7 +260,7 @@ class NightsController extends BaseController {
 
 
 
-        // Retourne le message encapsulé en JSEND si tout est OK
+        // Retourne le message encapsulÃ© en JSEND si tout est OK
         return Jsend::success(Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($night_id));
     }
 
@@ -576,8 +578,6 @@ class NightsController extends BaseController {
         }
 
         return $night;
-
-
     }
 
     /**
@@ -601,14 +601,23 @@ class NightsController extends BaseController {
      * @return Response the .docx file generated.
      */
     public static function exportWord() {
+        
+        
 
         $datepublish = Input::get('date');
+        
+      
+        
 
         $event = NightsController::searchdate($datepublish);
+        
+         
 
         $id = $event[0]['id'];
 
         $event360 = Night::with('ticketcategories', 'artists', 'image', 'nighttype')->find($id);
+        
+         
 
         $event360->artists->load('genres');
 
@@ -626,29 +635,54 @@ class NightsController extends BaseController {
 
         $fbUser = $facebook->getUser();
     }
+    
+    /**
+     * Allows to export an event with filetype .xml
+     * exemple : api/v1/nights/toxml?date=1998-01-02%2001:01:01
+     * @var date : date to night showed
+     * @return Response the .xml file generated.
+     */
 
     public static function convertXml() {
+        
+          
+        
+       // $pathsave = ('C:\night.xml'); // choose your path 
 
         $datepublish = Input::get('date');
 
         $event = NightsController::searchdate($datepublish);
 
         $id = $event[0]['id'];
-
-        $array = Night::with('artists')->find($id)->toArray();
-
-
+        
+        $title = $event[0]['title_de'];
+        
+        $date = substr($event[0]['start_date_hour'], 0, 10);
+        
+        $array = Night::with('ticketcategories')->with('platforms')->with('artists')->with('image')->with('printingtypes')->with('nighttype')->find($id)->toArray();
+       
         // initializing or creating array
         $night = array($array);
 
 // creating object of SimpleXMLElement
-        $xml_night_info = new \SimpleXMLElement("<?xml version=\"1.0\"?><event></event>");
+        $xml_night_info = new SimpleXMLElement("<?xml version=\"1.0\"?><event></event>");
 
 // function call to convert array to xml
-        \ArrayToXml::array_to_xml($night, $xml_night_info);
+        ArrayToXml::array_to_xml($night, $xml_night_info);
 
+        
 //saving generated xml file
-        $xml_night_info->asXML('C:\test6.xml');
+        $xml_night_info->asXML('public/export/'. $date .'-'.$title.'.xml');
+        
+        
+                
+       $fileCreated = 'public/export/'. $date .'-'.$title.'.xml';
+        
+        
+     return Response::download($fileCreated);
+        
+        
+       
 
 // function defination to convert array to xml
     }

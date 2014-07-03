@@ -2,7 +2,7 @@
 
 namespace api\v1;
 
-use FacebookConnect;
+use \FacebookConnect;
 
 class FacebookController extends \BaseController {
 
@@ -11,11 +11,12 @@ class FacebookController extends \BaseController {
 
         // Use a single object of a class throughout the lifetime of an application.
         $application = array(
-            'appId' => 'test',
-            'secret' => 'YOUR_APP_SECRET'
+            'appId' => '633123843450489',
+            'secret' => '91a52c205a79953f5e610e49aa43abcb'
         );
+
         $permissions = 'publish_stream';
-        $url_app = 'http://laravel-test.local/';
+        $url_app = 'http://pingouin.heig-vd.ch/gof';
 
 // getInstance
         FacebookConnect::getFacebook($application);
@@ -28,7 +29,7 @@ class FacebookController extends \BaseController {
 
 // post to wall facebook.
         $message = array(
-            'link' => 'http://laravel-test.local/',
+            'link' => 'http://pingouin.heig-vd.ch/gof',
             'message' => 'test message',
             'picture' => 'http://laravel-test.local/test.gif',
             'name' => 'test Title',
